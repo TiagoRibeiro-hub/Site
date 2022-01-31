@@ -3,23 +3,23 @@
 public class Game
 {
     // Request
-    public Game(Human player, Computer computer, string shift)
+    public Game(Human human, Computer computer, string shift)
     {
-        Player = player;
+        Human = human;
         Computer = computer;
         Shift = shift;
     }
 
     // Response
-    public Game(Human player, Computer computer, string shift, Winner winner)
+    public Game(Human human, Computer computer, string shift, Winner winner)
     {
-        Player = player;
+        Human = human;
         Computer = computer;
         Shift = shift;
         Winner = winner;
     }
 
-    public Human Player { get; set; }
+    public Human Human { get; set; }
     public Computer Computer { get; set; }
     public string Shift { get; set; }
     public Winner Winner { get; set; }
