@@ -2,6 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
+builder.Services.AddCors(config =>
+{
+    config.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,8 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
