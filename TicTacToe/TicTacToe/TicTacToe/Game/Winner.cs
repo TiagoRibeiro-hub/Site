@@ -4,7 +4,7 @@ public class Winner
 {
     public string Name { get; set; }
     public bool HaveWinner { get; set; }
-    public async Task<bool> HaveWinnerMethod(List<int> ListMovesPlayer)
+    public async Task<bool> HaveWinnerMethod(HashSet<int> ListMovesPlayer)
     {
         var resDiagonal = Diagonal(ListMovesPlayer);
         var resVertical = Vertical(ListMovesPlayer);
@@ -16,7 +16,7 @@ public class Winner
         
         return false;
     }
-    public Task<bool> Diagonal(List<int> moves)
+    public Task<bool> Diagonal(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(5) && moves.Contains(9)) ||
             (moves.Contains(3) && moves.Contains(5) && moves.Contains(7)))
@@ -25,7 +25,7 @@ public class Winner
         }
         return Task.FromResult(false);
     }
-    public Task<bool> Vertical(List<int> moves)
+    public Task<bool> Vertical(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(4) && moves.Contains(7)) ||
             (moves.Contains(2) && moves.Contains(5) && moves.Contains(8)) ||
@@ -35,7 +35,7 @@ public class Winner
         }
         return Task.FromResult(false);
     }
-    public Task<bool> Horizontal(List<int> moves)
+    public Task<bool> Horizontal(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(2) && moves.Contains(3)) ||
             (moves.Contains(4) && moves.Contains(5) && moves.Contains(6)) ||

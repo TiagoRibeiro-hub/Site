@@ -23,13 +23,13 @@ namespace TicTacToe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid>("IdGame")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Player1_Name")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Player2_Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Winner")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -37,7 +37,7 @@ namespace TicTacToe.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("TicTacToe.Data.MovesModels", b =>
+            modelBuilder.Entity("TicTacToe.Data.MovesModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,9 +47,6 @@ namespace TicTacToe.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Move")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MoveNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PlayerName")
@@ -62,20 +59,28 @@ namespace TicTacToe.Migrations
                     b.ToTable("Moves");
                 });
 
-            modelBuilder.Entity("TicTacToe.Data.ScoresTableModels", b =>
+            modelBuilder.Entity("TicTacToe.Data.ScoresTableModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Losses")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PlayerName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Ties")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalGames")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalGamesVsHuman")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Victories")
@@ -86,16 +91,59 @@ namespace TicTacToe.Migrations
                     b.ToTable("ScoresTable");
                 });
 
-            modelBuilder.Entity("TicTacToe.Data.MovesModels", b =>
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesVsComputerModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ScoresTableModelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalGames")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TotalGamesEasy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TotalGamesHard")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TotalGamesIntermediate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScoresTableModelId");
+
+                    b.ToTable("TotalGamesVsComputer");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.MovesModel", b =>
                 {
                     b.HasOne("TicTacToe.Data.GameModel", null)
                         .WithMany("Moves")
                         .HasForeignKey("GameModelId");
                 });
 
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesVsComputerModel", b =>
+                {
+                    b.HasOne("TicTacToe.Data.ScoresTableModel", null)
+                        .WithMany("TotalGamesVsComputer")
+                        .HasForeignKey("ScoresTableModelId");
+                });
+
             modelBuilder.Entity("TicTacToe.Data.GameModel", b =>
                 {
                     b.Navigation("Moves");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.ScoresTableModel", b =>
+                {
+                    b.Navigation("TotalGamesVsComputer");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,3 +1,5 @@
+using TicTacToe.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -12,7 +14,8 @@ builder.Services.AddCors(config =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IDbSaves, DbSaves>();
 
 
 

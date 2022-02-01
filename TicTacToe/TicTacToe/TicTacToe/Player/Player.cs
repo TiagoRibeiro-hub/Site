@@ -3,9 +3,9 @@
 public abstract class Player
 {
     public string Name { get; set; }
-    public List<int> ListPlayedMoves { get; set; }
+    public HashSet<int> ListPlayedMoves { get; set; }
 
-    public List<int> SetListPlayedMoves(List<int> listMovesPlayer, int move)
+    public HashSet<int> SetListPlayedMoves(HashSet<int> listMovesPlayer, int move)
     {
         listMovesPlayer.Add(move);
         return ListPlayedMoves;
