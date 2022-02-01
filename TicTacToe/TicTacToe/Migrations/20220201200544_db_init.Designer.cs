@@ -11,7 +11,7 @@ using TicTacToe.Data;
 namespace TicTacToe.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    [Migration("20220201103128_db_init")]
+    [Migration("20220201200544_db_init")]
     partial class db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,8 +25,17 @@ namespace TicTacToe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DateTimeEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateTimeStart")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("IdGame")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsComputer")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Player1_Name")
                         .HasColumnType("TEXT");
@@ -45,10 +54,16 @@ namespace TicTacToe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("GameModelId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Move")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MoveNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PlayerName")
@@ -105,17 +120,14 @@ namespace TicTacToe.Migrations
                     b.Property<int>("TotalGames")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("TotalGamesEasy")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TotalGamesEasy")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("TotalGamesHard")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TotalGamesHard")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("TotalGamesIntermediate")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TotalGamesIntermediate")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

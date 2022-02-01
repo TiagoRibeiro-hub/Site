@@ -13,22 +13,29 @@ namespace TicTacToe.Controllers
             _repository = repository;
         }
 
-        [HttpGet("InitializeGame")]
+        [HttpPost("[action]")]
+        [ValidateAntiForgeryToken]
         public async Task<Response> InitializeGame([FromBody] RegisterPlayersRequest request)
         {
-            if(request is null)
+            try
             {
-                throw new ArgumentNullException(nameof(request));
+                if (request is null)
+                {
+                    throw new ArgumentNullException(nameof(request));
+                }
+
+                Response response = await _repository.RegisterPlayers(request);
+                return response;
             }
-            var res = _repository.RegisterPlayers(request);
-
-            Response response = await res;
-
-            return response;
+            catch (Exception)
+            {
+                throw;
+            }     
         }
 
-        [HttpGet("GamePlay")]
-        public async Task<Response> GamePlay([FromBody] RegisterPlayersRequest request)
+        [HttpPost("[action]")]
+        [ValidateAntiForgeryToken]
+        public async Task<Response> GamePlay([FromBody] GameRequest request)
         {
             return new Response();
         }

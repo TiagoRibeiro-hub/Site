@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jOIK9VRQ4z4sdhk6bR/R1cBmIBBfyWaWXqVH8tw1PDFeTlzRzZQ+AEY+kUHXYdK2MvwqFaZvgcOvGhnZaBfQqA==",
+  "dgSpecHash": "wua+iba5q3oKskXArEg2GhQjgmuYHFQ26o8qgB9Rwy2ZSl+HaVBiiTvKpgrw24mP22Y7hy3WFV0d/w6u06w0oA==",
   "success": true,
   "projectFilePath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\TicTacToe\\TicTacToe.csproj",
   "expectedPackageFiles": [
@@ -10,7 +10,6 @@
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.1\\microsoft.entityframeworkcore.abstractions.6.0.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.1\\microsoft.entityframeworkcore.analyzers.6.0.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.1\\microsoft.entityframeworkcore.design.6.0.1.nupkg.sha512",
-    "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.1\\microsoft.entityframeworkcore.inmemory.6.0.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.1\\microsoft.entityframeworkcore.relational.6.0.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.1\\microsoft.entityframeworkcore.sqlite.6.0.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.1\\microsoft.entityframeworkcore.sqlite.core.6.0.1.nupkg.sha512",

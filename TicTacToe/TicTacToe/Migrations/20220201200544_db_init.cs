@@ -17,7 +17,10 @@ namespace TicTacToe.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     IdGame = table.Column<Guid>(type: "TEXT", nullable: false),
                     Player1_Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Player2_Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Player2_Name = table.Column<string>(type: "TEXT", nullable: true),
+                    IsComputer = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DateTimeStart = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DateTimeEnd = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,6 +54,8 @@ namespace TicTacToe.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     PlayerName = table.Column<string>(type: "TEXT", nullable: true),
                     Move = table.Column<int>(type: "INTEGER", nullable: false),
+                    MoveNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     GameModelId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -70,9 +75,9 @@ namespace TicTacToe.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TotalGames = table.Column<int>(type: "INTEGER", nullable: false),
-                    TotalGamesEasy = table.Column<string>(type: "TEXT", nullable: false),
-                    TotalGamesIntermediate = table.Column<string>(type: "TEXT", nullable: false),
-                    TotalGamesHard = table.Column<string>(type: "TEXT", nullable: false),
+                    TotalGamesEasy = table.Column<int>(type: "INTEGER", nullable: false),
+                    TotalGamesIntermediate = table.Column<int>(type: "INTEGER", nullable: false),
+                    TotalGamesHard = table.Column<int>(type: "INTEGER", nullable: false),
                     ScoresTableModelId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

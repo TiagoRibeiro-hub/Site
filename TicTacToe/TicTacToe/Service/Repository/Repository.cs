@@ -1,68 +1,79 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TicTacToe.Data;
-
+﻿using TicTacToe.Data;
 namespace TicTacToe.Service;
-internal class Repository : IRepository
+public class Repository : IRepository
 {
-    private readonly IDbSaves _dbSaves;
 
-    public Repository(IDbSaves dbSaves)
+    private readonly IGameService _gameService;
+    private readonly ILogger<Repository> _logger;
+    public Repository(IGameService gameService, ILogger<Repository> logger)
     {
-        _dbSaves = dbSaves;
+        _gameService = gameService;
+        _logger = logger;
     }
 
-    public async Task<Response> RegisterPlayers(RegisterPlayersRequest registerPlayers)
+    private Human PlayerInfo(string name, string email)
     {
-        Human player1 = new()
+        return new Human()
         {
-            Name = registerPlayers.Player1,
+            Name = name,
+            Email = email,
             ListPlayedMoves = new(),
-            Email = registerPlayers.Player1_Email
         };
-
-        Computer computer = new(); Human player2 = new();
-        if (registerPlayers.ComputerIsActive)
+    }
+    public Task<Response> RegisterPlayers(RegisterPlayersRequest registerPlayers)
+    {
+        try
         {
-            computer.Name = registerPlayers.Player2;
-            computer.ListPlayedMoves = new();
-            computer.Active = registerPlayers.ComputerIsActive;
-            if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
+            Human player1 = PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
+
+            var guid = Guid.NewGuid();
+            Computer computer = new(); Human player2 = new();
+
+            if (registerPlayers.ComputerIsActive)
             {
-                computer.Easy = true;
+                computer.Name = registerPlayers.Player2;
+                computer.ListPlayedMoves = new();
+                computer.Active = registerPlayers.ComputerIsActive;
+                if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
+                {
+                    computer.Easy = true;
+                }
+                if (registerPlayers.Difficulty == Difficulty.Intermediate.ToString())
+                {
+                    computer.Intermediate = true;
+                }
+                if (registerPlayers.Difficulty == Difficulty.Hard.ToString())
+                {
+                    computer.Hard = true;
+                }
+                var task1 = _gameService.TableScoreInitializeVsComputer(player1, computer);
+                task1.Start();
             }
-            if (registerPlayers.Difficulty == Difficulty.Intermediate.ToString())
+            else
             {
-                computer.Intermediate = true;
+                player2 = PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
+                var task2 = _gameService.TableScoreInitializeVsHuman(player1, player2);
+                task2.Start();
             }
-            if (registerPlayers.Difficulty == Difficulty.Hard.ToString())
+
+            var task3 = _gameService.InitializeGame(player1, player2, computer, guid);
+            task3.Start();
+
+            return Task.FromResult(new Response()
             {
-                computer.Hard = true;
-            }
+                IdGame = guid.ToString(),
+                Player = registerPlayers.FirstPlayerName,
+                Shift = Shift.X,
+                Player1Moves = player1.ListPlayedMoves,
+                Player2Moves = player2.ListPlayedMoves,
+                Difficulty = registerPlayers.Difficulty
+            });
         }
-        else
+        catch (Exception)
         {
-            player2.Name = registerPlayers.Player2;
-            player2.ListPlayedMoves = new();
-            player2.Email = registerPlayers.Player2_Email;
+            throw;
         }
-
-        _ = _dbSaves.InitializeGame(player1, player2, computer);
-
-        HashSet<int> possibleMoves = new();
-        for (int i = 0; i < 9; i++)
-        {
-            possibleMoves.Add(i);
-        }
-
-        return new Response()
-        {
-            Player1 = player1.Name,
-            Player2 = player2.Name,
-            PossibleMoves = possibleMoves,
-            Player1Moves = player1.ListPlayedMoves,
-            Player2Moves = player2.ListPlayedMoves,
-            Difficulty = registerPlayers.Difficulty
-        };
     }
 }
+
 

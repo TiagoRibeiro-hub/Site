@@ -1,9 +1,31 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.DependencyInjection;
+using TicTacToe.Data;
 using TicTacToe.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<TicTacToeDbContext>(config =>
+{
+    string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+    if (baseDir.Contains("bin"))
+    {
+        int index = baseDir.IndexOf("bin");
+        baseDir = baseDir.Substring(0, index);
+    }
+    config.UseSqlite($"Data Source={baseDir}Data\\Database\\tictactoe.db");
+});
 
+builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicTacToeDbContextFactory>();
 
+builder.Services.AddScoped<IScoreService, ScoreService>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IRepository, Repository>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddCors(config =>
 {
     config.AddPolicy("CorsPolicy", policy =>
@@ -11,12 +33,6 @@ builder.Services.AddCors(config =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IDbSaves, DbSaves>();
-
 
 
 var app = builder.Build();
