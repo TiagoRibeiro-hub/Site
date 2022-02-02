@@ -10,13 +10,12 @@ public class GameService : IGameService
         _scoreService = scoreService;
     }
 
-    public async Task InitializeGame(Human player1, Human player2, Computer computer, Guid guid)
+    public async Task InitializeGame(Human player1, Human player2, Computer computer)
     {
         try
         {
             GameModel model = new()
             {
-                IdGame = guid,
                 Player1_Name = player1.Name,
             };
             if (computer.Active)
@@ -30,8 +29,7 @@ public class GameService : IGameService
             }
 
             await _db.AddAsync(model);
-            var save = _db.SaveChangesAsync();
-            save.Start();
+            await _db.SaveChangesAsync();
         }
         catch (Exception)
         {
@@ -44,9 +42,7 @@ public class GameService : IGameService
         try
         {
             var task1 = RegisterPlayerAsync(player1);
-            task1.Start();
             var task2 = RegisterPlayerAsync(player2);
-            task2.Start();
 
             ScoresTableModel model1 = new();
             model1 = await task1;
@@ -55,8 +51,7 @@ public class GameService : IGameService
             model2 = await task2;
 
             _db.ScoresTable.UpdateRange(model1, model2);
-            var save = _db.SaveChangesAsync();
-            save.Start();
+            await _db.SaveChangesAsync();
         }
         catch (Exception)
         {
@@ -73,8 +68,7 @@ public class GameService : IGameService
             {
                 model.Email = player.Email;
                 model.PlayerName = player.Name;
-                var task = _db.ScoresTable.AddAsync(model);
-                task.AsTask().Start();
+                await _db.ScoresTable.AddAsync(model);
             }
             else
             {

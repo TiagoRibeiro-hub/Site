@@ -15,11 +15,6 @@ public class ScoreService : IScoreService
         return totalGames + 1;
     }
 
-    private int SetTotalGamesVsHuman(int totalGamesVsHuman)
-    {
-        return totalGamesVsHuman + 1;
-    }
-
     public Task<ScoresTableModel> ScoresTableVsHumanAsync(string email)
     {
         try
@@ -45,7 +40,7 @@ public class ScoreService : IScoreService
                 model.Losses = item.Losses;
                 model.Ties = item.Ties;
                 model.TotalGames = SetTotalGames(item.TotalGames);
-                model.TotalGamesVsHuman = SetTotalGamesVsHuman(item.TotalGamesVsHuman);
+                model.TotalGamesVsHuman = SetTotalGames(item.TotalGamesVsHuman);
             }
 
             return Task.FromResult(model);

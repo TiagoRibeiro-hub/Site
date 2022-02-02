@@ -14,8 +14,7 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost("[action]")]
-        [ValidateAntiForgeryToken]
-        public async Task<Response> InitializeGame([FromBody] RegisterPlayersRequest request)
+        public async Task<IActionResult> InitializeGame([FromBody] RegisterPlayersRequest request)
         {
             try
             {
@@ -24,8 +23,9 @@ namespace TicTacToe.Controllers
                     throw new ArgumentNullException(nameof(request));
                 }
 
-                Response response = await _repository.RegisterPlayers(request);
-                return response;
+                await _repository.RegisterPlayers(request);
+
+                return Ok();
             }
             catch (Exception)
             {

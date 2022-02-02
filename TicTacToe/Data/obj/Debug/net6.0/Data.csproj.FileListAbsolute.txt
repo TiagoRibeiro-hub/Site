@@ -1,0 +1,14 @@
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\bin\Debug\net6.0\Data.deps.json
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\bin\Debug\net6.0\Data.dll
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\bin\Debug\net6.0\ref\Data.dll
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\bin\Debug\net6.0\Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.dll
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\ref\Data.dll
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\bin\Debug\net6.0\Data.runtimeconfig.json
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.genruntimeconfig.cache
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\Data\obj\Debug\net6.0\Data.csproj.AssemblyReference.cache

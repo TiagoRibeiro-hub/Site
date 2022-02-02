@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.DependencyInjection;
 using TicTacToe.Data;
 using TicTacToe.Service;
 
@@ -8,13 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<TicTacToeDbContext>(config =>
 {
-    string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-    if (baseDir.Contains("bin"))
+    config.UseSqlServer(builder.Configuration.GetConnectionString("TicTacToeConnection"), config =>
     {
-        int index = baseDir.IndexOf("bin");
-        baseDir = baseDir.Substring(0, index);
-    }
-    config.UseSqlite($"Data Source={baseDir}Data\\Database\\tictactoe.db");
+        config.MigrationsAssembly("Data");
+    });
 });
 
 builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicTacToeDbContextFactory>();

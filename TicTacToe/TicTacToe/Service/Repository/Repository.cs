@@ -20,13 +20,12 @@ public class Repository : IRepository
             ListPlayedMoves = new(),
         };
     }
-    public Task<Response> RegisterPlayers(RegisterPlayersRequest registerPlayers)
+    public Task RegisterPlayers(RegisterPlayersRequest registerPlayers)
     {
         try
         {
             Human player1 = PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
 
-            var guid = Guid.NewGuid();
             Computer computer = new(); Human player2 = new();
 
             if (registerPlayers.ComputerIsActive)
@@ -46,28 +45,17 @@ public class Repository : IRepository
                 {
                     computer.Hard = true;
                 }
-                var task1 = _gameService.TableScoreInitializeVsComputer(player1, computer);
-                task1.Start();
+                _gameService.TableScoreInitializeVsComputer(player1, computer);
             }
             else
             {
                 player2 = PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
-                var task2 = _gameService.TableScoreInitializeVsHuman(player1, player2);
-                task2.Start();
+                _gameService.TableScoreInitializeVsHuman(player1, player2);
             }
 
-            var task3 = _gameService.InitializeGame(player1, player2, computer, guid);
-            task3.Start();
+            _gameService.InitializeGame(player1, player2, computer);
 
-            return Task.FromResult(new Response()
-            {
-                IdGame = guid.ToString(),
-                Player = registerPlayers.FirstPlayerName,
-                Shift = Shift.X,
-                Player1Moves = player1.ListPlayedMoves,
-                Player2Moves = player2.ListPlayedMoves,
-                Difficulty = registerPlayers.Difficulty
-            });
+            return Task.CompletedTask;
         }
         catch (Exception)
         {
