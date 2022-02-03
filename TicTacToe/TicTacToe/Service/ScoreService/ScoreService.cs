@@ -15,24 +15,28 @@ public class ScoreService : IScoreService
         return totalGames + 1;
     }
 
+    public IEnumerable<ScoresTableModel> GetScoreTableByEmail(string email)
+    {
+        return (IEnumerable<ScoresTableModel>)_db.ScoresTable.Select(x => new
+        {
+            x.Email,
+            x.PlayerName,
+            x.Victories,
+            x.Losses,
+            x.Ties,
+            x.TotalGames,
+            x.TotalGamesVsHuman,
+
+        }).Where(x => x.Email == email);
+    }
     public Task<ScoresTableModel> ScoresTableVsHumanAsync(string email)
     {
         try
         {
             ScoresTableModel model = new();
-            var p = _db.ScoresTable.Select(x => new
-            {
-                x.Email,
-                x.PlayerName,
-                x.Victories,
-                x.Losses,
-                x.Ties,
-                x.TotalGames,
-                x.TotalGamesVsHuman,
+            var player = GetScoreTableByEmail(email);
 
-            }).Where(x => x.Email == email);
-
-            foreach (var item in p)
+            foreach (var item in player)
             {
                 model.Email = item.Email;
                 model.PlayerName = item.PlayerName;

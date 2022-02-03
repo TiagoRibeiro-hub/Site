@@ -44,14 +44,14 @@ public class GameService : IGameService
             var task1 = RegisterPlayerAsync(player1);
             var task2 = RegisterPlayerAsync(player2);
 
-            ScoresTableModel model1 = new();
-            model1 = await task1;
+            //ScoresTableModel model1 = new();
+            //model1 = await task1;
 
-            ScoresTableModel model2 = new();
-            model2 = await task2;
+            //ScoresTableModel model2 = new();
+            //model2 = await task2;
 
-            _db.ScoresTable.UpdateRange(model1, model2);
-            await _db.SaveChangesAsync();
+            //_db.ScoresTable.UpdateRange(model1, model2);
+            //await _db.SaveChangesAsync();
         }
         catch (Exception)
         {
@@ -69,11 +69,29 @@ public class GameService : IGameService
                 model.Email = player.Email;
                 model.PlayerName = player.Name;
                 await _db.ScoresTable.AddAsync(model);
+
+                var res = _db.ScoresTable.Select(x => new { x.Id, x.Email}).Where(x => x.Email == model.Email);
+                if (res.Any())
+                {
+                    TotalGamesVsComputerModel totalGamesVsComputer = new()
+                    {
+                        ScoreTableId = res.Select(x => x.Id).FirstOrDefault(),
+                    };
+
+                    await _db.TotalGamesVsComputer.AddAsync(totalGamesVsComputer);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                
+                // continue.... transaction
             }
             else
             {
                 model = await _scoreService.ScoresTableVsHumanAsync(player.Email);
             }
+            
             return model;
         }
         catch (Exception)
