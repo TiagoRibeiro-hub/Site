@@ -4,7 +4,11 @@ namespace TicTacToe.Service
 {
     public interface IScoreService
     {
-        Task<ScoresTableModel> ScoresTableVsHumanAsync(string email);
-        IEnumerable<ScoresTableModel> GetScoreTableByEmail(string email);
+        Task ScoresTableVsHumanAsync(string email);
+        Task ScoresTableVsComputerAsync(string email, string difficulty);
+
+        ScoresTableModel GetScoreTableByEmail(string email, bool isComputer = false, string difficulty = "");
+        bool IsRegisterByEmail(string email);
+        int GetScoreTableIdByEmail(string email);
     }
 }

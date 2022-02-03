@@ -11,7 +11,7 @@ public class Repository : IRepository
         _logger = logger;
     }
 
-    private Human PlayerInfo(string name, string email)
+    private static Human PlayerInfo(string name, string email)
     {
         return new Human()
         {
@@ -20,46 +20,46 @@ public class Repository : IRepository
             ListPlayedMoves = new(),
         };
     }
-    public Task RegisterPlayers(RegisterPlayersRequest registerPlayers)
+    public async Task RegisterPlayers(RegisterPlayersRequest registerPlayers)
     {
         try
         {
             Human player1 = PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
 
             Computer computer = new(); Human player2 = new();
-
             if (registerPlayers.ComputerIsActive)
             {
+                string difficulty = string.Empty;
                 computer.Name = registerPlayers.Player2;
                 computer.ListPlayedMoves = new();
                 computer.Active = registerPlayers.ComputerIsActive;
                 if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
                 {
-                    computer.Easy = true;
+                    computer.Easy = true; difficulty = Difficulty.Easy.ToString();
                 }
                 if (registerPlayers.Difficulty == Difficulty.Intermediate.ToString())
                 {
-                    computer.Intermediate = true;
+                    computer.Intermediate = true; difficulty = Difficulty.Intermediate.ToString();
                 }
                 if (registerPlayers.Difficulty == Difficulty.Hard.ToString())
                 {
-                    computer.Hard = true;
+                    computer.Hard = true; difficulty = Difficulty.Hard.ToString();
                 }
-                _gameService.TableScoreInitializeVsComputer(player1, computer);
+                await _gameService.TableScoreInitializeVsComputer(player1, difficulty);
             }
             else
             {
+                await _gameService.TableScoreInitializeVsHuman(player1);
                 player2 = PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
-                _gameService.TableScoreInitializeVsHuman(player1, player2);
+                await _gameService.TableScoreInitializeVsHuman(player2);
             }
 
-            _gameService.InitializeGame(player1, player2, computer);
-
-            return Task.CompletedTask;
+            await _gameService.InitializeGame(player1, player2, computer);
+            Task.CompletedTask.Wait();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            throw new Exception();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> InitializeGame([FromBody] RegisterPlayersRequest request)
+        public async Task<StatusCodeResult> InitializeGame([FromBody] RegisterPlayersRequest request)
         {
             try
             {
@@ -22,10 +22,9 @@ namespace TicTacToe.Controllers
                 {
                     throw new ArgumentNullException(nameof(request));
                 }
-
                 await _repository.RegisterPlayers(request);
 
-                return Ok();
+                return StatusCode(200);
             }
             catch (Exception)
             {

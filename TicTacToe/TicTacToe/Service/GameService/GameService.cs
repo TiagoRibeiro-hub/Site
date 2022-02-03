@@ -1,4 +1,6 @@
-﻿using TicTacToe.Data;
+﻿
+using Microsoft.EntityFrameworkCore.Storage;
+using TicTacToe.Data;
 namespace TicTacToe.Service;
 public class GameService : IGameService
 {
@@ -31,77 +33,124 @@ public class GameService : IGameService
             await _db.AddAsync(model);
             await _db.SaveChangesAsync();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            throw new Exception();
         }
-        
+
     }
-    public async Task TableScoreInitializeVsHuman(Human player1, Human player2)
+    private async Task<bool> TableScoreInitialize(Human player, string difficulty = "")
     {
         try
         {
-            var task1 = RegisterPlayerAsync(player1);
-            var task2 = RegisterPlayerAsync(player2);
-
-            //ScoresTableModel model1 = new();
-            //model1 = await task1;
-
-            //ScoresTableModel model2 = new();
-            //model2 = await task2;
-
-            //_db.ScoresTable.UpdateRange(model1, model2);
-            //await _db.SaveChangesAsync();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-    private async Task<ScoresTableModel> RegisterPlayerAsync(Human player)
-    {
-        try
-        {
-            bool isReg = _db.ScoresTable.Any(x => x.Email == player.Email);
+            bool isReg = _scoreService.IsRegisterByEmail(player.Email);
             ScoresTableModel model = new();
             if (!isReg)
             {
-                model.Email = player.Email;
-                model.PlayerName = player.Name;
-                await _db.ScoresTable.AddAsync(model);
+                await SetScoresTableAsync(player);
+                await SetTotalGamesVsComputerTableAsync(player.Email, difficulty);
+            }
+            Task.CompletedTask.Wait();
+            return isReg;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+    public async Task TableScoreInitializeVsHuman(Human player)
+    {
+        try
+        {
+            bool isReg = await TableScoreInitialize(player);
+            if (isReg)
+            {
+                await _scoreService.ScoresTableVsHumanAsync(player.Email);
+            }
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+    private async Task SetScoresTableAsync(Human player)
+    {
+        try
+        {
+            ScoresTableModel model = new();
+            model.PlayerName = player.Name;
+            model.TotalGames = 1;
+            model.Email = player.Email;
+            model.TotalGamesVsHuman = 1;
+            await _db.ScoresTable.AddAsync(model);
+            await _db.SaveChangesAsync();
 
-                var res = _db.ScoresTable.Select(x => new { x.Id, x.Email}).Where(x => x.Email == model.Email);
-                if (res.Any())
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+
+    }
+    private async Task SetTotalGamesVsComputerTableAsync(string email, string difficulty = "")
+    {
+        try
+        {
+            var id = _scoreService.GetScoreTableIdByEmail(email);
+            if (id >= 0)
+            {
+                TotalGamesVsComputerModel totalGamesVsComputer = new();
+                totalGamesVsComputer.ScoreTableId = id;
+                if (difficulty != "")
                 {
-                    TotalGamesVsComputerModel totalGamesVsComputer = new()
+                    totalGamesVsComputer.TotalGames = 1;
+                    if (difficulty == Difficulty.Easy.ToString())
                     {
-                        ScoreTableId = res.Select(x => x.Id).FirstOrDefault(),
-                    };
-
-                    await _db.TotalGamesVsComputer.AddAsync(totalGamesVsComputer);
+                        totalGamesVsComputer.TotalGamesEasy = 1;
+                    }
+                    if (difficulty == Difficulty.Intermediate.ToString())
+                    {
+                        totalGamesVsComputer.TotalGamesIntermediate = 1;
+                    }
+                    if (difficulty == Difficulty.Hard.ToString())
+                    {
+                        totalGamesVsComputer.TotalGamesHard = 1;
+                    }
                 }
-                else
-                {
-                    throw new Exception();
-                }
-                
-                // continue.... transaction
+                await _db.TotalGamesVsComputer.AddAsync(totalGamesVsComputer);
+                await _db.SaveChangesAsync();
             }
             else
             {
-                model = await _scoreService.ScoresTableVsHumanAsync(player.Email);
+                throw new Exception();
             }
-            
-            return model;
+            Task.CompletedTask.Wait();
+
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+
+    }
+
+    public async Task TableScoreInitializeVsComputer(Human player, string difficulty)
+    {
+        try
+        {
+            bool isReg = await TableScoreInitialize(player, difficulty);
+            if (isReg)
+            {
+                await _scoreService.ScoresTableVsComputerAsync(player.Email, difficulty);
+            }
+            Task.CompletedTask.Wait();
         }
         catch (Exception)
         {
-            throw;
-        }   
-    }
-    public Task TableScoreInitializeVsComputer(Human player1, Computer computer)
-    {
-        return Task.CompletedTask;
+            throw new Exception();
+        }
     }
 
 }
