@@ -36,6 +36,9 @@ namespace Data.Migrations
                     b.Property<DateTime>("DateTimeStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Difficulty")
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<bool>("IsComputer")
                         .HasColumnType("bit");
 

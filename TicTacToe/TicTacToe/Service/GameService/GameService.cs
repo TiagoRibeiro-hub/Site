@@ -24,6 +24,7 @@ public class GameService : IGameService
             {
                 model.Player2_Name = computer.Name;
                 model.IsComputer = true;
+                model.Difficulty = computer.Difficulty;
             }
             else
             {

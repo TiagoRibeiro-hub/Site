@@ -23,7 +23,7 @@ namespace TicTacToe.Controllers
                     throw new ArgumentNullException(nameof(request));
                 }
                 await _repository.RegisterPlayers(request);
-
+                
                 return StatusCode(200);
             }
             catch (Exception)

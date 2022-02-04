@@ -27,6 +27,7 @@ public class TicTacToeDbContext : DbContext
             b.Property(x => x.Player1_Name).HasColumnType("nvarchar(50)").IsRequired();
             b.Property(x => x.Player2_Name).HasColumnType("nvarchar(50)").IsRequired();
             b.Property(x => x.IsComputer).HasColumnType("bit").IsRequired();
+            b.Property(x => x.Difficulty).HasColumnType("nvarchar(20)").IsRequired(false);
             b.Property(x => x.DateTimeStart).HasColumnType("datetime2").IsRequired();
             b.Property(x => x.DateTimeEnd).HasColumnType("datetime2").IsRequired();
 

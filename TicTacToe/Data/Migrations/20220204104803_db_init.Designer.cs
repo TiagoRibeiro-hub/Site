@@ -12,7 +12,7 @@ using TicTacToe.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    [Migration("20220202203356_db_init")]
+    [Migration("20220204104803_db_init")]
     partial class db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace Data.Migrations
 
                     b.Property<DateTime>("DateTimeStart")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Difficulty")
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("IsComputer")
                         .HasColumnType("bit");

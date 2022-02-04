@@ -18,6 +18,7 @@ namespace Data.Migrations
                     Player1_Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Player2_Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     IsComputer = table.Column<bool>(type: "bit", nullable: false),
+                    Difficulty = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     DateTimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTimeEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

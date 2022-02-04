@@ -25,27 +25,27 @@ public class Repository : IRepository
         try
         {
             Human player1 = PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
+            Computer computer = new(); 
+            Human player2 = new();
 
-            Computer computer = new(); Human player2 = new();
             if (registerPlayers.ComputerIsActive)
             {
-                string difficulty = string.Empty;
                 computer.Name = registerPlayers.Player2;
                 computer.ListPlayedMoves = new();
                 computer.Active = registerPlayers.ComputerIsActive;
                 if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
                 {
-                    computer.Easy = true; difficulty = Difficulty.Easy.ToString();
+                    computer.Easy = true; computer.Difficulty = Difficulty.Easy.ToString();
                 }
                 if (registerPlayers.Difficulty == Difficulty.Intermediate.ToString())
                 {
-                    computer.Intermediate = true; difficulty = Difficulty.Intermediate.ToString();
+                    computer.Intermediate = true; computer.Difficulty = Difficulty.Intermediate.ToString();
                 }
                 if (registerPlayers.Difficulty == Difficulty.Hard.ToString())
                 {
-                    computer.Hard = true; difficulty = Difficulty.Hard.ToString();
+                    computer.Hard = true; computer.Difficulty = Difficulty.Hard.ToString();
                 }
-                await _gameService.TableScoreInitializeVsComputer(player1, difficulty);
+                await _gameService.TableScoreInitializeVsComputer(player1, computer.Difficulty);
             }
             else
             {

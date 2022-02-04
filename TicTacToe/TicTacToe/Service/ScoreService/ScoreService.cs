@@ -14,7 +14,6 @@ public class ScoreService : IScoreService
     {
         return totalGames + 1;
     }
-
     public bool IsRegisterByEmail(string email)
     {
         bool isReg = _db.ScoresTable.Any(x => x.Email == email);
@@ -33,7 +32,7 @@ public class ScoreService : IScoreService
         }
         return -1;
     }
-    public ScoresTableModel GetScoreTableByEmail(string email, bool isComputer = false, string difficulty = "")
+    public ScoresTableModel GetScoreTableByEmail(string email)
     {
         ScoresTableModel model = new();
         var player = from scores in _db.ScoresTable
@@ -64,38 +63,62 @@ public class ScoreService : IScoreService
             model.Victories = item.Victories;
             model.Losses = item.Losses;
             model.Ties = item.Ties;
-            model.TotalGames = SetTotalGames(item.TotalGames);
+            model.TotalGames = item.TotalGames;
+            model.TotalGamesVsHuman = item.TotalGamesVsHuman;
             // COMPUTER TOTAL
-            if (isComputer)
-            {
-                model.TotalGamesVsComputer.TotalGames = SetTotalGames(item.PcTotalGames);
-                if (difficulty == Difficulty.Easy.ToString())
-                {
-                    model.TotalGamesVsComputer.TotalGamesEasy = SetTotalGames(item.TotalGamesEasy);
-                }
-                if (difficulty == Difficulty.Intermediate.ToString())
-                {
-                    model.TotalGamesVsComputer.TotalGamesIntermediate = SetTotalGames(item.TotalGamesIntermediate);
-                }
-                if (difficulty == Difficulty.Hard.ToString())
-                {
-                    model.TotalGamesVsComputer.TotalGamesHard = SetTotalGames(item.TotalGamesHard);
-                }
-            }
-            else
-            {
-                model.TotalGamesVsHuman = SetTotalGames(item.TotalGamesVsHuman);
-            }
+            model.TotalGamesVsComputer.TotalGames = item.PcTotalGames;
+            model.TotalGamesVsComputer.TotalGamesEasy = item.TotalGamesEasy;
+            model.TotalGamesVsComputer.TotalGamesIntermediate = item.TotalGamesIntermediate;
+            model.TotalGamesVsComputer.TotalGamesHard = item.TotalGamesHard;
         }
 
         return model;
+    }
+    private async Task UpdateScoreTable(string email, bool isComputer = false, string difficulty = "")
+    {
+        var scoreTable = _db.ScoresTable.FirstOrDefault(x => x.Email == email);
+
+        if (scoreTable is null)
+        {
+            throw new Exception();
+        }
+
+        scoreTable.TotalGames = SetTotalGames(scoreTable.TotalGames);
+        if (!isComputer)
+        {
+            scoreTable.TotalGamesVsHuman = SetTotalGames(scoreTable.TotalGamesVsHuman);
+            _db.ScoresTable.Update(scoreTable);
+        }
+        else
+        {
+            var totalGamesVsComputer = _db.TotalGamesVsComputer.FirstOrDefault(x => x.ScoreTableId == scoreTable.Id);
+            if (totalGamesVsComputer is null)
+            {
+                throw new Exception();
+            }
+            totalGamesVsComputer.TotalGames = SetTotalGames(totalGamesVsComputer.TotalGames);
+            if (difficulty == Difficulty.Easy.ToString())
+            {
+                totalGamesVsComputer.TotalGamesEasy = SetTotalGames(totalGamesVsComputer.TotalGamesEasy);
+            }
+            if (difficulty == Difficulty.Intermediate.ToString())
+            {
+                totalGamesVsComputer.TotalGamesIntermediate = SetTotalGames(totalGamesVsComputer.TotalGamesIntermediate);
+            }
+            if (difficulty == Difficulty.Hard.ToString())
+            {
+                totalGamesVsComputer.TotalGamesHard = SetTotalGames(totalGamesVsComputer.TotalGamesHard);
+            }
+
+            _db.TotalGamesVsComputer.Update(totalGamesVsComputer);
+        }
+        Task.CompletedTask.Wait();
     }
     public async Task ScoresTableVsHumanAsync(string email)
     {
         try
         {
-            ScoresTableModel model = GetScoreTableByEmail(email);
-            _db.ScoresTable.Update(model);
+            await UpdateScoreTable(email);
             await _db.SaveChangesAsync();
             Task.CompletedTask.Wait();
         }
@@ -109,8 +132,7 @@ public class ScoreService : IScoreService
     {
         try
         {
-            ScoresTableModel model = GetScoreTableByEmail(email, true, difficulty);
-            _db.ScoresTable.Update(model);
+            await UpdateScoreTable(email, true, difficulty);
             await _db.SaveChangesAsync();
             Task.CompletedTask.Wait();
         }

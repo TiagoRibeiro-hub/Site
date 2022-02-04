@@ -10,7 +10,7 @@ public class ScoresTableModel
     public int Ties { get; set; } = 0;
     public int TotalGames { get; set; } = 0;
     public int TotalGamesVsHuman { get; set; } = 0;
-    public TotalGamesVsComputerModel TotalGamesVsComputer { get; set; }
+    public TotalGamesVsComputerModel TotalGamesVsComputer { get; set; } = new();
 
 
 }
