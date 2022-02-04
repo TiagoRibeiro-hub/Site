@@ -1,7 +1,7 @@
 ﻿namespace TicTacToe.Service;
 public interface IRepository
 {
-    Task RegisterPlayers(RegisterPlayersRequest registerPlayers);
+    Task<int> RegisterPlayers(RegisterPlayersRequest registerPlayers);
 
 }
 

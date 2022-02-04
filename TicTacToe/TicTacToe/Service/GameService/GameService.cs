@@ -4,15 +4,17 @@ using TicTacToe.Data;
 namespace TicTacToe.Service;
 public class GameService : IGameService
 {
-    private readonly TicTacToeDbContext _db;
     private readonly IScoreService _scoreService;
-    public GameService(TicTacToeDbContext db, IScoreService scoreService)
+    private readonly IScoreDbService _scoreDbService;
+    private readonly IGameDbService _gameDbService;
+    public GameService(IScoreService scoreService, IScoreDbService scoreDbService, IGameDbService gameDbService)
     {
-        _db = db;
         _scoreService = scoreService;
+        _scoreDbService = scoreDbService;
+        _gameDbService = gameDbService;
     }
 
-    public async Task InitializeGame(Human player1, Human player2, Computer computer)
+    public async Task<int> InitializeGame(Human player1, Human player2, Computer computer)
     {
         try
         {
@@ -30,9 +32,9 @@ public class GameService : IGameService
             {
                 model.Player2_Name = player2.Name;
             }
-
-            await _db.AddAsync(model);
-            await _db.SaveChangesAsync();
+            int gameId = await _gameDbService.InsertInitializeGame(model);
+            Task.CompletedTask.Wait();
+            return gameId;
         }
         catch (Exception ex)
         {
@@ -44,12 +46,10 @@ public class GameService : IGameService
     {
         try
         {
-            bool isReg = _scoreService.IsRegisterByEmail(player.Email);
-            ScoresTableModel model = new();
+            bool isReg = _scoreDbService.IsRegisterByEmail(player.Email);
             if (!isReg)
             {
-                await SetScoresTableAsync(player);
-                await SetTotalGamesVsComputerTableAsync(player.Email, difficulty);
+                await _scoreService.SetScoresTableAsync(player);
             }
             Task.CompletedTask.Wait();
             return isReg;
@@ -74,67 +74,6 @@ public class GameService : IGameService
         {
             throw new Exception();
         }
-    }
-    private async Task SetScoresTableAsync(Human player)
-    {
-        try
-        {
-            ScoresTableModel model = new();
-            model.PlayerName = player.Name;
-            model.TotalGames = 1;
-            model.Email = player.Email;
-            model.TotalGamesVsHuman = 1;
-            await _db.ScoresTable.AddAsync(model);
-            await _db.SaveChangesAsync();
-
-            Task.CompletedTask.Wait();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-
-    }
-    private async Task SetTotalGamesVsComputerTableAsync(string email, string difficulty = "")
-    {
-        try
-        {
-            var id = _scoreService.GetScoreTableIdByEmail(email);
-            if (id >= 0)
-            {
-                TotalGamesVsComputerModel totalGamesVsComputer = new();
-                totalGamesVsComputer.ScoreTableId = id;
-                if (difficulty != "")
-                {
-                    totalGamesVsComputer.TotalGames = 1;
-                    if (difficulty == Difficulty.Easy.ToString())
-                    {
-                        totalGamesVsComputer.TotalGamesEasy = 1;
-                    }
-                    if (difficulty == Difficulty.Intermediate.ToString())
-                    {
-                        totalGamesVsComputer.TotalGamesIntermediate = 1;
-                    }
-                    if (difficulty == Difficulty.Hard.ToString())
-                    {
-                        totalGamesVsComputer.TotalGamesHard = 1;
-                    }
-                }
-                await _db.TotalGamesVsComputer.AddAsync(totalGamesVsComputer);
-                await _db.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception();
-            }
-            Task.CompletedTask.Wait();
-
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-
     }
 
     public async Task TableScoreInitializeVsComputer(Human player, string difficulty)

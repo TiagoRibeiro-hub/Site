@@ -20,7 +20,7 @@ public class Repository : IRepository
             ListPlayedMoves = new(),
         };
     }
-    public async Task RegisterPlayers(RegisterPlayersRequest registerPlayers)
+    public async Task<int> RegisterPlayers(RegisterPlayersRequest registerPlayers)
     {
         try
         {
@@ -54,8 +54,9 @@ public class Repository : IRepository
                 await _gameService.TableScoreInitializeVsHuman(player2);
             }
 
-            await _gameService.InitializeGame(player1, player2, computer);
+            int gameId = await _gameService.InitializeGame(player1, player2, computer);
             Task.CompletedTask.Wait();
+            return gameId;
         }
         catch (Exception ex)
         {

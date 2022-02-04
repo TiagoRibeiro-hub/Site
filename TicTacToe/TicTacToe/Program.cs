@@ -15,8 +15,13 @@ builder.Services.AddDbContext<TicTacToeDbContext>(config =>
 
 builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicTacToeDbContextFactory>();
 
+//-2
+builder.Services.AddScoped<IScoreDbService, ScoreDbService>();
+builder.Services.AddScoped<IGameDbService, GameDbService>();
+//-1
 builder.Services.AddScoped<IScoreService, ScoreService>();
 builder.Services.AddScoped<IGameService, GameService>();
+//0
 builder.Services.AddScoped<IRepository, Repository>();
 
 builder.Services.AddControllers();

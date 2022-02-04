@@ -1,3 +1,4 @@
+using ApiShared;
 using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Service;
 
@@ -14,7 +15,10 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<StatusCodeResult> InitializeGame([FromBody] RegisterPlayersRequest request)
+        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
+        public async Task<Response> InitializeGame([FromBody] RegisterPlayersRequest request)
         {
             try
             {
@@ -22,19 +26,46 @@ namespace TicTacToe.Controllers
                 {
                     throw new ArgumentNullException(nameof(request));
                 }
-                await _repository.RegisterPlayers(request);
-                
-                return StatusCode(200);
+                int gameId = await _repository.RegisterPlayers(request);
+                if (gameId < 0)
+                {
+                    return new ResponseError(ApiSharedFuncs.SomethingWentWrong);
+                }
+
+                return new GameResponse()
+                {
+                    IdGame = gameId,
+                }; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
-            }     
+                HashSet<string> errors = ApiSharedFuncs.GetListErrord(ex);
+                return new ResponseErrorException(errors, ex.InnerException.ToString());
+            }
         }
 
         [HttpPost("[action]")]
-        [ValidateAntiForgeryToken]
+        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
         public async Task<Response> GamePlay([FromBody] GameRequest request)
+        {
+            try
+            {
+                return new Response();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
+        public async Task<Response> GamePlayComputer([FromBody] GameRequest request)
         {
             return new Response();
         }
