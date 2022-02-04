@@ -4,35 +4,30 @@ public class Repository : IRepository
 {
 
     private readonly IGameService _gameService;
-    private readonly ILogger<Repository> _logger;
-    public Repository(IGameService gameService, ILogger<Repository> logger)
+    private readonly IGameDbService _gameDbService;
+    private readonly IWinnerService _winnerService;
+
+    public Repository(IGameService gameService, IGameDbService gameDbService, IWinnerService winnerService)
     {
         _gameService = gameService;
-        _logger = logger;
+        _gameDbService = gameDbService;
+        _winnerService = winnerService;
     }
 
-    private static Human PlayerInfo(string name, string email)
-    {
-        return new Human()
-        {
-            Name = name,
-            Email = email,
-            ListPlayedMoves = new(),
-        };
-    }
+
     public async Task<int> RegisterPlayers(RegisterPlayersRequest registerPlayers)
     {
         try
         {
-            Human player1 = PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
-            Computer computer = new(); 
+            Human player1 = RepositoryFuncs.PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
+            Computer computer = new();
             Human player2 = new();
 
-            if (registerPlayers.ComputerIsActive)
+            if (registerPlayers.IsComputer)
             {
                 computer.Name = registerPlayers.Player2;
                 computer.ListPlayedMoves = new();
-                computer.Active = registerPlayers.ComputerIsActive;
+                computer.Active = registerPlayers.IsComputer;
                 if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
                 {
                     computer.Easy = true; computer.Difficulty = Difficulty.Easy.ToString();
@@ -50,7 +45,7 @@ public class Repository : IRepository
             else
             {
                 await _gameService.TableScoreInitializeVsHuman(player1);
-                player2 = PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
+                player2 = RepositoryFuncs.PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
                 await _gameService.TableScoreInitializeVsHuman(player2);
             }
 
@@ -63,6 +58,38 @@ public class Repository : IRepository
             throw new Exception();
         }
     }
-}
 
+    public async Task<GameResponse> GamePlayed(GameRequest request)
+    {
+        try
+        {
+            Game game = new()
+            {
+                GameId = request.IdGame,
+            };
+            game.Player.Name = request.PlayerName;
+            game.Player.ListPlayedMoves = request.PlayerMoves;
+
+            var res = _gameDbService.RegisterMove(game);
+            var resWinner = _winnerService.GetWinnerAsync(game);
+
+            await res;
+            Winner winner = await resWinner;
+            Task.CompletedTask.Wait();
+            return new GameResponse()
+            {
+                IdGame = game.GameId,
+                HaveWinner = winner.HaveWinner,
+                WinnerName = winner.Name,
+                State = winner.State,
+                GameFinished = winner.GameFinished,
+            };
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+
+}
 

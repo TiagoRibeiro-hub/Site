@@ -15,26 +15,30 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> InitializeGame([FromBody] RegisterPlayersRequest request)
+        public async Task<Response> InitializeGame([FromBody] Request<RegisterPlayersRequest> request)
         {
             try
             {
-                if (request is null)
+                if (request.Content is null)
                 {
-                    throw new ArgumentNullException(nameof(request));
+                    return new ResponseError(ApiSharedFuncs.RequestIsNull);
                 }
-                int gameId = await _repository.RegisterPlayers(request);
+
+                int gameId = await _repository.RegisterPlayers(request.Content);
                 if (gameId < 0)
                 {
                     return new ResponseError(ApiSharedFuncs.SomethingWentWrong);
                 }
 
-                return new GameResponse()
+                return new Response<GameResponse>()
                 {
-                    IdGame = gameId,
+                    Content = new GameResponse()
+                    {
+                        IdGame = gameId,
+                    }
                 }; 
             }
             catch (Exception ex)
@@ -45,27 +49,39 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> GamePlay([FromBody] GameRequest request)
+        public async Task<Response> GamePlay([FromBody] Request<GameRequest> request)
         {
             try
             {
-                return new Response();
+                if (request.Content is null)
+                {
+                    return new ResponseError(ApiSharedFuncs.RequestIsNull);
+                }
+                if (request.Content.IsComputer)
+                {
+                    return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is against human"));
+                }
+                GameResponse gameResponse = await _repository.GamePlayed(request.Content);
+                return new Response<GameResponse>()
+                {
+                    Content = gameResponse,
+                };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                HashSet<string> errors = ApiSharedFuncs.GetListErrord(ex);
+                return new ResponseErrorException(errors, ex.InnerException.ToString());
             }
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(200, Type = typeof(GameResponse))]
+        [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> GamePlayComputer([FromBody] GameRequest request)
+        public async Task<Response> GamePlayComputer([FromBody] Request<GameRequest> request)
         {
             return new Response();
         }

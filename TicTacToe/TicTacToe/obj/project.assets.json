@@ -1990,16 +1990,6 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "ApiShared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/ApiShared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ApiShared.dll": {}
-        }
-      },
       "Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -6814,11 +6804,6 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "ApiShared/1.0.0": {
-      "type": "project",
-      "path": "../ApiShared/ApiShared.csproj",
-      "msbuildProject": "../ApiShared/ApiShared.csproj"
-    },
     "Data/1.0.0": {
       "type": "project",
       "path": "../Data/Data.csproj",
@@ -6832,7 +6817,6 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "ApiShared >= 1.0.0",
       "Data >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.1",
@@ -6874,9 +6858,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\ApiShared\\ApiShared.csproj": {
-              "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\ApiShared\\ApiShared.csproj"
-            },
             "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj": {
               "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj"
             },

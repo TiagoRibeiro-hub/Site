@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "62b054db-7062-4af5-b5b8-075a553aa370": {
+      "ProjectGuid": "62b054db-7062-4af5-b5b8-075a553aa370",
+      "DisplayName": "ApiShared",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -19,6 +19,7 @@ builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicT
 builder.Services.AddScoped<IScoreDbService, ScoreDbService>();
 builder.Services.AddScoped<IGameDbService, GameDbService>();
 //-1
+builder.Services.AddScoped<IWinnerService, WinnerService>();
 builder.Services.AddScoped<IScoreService, ScoreService>();
 builder.Services.AddScoped<IGameService, GameService>();
 //0

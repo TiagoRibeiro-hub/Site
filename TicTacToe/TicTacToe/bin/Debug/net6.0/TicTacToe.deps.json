@@ -8,14 +8,14 @@
     ".NETCoreApp,Version=v6.0": {
       "TicTacToe/1.0.0": {
         "dependencies": {
-          "ApiShared": "1.0.0",
           "Data": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.1",
           "Microsoft.EntityFrameworkCore.Design": "6.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.1",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.1",
           "Swashbuckle.AspNetCore": "6.2.3",
-          "TicTacToeClass": "1.0.0"
+          "TicTacToeClass": "1.0.0",
+          "ApiShared": "1.0.0.0"
         },
         "runtime": {
           "TicTacToe.dll": {}
@@ -1193,11 +1193,6 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "ApiShared/1.0.0": {
-        "runtime": {
-          "ApiShared.dll": {}
-        }
-      },
       "Data/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.1",
@@ -1212,6 +1207,14 @@
       "TicTacToeClass/1.0.0": {
         "runtime": {
           "TicTacToeClass.dll": {}
+        }
+      },
+      "ApiShared/1.0.0.0": {
+        "runtime": {
+          "ApiShared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -2125,11 +2128,6 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "ApiShared/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Data/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -2137,6 +2135,11 @@
     },
     "TicTacToeClass/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ApiShared/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

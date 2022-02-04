@@ -21,9 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiShared\ApiShared.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\TicTacToeClass\TicTacToeClass.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ApiShared">
+      <HintPath>..\..\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

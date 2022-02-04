@@ -1,0 +1,11 @@
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\bin\Debug\net6.0\ApiShared.deps.json
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\bin\Debug\net6.0\ApiShared.dll
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\bin\Debug\net6.0\ref\ApiShared.dll
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\bin\Debug\net6.0\ApiShared.pdb
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ref\ApiShared.dll
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.pdb

@@ -42,7 +42,7 @@ public class GameService : IGameService
         }
 
     }
-    private async Task<bool> TableScoreInitialize(Human player, string difficulty = "")
+    private async Task<bool> TableScoreInitialize(Human player)
     {
         try
         {
@@ -75,12 +75,11 @@ public class GameService : IGameService
             throw new Exception();
         }
     }
-
     public async Task TableScoreInitializeVsComputer(Human player, string difficulty)
     {
         try
         {
-            bool isReg = await TableScoreInitialize(player, difficulty);
+            bool isReg = await TableScoreInitialize(player);
             if (isReg)
             {
                 await _scoreService.ScoresTableVsComputerAsync(player.Email, difficulty);
@@ -92,6 +91,5 @@ public class GameService : IGameService
             throw new Exception();
         }
     }
-
 }
 
