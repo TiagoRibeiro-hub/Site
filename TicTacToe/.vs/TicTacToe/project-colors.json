@@ -30,7 +30,12 @@
       "ProjectGuid": "9b550119-429f-4a0b-9a71-ef17bb21ffa3",
       "DisplayName": "TicTacToeClass",
       "ColorIndex": 4
+    },
+    "39b9711d-62ff-4a59-9d49-252d51d8cb83": {
+      "ProjectGuid": "39b9711d-62ff-4a59-9d49-252d51d8cb83",
+      "DisplayName": "Shared",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }

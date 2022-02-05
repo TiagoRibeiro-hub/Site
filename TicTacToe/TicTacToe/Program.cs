@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using TicTacToe.Data;
-using TicTacToe.Service;
+using TicTacToe.DbActionService;
+using TicTacToe.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,15 +16,14 @@ builder.Services.AddDbContext<TicTacToeDbContext>(config =>
 
 builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicTacToeDbContextFactory>();
 
-//-2
-builder.Services.AddScoped<IScoreDbService, ScoreDbService>();
-builder.Services.AddScoped<IGameDbService, GameDbService>();
-//-1
+builder.Services.AddScoped<IDbActionGameService, DbActionGameService>();
+builder.Services.AddScoped<IDbActionHumanService, DbActionHumanService>();
+
 builder.Services.AddScoped<IWinnerService, WinnerService>();
-builder.Services.AddScoped<IScoreService, ScoreService>();
+builder.Services.AddScoped<IComputerService, ComputerService>();
+builder.Services.AddScoped<IHumanService, HumanService>();
 builder.Services.AddScoped<IGameService, GameService>();
-//0
-builder.Services.AddScoped<IRepository, Repository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

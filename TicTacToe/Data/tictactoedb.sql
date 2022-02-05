@@ -11,8 +11,9 @@ GO
 SELECT * FROM [TicTacToe].[dbo].[Game]
 SELECT * FROM [TicTacToe].[dbo].[Moves]
 SELECT * FROM [TicTacToe].[dbo].[ScoresTable]
+SELECT * FROM [TicTacToe].[dbo].[TotalGamesVsHuman]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesVsComputer]
+SELECT * FROM [TicTacToe].[dbo].[TotalGamesEasy]
+SELECT * FROM [TicTacToe].[dbo].[TotalGamesIntermediate]
+SELECT * FROM [TicTacToe].[dbo].[TotalGamesHard]
 
-Truncate Table [TicTacToe].[dbo].[Game]
-Truncate Table [TicTacToe].[dbo].[ScoresTable]
-Truncate Table [TicTacToe].[dbo].[TotalGamesVsComputer]

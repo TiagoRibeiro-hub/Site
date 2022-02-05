@@ -2006,9 +2006,22 @@
           "bin/placeholder/Data.dll": {}
         }
       },
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
+      },
       "TicTacToeClass/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/TicTacToeClass.dll": {}
         },
@@ -6809,6 +6822,11 @@
       "path": "../Data/Data.csproj",
       "msbuildProject": "../Data/Data.csproj"
     },
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
+    },
     "TicTacToeClass/1.0.0": {
       "type": "project",
       "path": "../TicTacToeClass/TicTacToeClass.csproj",
@@ -6822,6 +6840,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 6.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.1",
+      "Shared >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3",
       "TicTacToeClass >= 1.0.0"
     ]
@@ -6860,6 +6879,9 @@
           "projectReferences": {
             "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj": {
               "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj"
+            },
+            "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Shared\\Shared.csproj"
             },
             "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\TicTacToeClass\\TicTacToeClass.csproj": {
               "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\TicTacToeClass\\TicTacToeClass.csproj"

@@ -50,6 +50,10 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("StartFirst")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Game", (string)null);
@@ -98,12 +102,33 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Losses")
-                        .HasColumnType("int");
-
                     b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerName");
+
+                    b.ToTable("ScoresTable", (string)null);
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesEasyModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartFirst")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartSecond")
+                        .HasColumnType("int");
 
                     b.Property<int>("Ties")
                         .HasColumnType("int");
@@ -111,7 +136,7 @@ namespace Data.Migrations
                     b.Property<int>("TotalGames")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalGamesVsHuman")
+                    b.Property<int>("TotalGamesVsComputerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Victories")
@@ -119,9 +144,84 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerName");
+                    b.HasIndex("TotalGamesVsComputerId")
+                        .IsUnique();
 
-                    b.ToTable("ScoresTable", (string)null);
+                    b.ToTable("TotalGamesEasy", (string)null);
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesHardModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartFirst")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartSecond")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ties")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalGames")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalGamesVsComputerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Victories")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TotalGamesVsComputerId")
+                        .IsUnique();
+
+                    b.ToTable("TotalGamesHard", (string)null);
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesIntermediateModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartFirst")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartSecond")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ties")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalGames")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalGamesVsComputerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Victories")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TotalGamesVsComputerId")
+                        .IsUnique();
+
+                    b.ToTable("TotalGamesIntermediate", (string)null);
                 });
 
             modelBuilder.Entity("TicTacToe.Data.TotalGamesVsComputerModel", b =>
@@ -135,16 +235,41 @@ namespace Data.Migrations
                     b.Property<int>("ScoreTableId")
                         .HasColumnType("int");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScoreTableId")
+                        .IsUnique();
+
+                    b.ToTable("TotalGamesVsComputer", (string)null);
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesVsHumanModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScoreTableId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartFirst")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartSecond")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ties")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalGames")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalGamesEasy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalGamesHard")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalGamesIntermediate")
+                    b.Property<int>("Victories")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -152,7 +277,7 @@ namespace Data.Migrations
                     b.HasIndex("ScoreTableId")
                         .IsUnique();
 
-                    b.ToTable("TotalGamesVsComputer", (string)null);
+                    b.ToTable("TotalGamesVsHuman", (string)null);
                 });
 
             modelBuilder.Entity("TicTacToe.Data.MovesModel", b =>
@@ -166,11 +291,55 @@ namespace Data.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesEasyModel", b =>
+                {
+                    b.HasOne("TicTacToe.Data.TotalGamesVsComputerModel", "TotalGamesVsComputer")
+                        .WithOne("TotalGamesEasy")
+                        .HasForeignKey("TicTacToe.Data.TotalGamesEasyModel", "TotalGamesVsComputerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TotalGamesVsComputer");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesHardModel", b =>
+                {
+                    b.HasOne("TicTacToe.Data.TotalGamesVsComputerModel", "TotalGamesVsComputer")
+                        .WithOne("TotalGamesHard")
+                        .HasForeignKey("TicTacToe.Data.TotalGamesHardModel", "TotalGamesVsComputerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TotalGamesVsComputer");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesIntermediateModel", b =>
+                {
+                    b.HasOne("TicTacToe.Data.TotalGamesVsComputerModel", "TotalGamesVsComputer")
+                        .WithOne("TotalGamesIntermediate")
+                        .HasForeignKey("TicTacToe.Data.TotalGamesIntermediateModel", "TotalGamesVsComputerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TotalGamesVsComputer");
+                });
+
             modelBuilder.Entity("TicTacToe.Data.TotalGamesVsComputerModel", b =>
                 {
                     b.HasOne("TicTacToe.Data.ScoresTableModel", "ScoresTable")
                         .WithOne("TotalGamesVsComputer")
                         .HasForeignKey("TicTacToe.Data.TotalGamesVsComputerModel", "ScoreTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ScoresTable");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesVsHumanModel", b =>
+                {
+                    b.HasOne("TicTacToe.Data.ScoresTableModel", "ScoresTable")
+                        .WithOne("TotalGamesVsHuman")
+                        .HasForeignKey("TicTacToe.Data.TotalGamesVsHumanModel", "ScoreTableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -185,6 +354,17 @@ namespace Data.Migrations
             modelBuilder.Entity("TicTacToe.Data.ScoresTableModel", b =>
                 {
                     b.Navigation("TotalGamesVsComputer");
+
+                    b.Navigation("TotalGamesVsHuman");
+                });
+
+            modelBuilder.Entity("TicTacToe.Data.TotalGamesVsComputerModel", b =>
+                {
+                    b.Navigation("TotalGamesEasy");
+
+                    b.Navigation("TotalGamesHard");
+
+                    b.Navigation("TotalGamesIntermediate");
                 });
 #pragma warning restore 612, 618
         }
