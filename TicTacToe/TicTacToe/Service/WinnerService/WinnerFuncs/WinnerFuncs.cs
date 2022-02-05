@@ -9,13 +9,8 @@ public static class WinnerFuncs
         }
         return (false, GameState.Continue.ToString());
     }
-    public static bool HaveWinnerMethod(Dictionary<int, int> DictMovesPlayer)
+    public static bool HaveWinnerMethod(HashSet<int> ListMovesPlayer)
     {
-        HashSet<int> ListMovesPlayer = new();
-        foreach (var move in DictMovesPlayer)
-        {
-            ListMovesPlayer.Add(move.Value);
-        }
 
         if (Diagonal(ListMovesPlayer)) return true;
         if (Vertical(ListMovesPlayer)) return true;

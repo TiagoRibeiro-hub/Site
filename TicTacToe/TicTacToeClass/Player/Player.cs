@@ -3,6 +3,6 @@
 public class Player
 {
     public string Name { get; set; }
-    public Dictionary<int, int> ListPlayedMoves { get; set; }
+    public Moves Moves { get; set; } = new();
 
 }

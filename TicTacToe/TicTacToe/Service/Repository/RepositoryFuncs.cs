@@ -7,7 +7,6 @@ public class RepositoryFuncs
         {
             Name = name,
             Email = email,
-            ListPlayedMoves = new(),
         };
     }
 }

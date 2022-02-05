@@ -1,5 +1,6 @@
 ﻿using ApiShared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using TicTacToe.Data;
 
 namespace TicTacToe.Service;
@@ -16,8 +17,9 @@ public class GameDbService : IGameDbService
     {
         try
         {
-            await _db.AddAsync(game);
+            await _db.Games.AddAsync(game);
             await _db.SaveChangesAsync();
+
             int gameId = GetGameIdByPlayer(game.Player1_Name);
             MovesModel movesPlayer1 = new()
             {
@@ -29,8 +31,9 @@ public class GameDbService : IGameDbService
                 GameId = gameId,
                 PlayerName = game.Player2_Name,
             };
-            await _db.AddRangeAsync(movesPlayer1, movesPlayer2);
+            await _db.Moves.AddRangeAsync(movesPlayer1, movesPlayer2);
             await _db.SaveChangesAsync();
+
             Task.CompletedTask.Wait();
             return gameId;
         }
@@ -38,29 +41,44 @@ public class GameDbService : IGameDbService
         {
             throw new Exception();
         }
+
     }
-    
+
     public async Task RegisterMove(Game game)
     {
         try
         {
-            int lastKey = game.Player.ListPlayedMoves.Count();
-            int value = game.Player.ListPlayedMoves.GetValueOrDefault(lastKey);
+            
             var move = await _db.Games.FirstOrDefaultAsync(x => x.Id == game.GameId);
-
-            if(move is null)
+            if (move is null)
             {
                 throw new Exception();
             }
-  
-            MovesModel movesPlayer1 = new()
+
+            MovesModel movesPlayer = new()
             {
                 GameId = game.GameId,
                 PlayerName = game.Player.Name,
-                MoveNumber = lastKey,
-                Move = value,
+                Move = game.Player.Moves.Move,
             };
-            move.Moves.Add(movesPlayer1);
+            if (game.Player.Moves.IsfirstMove)
+            {
+                movesPlayer.MoveNumber = 1;
+            }
+            else
+            {
+                var lastTurn = move.Moves.Select(x => new
+                {
+                    x.MoveNumber,
+                    x.PlayerName
+                }).Where(x => x.PlayerName == game.Player.Name).Max();
+                if(lastTurn is null)
+                {
+                    throw new Exception();
+                }
+                movesPlayer.MoveNumber = lastTurn.MoveNumber + 1;
+            }
+            move.Moves.Add(movesPlayer);
             _db.Update(move);
             await _db.SaveChangesAsync();
             Task.CompletedTask.Wait();

@@ -19,14 +19,13 @@ public class Repository : IRepository
     {
         try
         {
-            Human player1 = RepositoryFuncs.PlayerInfo(registerPlayers.Player1, registerPlayers.Player1_Email);
+            Human player1 = RepositoryFuncs.PlayerInfo(registerPlayers.Player1.Name, registerPlayers.Player1.Email);
             Computer computer = new();
             Human player2 = new();
 
             if (registerPlayers.IsComputer)
             {
-                computer.Name = registerPlayers.Player2;
-                computer.ListPlayedMoves = new();
+                computer.Name = registerPlayers.Player2.Name;
                 computer.Active = registerPlayers.IsComputer;
                 if (registerPlayers.Difficulty == Difficulty.Easy.ToString())
                 {
@@ -45,7 +44,7 @@ public class Repository : IRepository
             else
             {
                 await _gameService.TableScoreInitializeVsHuman(player1);
-                player2 = RepositoryFuncs.PlayerInfo(registerPlayers.Player2, registerPlayers.Player2_Email);
+                player2 = RepositoryFuncs.PlayerInfo(registerPlayers.Player2.Name, registerPlayers.Player2.Email);
                 await _gameService.TableScoreInitializeVsHuman(player2);
             }
 
@@ -68,12 +67,14 @@ public class Repository : IRepository
                 GameId = request.IdGame,
             };
             game.Player.Name = request.PlayerName;
-            game.Player.ListPlayedMoves = request.PlayerMoves;
+            game.Player.Moves.IsfirstMove = request.IsFirstMove;
+            game.Player.Moves.Move = request.MovePlayed;
 
-            var res = _gameDbService.RegisterMove(game);
+            game.Player.Moves.ListPlayedMoves = await _winnerService.GetListMovesAsync(game);
+            var resRegMove = _gameDbService.RegisterMove(game);
             var resWinner = _winnerService.GetWinnerAsync(game);
 
-            await res;
+            await resRegMove;
             Winner winner = await resWinner;
             Task.CompletedTask.Wait();
             return new GameResponse()
