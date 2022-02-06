@@ -88,9 +88,12 @@ public class GameService : IGameService
             var resRegMove = _dbActionGameService.RegisterMove(game);
             game.Player.Moves.ListPlayedMoves = await resPlayerList;
             var resWinner = _winnerService.GetWinnerAsync(game);
-
             await resRegMove;
             Winner winner = await resWinner;
+            if (winner.GameFinished)
+            {
+                await _scoreService.SetScoresTableFinishedGame(winner);
+            }
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.GameId);
         }

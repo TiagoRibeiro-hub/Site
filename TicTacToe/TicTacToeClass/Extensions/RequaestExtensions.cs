@@ -38,18 +38,3 @@ public static class RequaestExtensions
 
 }
 
-public static class ResponseExtensions
-{
-    public static GameResponse SetGameResponseFromWinner(this Winner x, int gameId)
-    {
-        return new GameResponse()
-        {
-            IdGame = gameId,
-            HaveWinner = x.HaveWinner,
-            WinnerName = x.Name,
-            State = x.State,
-            GameFinished = x.GameFinished,
-        };
-    }
-}
-

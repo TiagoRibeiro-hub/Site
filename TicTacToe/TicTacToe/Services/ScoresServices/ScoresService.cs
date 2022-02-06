@@ -7,7 +7,9 @@ public class ScoresService : IScoresService
     private readonly IHumanService _humanService;
     private readonly IDbActionGameService _dbActionGameService;
     private readonly IComputerService _computerService;
-    public ScoresService(IHumanService humanService, IDbActionGameService dbActionGameService, IComputerService computerService)
+    public ScoresService(
+        IHumanService humanService, IDbActionGameService dbActionGameService,
+        IComputerService computerService)
     {
         _humanService = humanService;
         _dbActionGameService = dbActionGameService;
@@ -119,6 +121,22 @@ public class ScoresService : IScoresService
         }
 
     }
-
+    public async Task SetScoresTableFinishedGame(Winner winner)
+    {
+        try
+        {
+            (winner.PlayerName1, winner.PlayerName2) = await _dbActionGameService.GetPlayersGameByGameIdAsync(winner.GameId);
+            if (winner.State.ToLower() != GameState.Tie.ToString().ToLower())
+            {
+                _ = winner.WinnerName == winner.PlayerName1 ? winner.LoserName = winner.PlayerName2 : winner.LoserName = winner.PlayerName1;
+            }
+            await _humanService.SetScoresTableFinishedGame(winner);
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
 }
 

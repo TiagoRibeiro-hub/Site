@@ -17,3 +17,7 @@ SELECT * FROM [TicTacToe].[dbo].[TotalGamesEasy]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesIntermediate]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesHard]
 
+Select s.PlayerName, h.Victories, h.Losses, h.Ties
+From ScoresTable AS s 
+	inner join TotalGamesVsHuman As h on s.Id = h.ScoreTableId
+where s.PlayerName = 'tiago' or s.PlayerName = 'maria'

@@ -27,17 +27,19 @@ public class WinnerService : IWinnerService
         }
         return Task.FromResult(playerMoves);
     }
-
     public Task<Winner> GetWinnerAsync(Game game)
     {
         try
         {
             Winner winner = new();
+            winner.GameId = game.GameId;
+            game.Player.Moves.ListPlayedMoves.Add(game.Player.Moves.Move);
             winner.HaveWinner = WinnerFuncs.HaveWinnerMethod(game.Player.Moves.ListPlayedMoves);
 
+            winner.HaveWinner = false; ///////////////////
             if (winner.HaveWinner)
             {
-                winner.Name = game.Player.Name;
+                winner.WinnerName = game.Player.Name;
                 winner.GameFinished = true;
                 winner.State = GameState.Winner.ToString();
             }
@@ -45,6 +47,7 @@ public class WinnerService : IWinnerService
             {
                 (winner.GameFinished, winner.State) = WinnerFuncs.IsFinished(game.Player.Moves.ListPlayedMoves.Count());
             }
+            winner.GameFinished = true; winner.State = GameState.Tie.ToString();/////////////////
             return Task.FromResult(winner);
         }
         catch (Exception ex)

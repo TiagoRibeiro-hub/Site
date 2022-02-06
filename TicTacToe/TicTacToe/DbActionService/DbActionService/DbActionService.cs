@@ -52,5 +52,18 @@ public class DbActionService : IDbActionService
             throw new Exception();
         }
     }
+    public async Task UpdateRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
+    {
+        try
+        {
+            _db.Set<TEntity>().UpdateRange(entity, entity1);
+            await _db.SaveChangesAsync();
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
 }
 
