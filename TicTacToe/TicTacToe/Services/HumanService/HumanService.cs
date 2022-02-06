@@ -2,15 +2,17 @@
 using TicTacToe.Data;
 
 namespace TicTacToe.DbActionService;
-public class DbActionHumanService : IDbActionHumanService
+public class HumanService : IHumanService
 {
     private readonly TicTacToeDbContext _db;
+    private readonly IDbActionService _dbActionService;
 
-    public DbActionHumanService(TicTacToeDbContext db)
+    public HumanService(TicTacToeDbContext db, IDbActionService dbActionService)
     {
         _db = db;
+        _dbActionService = dbActionService;
     }
-    public async Task<TotalGamesVsHumanModel> GetScoresVsHumanByScoreTableIdAsync(int scoreTableId)
+    public async Task<TotalGamesVsHumanModel> GetTotalGamesVsHumanByScoreTableIdAsync(int scoreTableId)
     {
         try
         {
@@ -26,12 +28,11 @@ public class DbActionHumanService : IDbActionHumanService
             throw new Exception();
         }
     }
-    public async Task UpdateScoresTableTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel)
+    public async Task UpdateTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel) 
     {
         try
         {
-            _db.TotalGamesVsHuman.Update(totalGamesVsHumanModel);
-            await _db.SaveChangesAsync();
+            await _dbActionService.UpdateAsync(totalGamesVsHumanModel);
             Task.CompletedTask.Wait();
         }
         catch (Exception)

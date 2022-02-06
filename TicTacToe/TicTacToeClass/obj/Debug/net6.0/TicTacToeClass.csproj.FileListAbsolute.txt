@@ -13,3 +13,5 @@ D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\obj\Debug\net6.0
 D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\bin\Debug\net6.0\Shared.dll
 D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\bin\Debug\net6.0\Shared.pdb
 D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\obj\Debug\net6.0\TicTacToeClass.csproj.CopyComplete
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\bin\Debug\net6.0\Data.dll
+D:\Projectos\Projectos\PersonalWebSite\TicTacToe\TicTacToeClass\bin\Debug\net6.0\Data.pdb

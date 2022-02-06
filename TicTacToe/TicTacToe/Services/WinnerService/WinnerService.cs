@@ -11,23 +11,21 @@ public class WinnerService : IWinnerService
         _db = db;
     }
 
-    public async Task<HashSet<int>> GetListMovesAsync(Game game)
+    public Task<HashSet<int>> GetListMovesAsync(Game game)
     {
-        var move = await _db.Games.FirstOrDefaultAsync(x => x.Id == game.GameId);
-        if (move is null)
+        var playerMoves = _db.Moves.Select(x => new
+        {
+            x.GameId,
+            x.PlayerName,
+            x.Move
+        }).Where(x => x.GameId == game.GameId && x.PlayerName == game.Player.Name)
+        .Select(x => x.Move).ToHashSet();
+
+        if(playerMoves is null)
         {
             throw new Exception();
         }
-
-        var resPlayerMoves = move.Moves.Select(x => new
-        {
-            x.Move,
-            x.PlayerName,
-
-        }).Where(x => x.PlayerName == game.Player.Name);
-        
-        var playerMoves = resPlayerMoves.Select(x => x.Move).ToHashSet();
-        return playerMoves;
+        return Task.FromResult(playerMoves);
     }
 
     public Task<Winner> GetWinnerAsync(Game game)

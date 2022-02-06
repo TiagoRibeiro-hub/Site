@@ -16,12 +16,15 @@ builder.Services.AddDbContext<TicTacToeDbContext>(config =>
 
 builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicTacToeDbContextFactory>();
 
+builder.Services.AddScoped<IDbActionService, DbActionService>();
+
 builder.Services.AddScoped<IDbActionGameService, DbActionGameService>();
-builder.Services.AddScoped<IDbActionHumanService, DbActionHumanService>();
+
+builder.Services.AddScoped<IHumanService, HumanService>();
+builder.Services.AddScoped<IComputerService, ComputerService>();
 
 builder.Services.AddScoped<IWinnerService, WinnerService>();
-builder.Services.AddScoped<IComputerService, ComputerService>();
-builder.Services.AddScoped<IHumanService, HumanService>();
+builder.Services.AddScoped<IScoresService, ScoresService>();
 builder.Services.AddScoped<IGameService, GameService>();
 
 

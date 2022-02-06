@@ -2,7 +2,7 @@
 {
     public interface IGameService
     {
-        Task<int> RegisterPlayers(RegisterPlayersRequest registerPlayers);
-        Task<GameResponse> GamePlayed(GameRequest game);
+        Task<int> InitializeGameAsync(RegisterPlayersRequest registerPlayers);
+        Task<GameResponse> GamePlayedAsync(GameRequest game);
     }
 }

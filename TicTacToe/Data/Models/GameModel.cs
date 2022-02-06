@@ -8,7 +8,7 @@ public class GameModel
     public bool IsComputer { get; set; } = false;
     public string Difficulty { get; set; }
     public string StartFirst { get; set; }
-    public DateTime DateTimeStart { get; set; } = DateTime.Now;
+    public DateTime DateTimeStart { get; set; } = DateTime.Now.ToUniversalTime();
     public DateTime DateTimeEnd { get; set; }
     public ICollection<MovesModel> Moves { get; set; } = new List<MovesModel>();
 }

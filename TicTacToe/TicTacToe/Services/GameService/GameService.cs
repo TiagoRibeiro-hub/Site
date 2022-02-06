@@ -1,4 +1,5 @@
-﻿using TicTacToe.DbActionService;
+﻿using TicTacToe.Data;
+using TicTacToe.DbActionService;
 using TicTacToeClass;
 
 namespace TicTacToe.Services;
@@ -6,19 +7,73 @@ public class GameService : IGameService
 {
     private readonly IWinnerService _winnerService;
     private readonly IDbActionGameService _dbActionGameService;
-    private readonly IHumanService _humanService;
-    private readonly IComputerService _computerService;
+    private readonly IScoresService _scoreService;
+
     public GameService(
-        IWinnerService winnerService, IDbActionGameService dbActionGameService, 
-        IHumanService humanService, IComputerService computerService)
+        IWinnerService winnerService, IDbActionGameService dbActionGameService,
+        IScoresService scoreService)
     {
         _winnerService = winnerService;
         _dbActionGameService = dbActionGameService;
-        _humanService = humanService;
-        _computerService = computerService;
+        _scoreService = scoreService;
     }
 
-    public async Task<GameResponse> GamePlayed(GameRequest request)
+    public async Task<int> InitializeGameAsync(RegisterPlayersRequest registerPlayers)
+    {
+        try
+        {
+            Game gamePlayer1 = registerPlayers.GameInit();
+            gamePlayer1.Player = registerPlayers.GetPlayersFromPlayersRequestList();
+            await _scoreService.TableScoreInitialize(gamePlayer1);
+            int gameId = -1;
+            if (!registerPlayers.IsComputer)
+            {
+                Game gamePlayer2 = registerPlayers.GameInit();
+                gamePlayer2.Player = registerPlayers.GetPlayersFromPlayersRequestList();
+                await _scoreService.TableScoreInitialize(gamePlayer2);
+                gameId = await InitializeGame(gamePlayer1, gamePlayer2);
+            }
+            else
+            {
+                gameId = await InitializeGame(gamePlayer1);
+            }
+            Task.CompletedTask.Wait();
+            return gameId;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+    private async Task<int> InitializeGame(Game player1, Game player2 = null)
+    {
+        try
+        {
+            GameModel gameModel = GameServiceFuncs.PlayersNameProp(player1, player2);
+            GameServiceFuncs.StartsFirstProp(player1, player2, gameModel);
+            GameServiceFuncs.DifficultyProp(player1, gameModel);
+            HashSet<Moves> listPlayerMovesInit = new();
+            listPlayerMovesInit.Add(GameServiceFuncs.AddMovesInit(player1.Player.Name));
+            if (player2 != null)
+            {
+                listPlayerMovesInit.Add(GameServiceFuncs.AddMovesInit(player2.Player.Name));
+            }
+            else
+            {
+                listPlayerMovesInit.Add(GameServiceFuncs.AddMovesInit(Computer.Name));
+            }
+
+            int gameId = await _dbActionGameService.InsertInitializeGame(gameModel, listPlayerMovesInit);
+            Task.CompletedTask.Wait();
+            return gameId;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+
+    public async Task<GameResponse> GamePlayedAsync(GameRequest request)
     {
         try
         {
@@ -29,53 +84,15 @@ public class GameService : IGameService
             game.Player.Name = request.PlayerName;
             game.Player.Moves.IsfirstMove = request.IsFirstMove;
             game.Player.Moves.Move = request.MovePlayed;
-
-            game.Player.Moves.ListPlayedMoves = await _winnerService.GetListMovesAsync(game);
+            var resPlayerList = _winnerService.GetListMovesAsync(game);
             var resRegMove = _dbActionGameService.RegisterMove(game);
+            game.Player.Moves.ListPlayedMoves = await resPlayerList;
             var resWinner = _winnerService.GetWinnerAsync(game);
 
             await resRegMove;
             Winner winner = await resWinner;
             Task.CompletedTask.Wait();
-            return new GameResponse()
-            {
-                IdGame = game.GameId,
-                HaveWinner = winner.HaveWinner,
-                WinnerName = winner.Name,
-                State = winner.State,
-                GameFinished = winner.GameFinished,
-            };
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
-
-    public async Task<int> RegisterPlayers(RegisterPlayersRequest registerPlayers)
-    {
-        try
-        {
-            PlayerRequest playerRequest1 = registerPlayers.Player1;
-            Human player1 = playerRequest1.PlayerAsHuman();
-            await _humanService.TableScoreInitialize(player1);
-
-            if (registerPlayers.Player2.IsComputer)
-            {
-                PlayerRequest playerRequest2 = registerPlayers.Player2;
-                Computer computer = playerRequest2.PlayerAsComputer();
-                await _computerService.TableScoreInitialize(computer);
-            }
-            else
-            {
-                PlayerRequest playerRequest2 = registerPlayers.Player2;
-                Human player2 = playerRequest2.PlayerAsHuman();
-                await _humanService.TableScoreInitialize(player1);
-            }
-
-            //int gameId = await _gameService.InitializeGame(player1, player2, computer);
-            Task.CompletedTask.Wait();
-            return 1;
+            return winner.SetGameResponseFromWinner(game.GameId);
         }
         catch (Exception ex)
         {

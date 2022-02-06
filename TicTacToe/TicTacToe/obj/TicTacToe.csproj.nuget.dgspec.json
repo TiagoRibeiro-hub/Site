@@ -172,6 +172,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj": {
+                "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Data\\Data.csproj"
+              },
               "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Shared\\Shared.csproj": {
                 "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\TicTacToe\\Shared\\Shared.csproj"
               }

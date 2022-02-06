@@ -1,64 +1,76 @@
-﻿using TicTacToe.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TicTacToe.Data;
 using TicTacToe.DbActionService;
 
 namespace TicTacToe.Services;
 public class ComputerService : IComputerService
 {
-    private readonly IDbActionGameService _dbActionGameService;
-    public ComputerService(IDbActionGameService dbActionGameService)
+    private readonly TicTacToeDbContext _db;
+    private readonly IDbActionService _dbActionService;
+    public ComputerService(TicTacToeDbContext db, IDbActionService dbActionService)
     {
-        _dbActionGameService = dbActionGameService;
+        _db = db;
+        _dbActionService = dbActionService;
     }
-    public async Task TableScoreInitialize(Computer computer)
+
+    public async Task<TotalGamesEasyModel> GetTotalGamesEasyByScoreTableIdAsync(int scoreTableId)
     {
         try
         {
-            bool isReg = await _dbActionGameService.IsRegisterByPlayerName(computer.Name);
-            if (!isReg)
+            var totalGamesVsComputer = await _db.TotalGamesEasy.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            if (totalGamesVsComputer is null)
             {
-                await SetScoresTableInitializeAsync(computer);
+                throw new Exception();
             }
-            else
-            {
-                //await UpdateScoreTableInitializeAsync(computer);
-            }
-            Task.CompletedTask.Wait();
+            return totalGamesVsComputer;
         }
         catch (Exception ex)
         {
             throw new Exception();
         }
     }
-    private async Task SetScoresTableInitializeAsync(Computer computer)
+    public async Task<TotalGamesIntermediateModel> GetTotalGamesIntermediateByScoreTableIdAsync(int scoreTableId)
     {
         try
         {
-            ScoresTableModel scoreTable = new()
+            var totalGamesVsComputer = await _db.TotalGamesIntermediate.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            if (totalGamesVsComputer is null)
             {
-                PlayerName = computer.Name,
-                Email = computer.Email,
-            };
-
-            if (computer.Easy)
-            {
-                _ = computer.StartFirst == true ? scoreTable.TotalGamesVsComputer.TotalGamesEasy.StartFirst += 1 : scoreTable.TotalGamesVsComputer.TotalGamesEasy.StartSecond += 1;
-                scoreTable.TotalGamesVsComputer.TotalGamesEasy.TotalGames += 1;
-
+                throw new Exception();
             }
-            if (computer.Intermediate)
-            {
-                _ = computer.StartFirst == true ? scoreTable.TotalGamesVsComputer.TotalGamesIntermediate.StartFirst += 1 : scoreTable.TotalGamesVsComputer.TotalGamesIntermediate.StartSecond += 1;
-                scoreTable.TotalGamesVsComputer.TotalGamesIntermediate.TotalGames += 1;
-            }
-            if (computer.Hard)
-            {
-                _ = computer.StartFirst == true ? scoreTable.TotalGamesVsComputer.TotalGamesHard.StartFirst += 1 : scoreTable.TotalGamesVsComputer.TotalGamesHard.StartSecond += 1;
-                scoreTable.TotalGamesVsComputer.TotalGamesHard.TotalGames += 1;
-            }
-            await _dbActionGameService.InsertScoresTableAsync(scoreTable);
-            Task.CompletedTask.Wait();
+            return totalGamesVsComputer;
         }
         catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+    public async Task<TotalGamesHardModel> GetTotalGamesHardByScoreTableIdAsync(int scoreTableId)
+    {
+        try
+        {
+            var totalGamesVsComputer = await _db.TotalGamesHard.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            if (totalGamesVsComputer is null)
+            {
+                throw new Exception();
+            }
+            return totalGamesVsComputer;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+
+
+    public async Task UpdateTotalGamesVsComputerAsync<TEntity>(TEntity entity) where TEntity : class
+    {
+        try
+        {
+            await _dbActionService.UpdateAsync(entity);
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception)
         {
             throw new Exception();
         }

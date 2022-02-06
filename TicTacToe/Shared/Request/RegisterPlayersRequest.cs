@@ -1,8 +1,10 @@
 ﻿namespace TicTacToe;
 #nullable disable
-public class RegisterPlayersRequest 
+public class RegisterPlayersRequest : Request
 {
-    public PlayerRequest Player1 { get; set; }
-    public PlayerRequest Player2 { get; set; }
+    public List<PlayerRequest> ListPlayers { get; set; }
+    public bool Easy { get; set; } = false;
+    public bool Intermediate { get; set; } = false;
+    public bool Hard { get; set; } = false;
 }
 

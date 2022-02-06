@@ -1212,6 +1212,7 @@
       },
       "TicTacToeClass/1.0.0": {
         "dependencies": {
+          "Data": "1.0.0",
           "Shared": "1.0.0"
         },
         "runtime": {

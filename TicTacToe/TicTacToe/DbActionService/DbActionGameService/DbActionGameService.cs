@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicTacToe.Data;
+using TicTacToeClass;
 
 namespace TicTacToe.DbActionService;
 public class DbActionGameService : IDbActionGameService
 {
     private readonly TicTacToeDbContext _db;
-
-    public DbActionGameService(TicTacToeDbContext db)
+    private readonly IDbActionService _dbActionService;
+    public DbActionGameService(TicTacToeDbContext db, IDbActionService dbActionService)
     {
         _db = db;
+        _dbActionService = dbActionService;
     }
 
     public async Task<bool> IsRegisterByPlayerName(string playerName)
@@ -27,20 +29,7 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         }
     }
-    public async Task InsertScoresTableAsync(ScoresTableModel scoreTable)
-    {
-        try
-        {
-            await _db.ScoresTable.AddAsync(scoreTable);
-            await _db.SaveChangesAsync();
-            Task.CompletedTask.Wait();
-        }
-        catch (Exception)
-        {
-            throw new Exception();
-        }
-    }
-    public async Task<int> GetScoresTableIDByPlayerNameAsync(string playerName)
+    public async Task<int> GetScoresTableIdByPlayerNameAsync(string playerName)
     {
         try
         {
@@ -50,7 +39,7 @@ public class DbActionGameService : IDbActionGameService
                 x.PlayerName
             }).Where(x => x.PlayerName == playerName).FirstOrDefaultAsync();
 
-            if(res is null)
+            if (res is null)
             {
                 throw new Exception();
             }
@@ -78,43 +67,74 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         }
     }
+
+    public async Task InsertScoresTableAsync(ScoresTableModel scoreTable)
+    {
+        try
+        {
+            await _dbActionService.InsertAsync(scoreTable);
+            Task.CompletedTask.Wait();
+        }
+        catch (Exception)
+        {
+            throw new Exception();
+        }
+    }
+    public async Task<int> InsertInitializeGame(GameModel game, HashSet<Moves> listPlayerMovesInit)
+    {
+        try
+        {
+            await _dbActionService.InsertAsync(game);
+            var gameId = await _db.Games.Select(x => new
+            {
+                x.Id,
+                x.Player1_Name,
+                x.Player2_Name
+            }).Where(x => x.Player1_Name == game.Player1_Name && x.Player2_Name == game.Player2_Name).MaxAsync(x => x.Id);
+
+            MovesModel movesModelPlayer1 = new();
+            MovesModel movesModelPlayer2 = new();
+            int count = 0;
+            foreach (var moves in listPlayerMovesInit)
+            {
+                moves.GameId = gameId;
+                if(count == 0)
+                {
+                    movesModelPlayer1 = moves.SetMovesModelFromMoves();
+                }
+                else
+                {
+                    movesModelPlayer2 = moves.SetMovesModelFromMoves();
+                }
+                count += 1;
+            }
+            await _dbActionService.InsertRangeAsync(movesModelPlayer1, movesModelPlayer2);
+            Task.CompletedTask.Wait();
+            return gameId;
+        }
+        catch (Exception)
+        {
+            throw new Exception();
+        }
+    }
+
     public async Task RegisterMove(Game game)
     {
         try
         {
-
-            var move = await _db.Games.FirstOrDefaultAsync(x => x.Id == game.GameId);
-            if (move is null)
+            var isAny = await _db.Moves.AnyAsync(x => x.Id == game.GameId);
+            int lastMove = 0;
+            if (isAny)
             {
-                throw new Exception();
-            }
-
-            MovesModel movesPlayer = new()
-            {
-                GameId = game.GameId,
-                PlayerName = game.Player.Name,
-                Move = game.Player.Moves.Move,
-            };
-            if (game.Player.Moves.IsfirstMove)
-            {
-                movesPlayer.MoveNumber = 1;
-            }
-            else
-            {
-                var lastTurn = move.Moves.Select(x => new
+                lastMove = await _db.Moves.Select(x => new
                 {
-                    x.MoveNumber,
-                    x.PlayerName
-                }).Where(x => x.PlayerName == game.Player.Name).Max();
-                if (lastTurn is null)
-                {
-                    throw new Exception();
-                }
-                movesPlayer.MoveNumber = lastTurn.MoveNumber + 1;
-            }
-            move.Moves.Add(movesPlayer);
-            _db.Update(move);
-            await _db.SaveChangesAsync();
+                    x.Id,
+                    x.PlayerName,
+                    x.MoveNumber
+                }).Where(x => x.Id == game.GameId && x.PlayerName == game.Player.Name).MaxAsync(x => x.MoveNumber);
+            }  
+            MovesModel movesPlayer = game.SetMovesModelFromGame(lastMove);
+            await _dbActionService.InsertAsync(movesPlayer);
             Task.CompletedTask.Wait();
         }
         catch (Exception)
@@ -122,7 +142,5 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         };
     }
-
-
 }
 

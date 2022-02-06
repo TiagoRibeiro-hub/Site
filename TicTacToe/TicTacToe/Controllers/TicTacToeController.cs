@@ -27,7 +27,7 @@ namespace TicTacToe.Controllers
                     return new ResponseError(ApiSharedFuncs.RequestIsNull);
                 }
 
-                int gameId = await _gameService.RegisterPlayers(request.Content);
+                int gameId = await _gameService.InitializeGameAsync(request.Content);
                 if (gameId < 0)
                 {
                     return new ResponseError(ApiSharedFuncs.SomethingWentWrong);
@@ -65,7 +65,7 @@ namespace TicTacToe.Controllers
                 {
                     return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is against human"));
                 }
-                GameResponse gameResponse = await _gameService.GamePlayed(request.Content);
+                GameResponse gameResponse = await _gameService.GamePlayedAsync(request.Content);
                 return new Response<GameResponse>()
                 {
                     Content = gameResponse,

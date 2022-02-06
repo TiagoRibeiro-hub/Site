@@ -1,8 +1,11 @@
 ﻿namespace TicTacToe;
-
+#nullable disable
 public class Moves
 {
-    public int Move { get; set; }
-    public bool IsfirstMove { get; set; }
+    public string PlayerName { get; set; }
+    public int Move { get; set; } = 0;
+    public int MoveNumber { get; set; } = 0;
+    public bool IsfirstMove { get; set; } = false;
+    public int GameId { get; set; }
     public HashSet<int> ListPlayedMoves { get; set; }
 }
