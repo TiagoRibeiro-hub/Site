@@ -36,7 +36,6 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         }
     }
-
     public async Task<int> InsertInitializeGame(GameModel game, HashSet<Moves> listPlayerMovesInit)
     {
         try

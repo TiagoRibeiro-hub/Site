@@ -44,7 +44,7 @@ public class WinnerService : IWinnerService
             }
             else
             {
-                (winner.GameFinished, winner.State) = WinnerFuncs.IsFinished(game.Player.Moves.ListPlayedMoves.Count());
+                (winner.GameFinished, winner.State) = WinnerFuncs.IsFinished(game.PossibleMoves.Count());
             }
 
             return Task.FromResult(winner);

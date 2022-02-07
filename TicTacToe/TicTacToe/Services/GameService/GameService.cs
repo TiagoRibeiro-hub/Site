@@ -18,27 +18,29 @@ public class GameService : IGameService
         _scoreService = scoreService;
     }
 
-    public async Task<int> InitializeGameAsync(RegisterPlayersRequest registerPlayers)
+    public async Task<GameResponse> InitializeGameAsync(RegisterPlayersRequest registerPlayers)
     {
         try
         {
             Game gamePlayer1 = registerPlayers.GameInit();
             gamePlayer1.Player = registerPlayers.GetPlayersFromPlayersRequestList();
             await _scoreService.TableScoreInitialize(gamePlayer1);
-            int gameId = -1;
+
+            GameResponse gameResponse = GameServiceFuncs.SetPossibleMoves();
+
             if (!registerPlayers.IsComputer)
             {
                 Game gamePlayer2 = registerPlayers.GameInit();
                 gamePlayer2.Player = registerPlayers.GetPlayersFromPlayersRequestList();
                 await _scoreService.TableScoreInitialize(gamePlayer2);
-                gameId = await SetGameAsync(gamePlayer1, gamePlayer2);
+                gameResponse.IdGame = await SetGameAsync(gamePlayer1, gamePlayer2);
             }
             else
             {
-                gameId = await SetGameAsync(gamePlayer1);
+                gameResponse.IdGame = await SetGameAsync(gamePlayer1);
             }
             Task.CompletedTask.Wait();
-            return gameId;
+            return gameResponse;
         }
         catch (Exception ex)
         {
@@ -73,13 +75,16 @@ public class GameService : IGameService
         }
     }
 
+
     public async Task<GameResponse> GamePlayedAsync(GameRequest request)
     {
         try
         {
+            request.PossibleMoves.Remove(request.MovePlayed);
             Game game = new()
             {
                 GameId = request.IdGame,
+                PossibleMoves = request.PossibleMoves,
             };
             game.Player.Name = request.PlayerName;
             game.Player.Moves.IsfirstMove = request.IsFirstMove;
@@ -95,7 +100,7 @@ public class GameService : IGameService
                 await _scoreService.SetScoresTableFinishedGame(winner);
             }
             Task.CompletedTask.Wait();
-            return winner.SetGameResponseFromWinner(game.GameId);
+            return winner.SetGameResponseFromWinner(game.PossibleMoves);
         }
         catch (Exception ex)
         {

@@ -4,7 +4,7 @@ namespace TicTacToeClass;
 
 public static class ResponseExtensions
 {
-    public static GameResponse SetGameResponseFromWinner(this Winner x, int gameId)
+    public static GameResponse SetGameResponseFromWinner(this Winner x, List<int> possibleMoves)
     {
         return new GameResponse()
         {
@@ -13,6 +13,7 @@ public static class ResponseExtensions
             WinnerName = x.WinnerName,
             State = x.State,
             GameFinished = x.GameFinished,
+            PossibleMoves = possibleMoves,
         };
     }
 }

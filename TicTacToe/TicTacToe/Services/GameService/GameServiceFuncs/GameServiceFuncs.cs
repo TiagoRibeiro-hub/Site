@@ -4,7 +4,6 @@ namespace TicTacToe.Services;
 
 public static class GameServiceFuncs
 {
-
     internal static GameModel PlayersNameProp(Game player1, Game player2)
     {
         GameModel gameModel = new()
@@ -62,6 +61,18 @@ public static class GameServiceFuncs
         {
             PlayerName = player,
         };
+    }
+
+    internal static GameResponse SetPossibleMoves()
+    {
+        GameResponse gameResponse = new();
+        List<int> possibleMoves = new();       
+        for (int i = 1; i <= 9; i++)
+        {
+            possibleMoves.Add(i);
+        }
+        gameResponse.PossibleMoves = possibleMoves;
+        return gameResponse;
     }
 }
 

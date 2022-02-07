@@ -8,4 +8,5 @@ public class Game
     public bool Easy { get; set; } = false;
     public bool Intermediate { get; set; } = false;
     public bool Hard { get; set; } = false;
+    public List<int> PossibleMoves { get; set; }
 }

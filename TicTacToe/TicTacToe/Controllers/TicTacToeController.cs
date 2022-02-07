@@ -27,18 +27,15 @@ namespace TicTacToe.Controllers
                     return new ResponseError(ApiSharedFuncs.RequestIsNull);
                 }
 
-                int gameId = await _gameService.InitializeGameAsync(request.Content);
-                if (gameId < 0)
+                GameResponse gameResponse = await _gameService.InitializeGameAsync(request.Content);
+                if (gameResponse.IdGame < 0)
                 {
                     return new ResponseError(ApiSharedFuncs.SomethingWentWrong);
                 }
 
                 return new Response<GameResponse>()
                 {
-                    Content = new GameResponse()
-                    {
-                        IdGame = gameId,
-                    }
+                    Content = gameResponse,
                 };
 
             }
@@ -65,6 +62,15 @@ namespace TicTacToe.Controllers
                 {
                     return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is against human"));
                 }
+                if (request.Content.MovePlayed < 1 || request.Content.MovePlayed > 9)
+                {
+                    return new ResponseError("Possible moves between 1 & 9");
+                }
+                if (request.Content.PossibleMoves.Contains(request.Content.MovePlayed) == false)
+                {
+                    return new ResponseError($"{request.Content.MovePlayed} has already been played");
+                }
+
                 GameResponse gameResponse = await _gameService.GamePlayedAsync(request.Content);
                 return new Response<GameResponse>()
                 {

@@ -3,7 +3,7 @@ public static class WinnerFuncs
 {
     internal static (bool, string) IsFinished(int nrOfplayedMove)
     {
-        if (nrOfplayedMove == 8)
+        if (nrOfplayedMove <= 1)
         {
             return (true, GameState.Tie.ToString());
         }
