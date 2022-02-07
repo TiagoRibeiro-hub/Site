@@ -45,6 +45,7 @@ public class HumanService : IHumanService
             {
                 if(count == 0)
                 {
+                    count += 1;
                     player1 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
                     player1.Victories = item.Victories;
                     player1.Losses = item.Losses;
@@ -52,14 +53,21 @@ public class HumanService : IHumanService
                 }
                 else
                 {
+                    count += 1;
                     player2 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
                     player2.Victories = item.Victories;
                     player2.Losses = item.Losses;
                     player2.Ties = item.Ties;
                 }
-                count += 1;
             }
-            await _dbActionService.UpdateRangeAsync(player1, player2);
+            if(count == 1)
+            {
+                await _dbActionService.UpdateAsync(player1);
+            }
+            else
+            {
+                await _dbActionService.UpdateRangeAsync(player1, player2);
+            }
             Task.CompletedTask.Wait();
         }
         catch (Exception ex)

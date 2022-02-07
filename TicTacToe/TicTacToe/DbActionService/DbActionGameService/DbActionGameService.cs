@@ -90,21 +90,12 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         }
     }
-    public Task<HashSet<TotalGameVsHumanTable>> GetTotalGameVsHumanTable(Winner winner)
+    public async Task<HashSet<TotalGameVsHumanTable>> GetTotalGameVsHumanTable(Winner winner)
     {
         try
         {
-            var players = from scores in _db.ScoresTable
-                          join vsHuman in _db.TotalGamesVsHuman on scores.Id equals vsHuman.ScoreTableId
-                          where scores.PlayerName == winner.PlayerName1 || scores.PlayerName == winner.PlayerName2
-                          select new
-                          {
-                              scores.PlayerName,
-                              vsHuman.ScoreTableId,
-                              vsHuman.Victories,
-                              vsHuman.Losses,
-                              vsHuman.Ties
-                          };
+            TotalGamesVsHumanModel model = new();
+            var players = await _dbActionService.GetTotalGamesVsHumanAsync(winner.PlayerName1, winner.PlayerName2);
 
             if (players is null)
             {
@@ -116,13 +107,13 @@ public class DbActionGameService : IDbActionGameService
             {
                 TotalGameVsHumanTable p = new()
                 {
-                    ScoreTableId = item.ScoreTableId,
                     PlayerName = item.PlayerName,
-                    Victories = item.Victories,
-                    Losses = item.Losses,
-                    Ties = item.Ties,
+                    ScoreTableId = item.TotalGamesVsHuman.ScoreTableId,
+                    Victories = item.TotalGamesVsHuman.Victories,
+                    Losses = item.TotalGamesVsHuman.Losses,
+                    Ties = item.TotalGamesVsHuman.Ties,
                 };
-                if(winner.GameState == GameState.Tie)
+                if(winner.State.ToLower() == GameState.Tie.ToString().ToLower())
                 {
                     p.Ties += 1;
                 }
@@ -140,7 +131,7 @@ public class DbActionGameService : IDbActionGameService
                 playersList.Add(p);
             }
 
-            return Task.FromResult(playersList);
+            return playersList;
         }
         catch (Exception ex)
         {

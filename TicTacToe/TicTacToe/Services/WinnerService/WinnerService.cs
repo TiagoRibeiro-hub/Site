@@ -36,7 +36,6 @@ public class WinnerService : IWinnerService
             game.Player.Moves.ListPlayedMoves.Add(game.Player.Moves.Move);
             winner.HaveWinner = WinnerFuncs.HaveWinnerMethod(game.Player.Moves.ListPlayedMoves);
 
-            winner.HaveWinner = false; ///////////////////
             if (winner.HaveWinner)
             {
                 winner.WinnerName = game.Player.Name;
@@ -47,7 +46,7 @@ public class WinnerService : IWinnerService
             {
                 (winner.GameFinished, winner.State) = WinnerFuncs.IsFinished(game.Player.Moves.ListPlayedMoves.Count());
             }
-            winner.GameFinished = true; winner.State = GameState.Tie.ToString();/////////////////
+
             return Task.FromResult(winner);
         }
         catch (Exception ex)

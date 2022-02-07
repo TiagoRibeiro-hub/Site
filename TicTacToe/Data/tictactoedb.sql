@@ -17,7 +17,13 @@ SELECT * FROM [TicTacToe].[dbo].[TotalGamesEasy]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesIntermediate]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesHard]
 
-Select s.PlayerName, h.Victories, h.Losses, h.Ties
+Select s.PlayerName, 
+		e.StartSecond 'Easy', e.TotalGames 'Easy', 
+		i.StartSecond 'Inter', i.TotalGames 'Inter',
+		x.StartSecond 'Hard', x.TotalGames 'Hard'
 From ScoresTable AS s 
-	inner join TotalGamesVsHuman As h on s.Id = h.ScoreTableId
-where s.PlayerName = 'tiago' or s.PlayerName = 'maria'
+	inner join TotalGamesVsComputer As h on s.Id = h.ScoreTableId
+	inner join TotalGamesEasy As e on h.ScoreTableId = e.TotalGamesVsComputerId
+	inner join TotalGamesIntermediate As i on h.ScoreTableId = i.TotalGamesVsComputerId
+	inner join TotalGamesHard As x on h.ScoreTableId = x.TotalGamesVsComputerId
+where s.PlayerName = 'tiago' 
