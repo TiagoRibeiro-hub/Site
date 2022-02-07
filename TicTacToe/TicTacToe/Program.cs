@@ -18,6 +18,7 @@ builder.Services.AddScoped<IDesignTimeDbContextFactory<TicTacToeDbContext>, TicT
 
 builder.Services.AddScoped<IDbActionService, DbActionService>();
 
+builder.Services.AddScoped<IDbActionScoreTableService, DbActionScoreTableService>();
 builder.Services.AddScoped<IDbActionGameService, DbActionGameService>();
 
 builder.Services.AddScoped<IHumanService, HumanService>();

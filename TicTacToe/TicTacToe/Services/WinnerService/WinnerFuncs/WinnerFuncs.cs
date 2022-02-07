@@ -1,7 +1,7 @@
 ﻿namespace TicTacToe.Services;
 public static class WinnerFuncs
 {
-    public static (bool, string) IsFinished(int nrOfplayedMove)
+    internal static (bool, string) IsFinished(int nrOfplayedMove)
     {
         if (nrOfplayedMove == 8)
         {
@@ -9,7 +9,7 @@ public static class WinnerFuncs
         }
         return (false, GameState.Continue.ToString());
     }
-    public static bool HaveWinnerMethod(HashSet<int> ListMovesPlayer)
+    internal static bool HaveWinnerMethod(HashSet<int> ListMovesPlayer)
     {
 
         if (Diagonal(ListMovesPlayer)) return true;
@@ -18,7 +18,7 @@ public static class WinnerFuncs
 
         return false;
     }
-    private static bool Diagonal(HashSet<int> moves)
+    internal static bool Diagonal(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(5) && moves.Contains(9)) ||
             (moves.Contains(3) && moves.Contains(5) && moves.Contains(7)))
@@ -27,7 +27,7 @@ public static class WinnerFuncs
         }
         return false;
     }
-    private static bool Vertical(HashSet<int> moves)
+    internal static bool Vertical(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(4) && moves.Contains(7)) ||
             (moves.Contains(2) && moves.Contains(5) && moves.Contains(8)) ||
@@ -37,7 +37,7 @@ public static class WinnerFuncs
         }
         return false;
     }
-    private static bool Horizontal(HashSet<int> moves)
+    internal static bool Horizontal(HashSet<int> moves)
     {
         if ((moves.Contains(1) && moves.Contains(2) && moves.Contains(3)) ||
             (moves.Contains(4) && moves.Contains(5) && moves.Contains(6)) ||

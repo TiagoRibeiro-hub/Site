@@ -5,7 +5,7 @@ namespace TicTacToe.Services;
 public static class GameServiceFuncs
 {
 
-    public static GameModel PlayersNameProp(Game player1, Game player2)
+    internal static GameModel PlayersNameProp(Game player1, Game player2)
     {
         GameModel gameModel = new()
         {
@@ -23,7 +23,7 @@ public static class GameServiceFuncs
 
         return gameModel;
     }
-    public static void StartsFirstProp(Game player1, Game player2, GameModel gameModel)
+    internal static void StartsFirstProp(Game player1, Game player2, GameModel gameModel)
     {
         if (!player1.Player.StartFirst)
         {
@@ -41,7 +41,7 @@ public static class GameServiceFuncs
             gameModel.StartFirst = player1.Player.Name;
         }
     }
-    public static void DifficultyProp(Game player1, GameModel gameModel)
+    internal static void DifficultyProp(Game player1, GameModel gameModel)
     {
         if (player1.Easy)
         {
@@ -56,7 +56,7 @@ public static class GameServiceFuncs
             gameModel.Difficulty = Difficulty.Hard.ToString().ToUpper();
         }
     }
-    public static Moves AddMovesInit(string player)
+    internal static Moves AddMovesInit(string player)
     {
         return new Moves()
         {

@@ -5,22 +5,28 @@ namespace TicTacToe.Services;
 public class ScoresService : IScoresService
 {
     private readonly IHumanService _humanService;
-    private readonly IDbActionGameService _dbActionGameService;
     private readonly IComputerService _computerService;
+    private readonly IDbActionService _dbActionService;
+    private readonly IDbActionScoreTableService _dbScoreTableService;
+    private readonly IDbActionGameService _dbActionGameService;
+
     public ScoresService(
-        IHumanService humanService, IDbActionGameService dbActionGameService,
-        IComputerService computerService)
+        IHumanService humanService, IComputerService computerService, 
+        IDbActionService dbActionService, IDbActionScoreTableService dbScoreTableService, 
+        IDbActionGameService dbActionGameService)
     {
         _humanService = humanService;
-        _dbActionGameService = dbActionGameService;
         _computerService = computerService;
+        _dbActionService = dbActionService;
+        _dbScoreTableService = dbScoreTableService;
+        _dbActionGameService = dbActionGameService;
     }
 
     public async Task TableScoreInitialize(Game game)
     {
         try
         {
-            bool isReg = await _dbActionGameService.IsRegisterByPlayerName(game.Player.Name);
+            bool isReg = await _dbScoreTableService.IsRegisterByPlayerName(game.Player.Name);
             if (!isReg)
             {
                 await SetScoresTableAsync(game);
@@ -70,7 +76,7 @@ public class ScoresService : IScoresService
                 _ = game.Player.StartFirst == true ? scoreTable.TotalGamesVsHuman.StartFirst += 1 : scoreTable.TotalGamesVsHuman.StartSecond += 1;
                 scoreTable.TotalGamesVsHuman.TotalGames += 1;
             }
-            await _dbActionGameService.InsertScoresTableAsync(scoreTable);
+            await _dbActionService.InsertAsync(scoreTable);
             Task.CompletedTask.Wait();
         }
         catch (Exception ex)
@@ -82,7 +88,7 @@ public class ScoresService : IScoresService
     {
         try
         {
-            int scoreTableId = await _dbActionGameService.GetScoresTableIdByPlayerNameAsync(game.Player.Name);
+            int scoreTableId = await _dbScoreTableService.GetScoresTableIdByPlayerNameAsync(game.Player.Name);
             if (game.IsComputer)
             {
                 if (game.Easy)
@@ -124,6 +130,8 @@ public class ScoresService : IScoresService
         }
 
     }
+
+    //
     public async Task SetScoresTableFinishedGame(Winner winner)
     {
         try

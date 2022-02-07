@@ -1,26 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicTacToe.Data;
+using TicTacToe.Services;
 using TicTacToeClass;
 
 namespace TicTacToe.DbActionService;
 public class HumanService : IHumanService
 {
-    private readonly IDbActionService _dbActionService;
-    private readonly IDbActionGameService _dbActionGameService;
+    private readonly IDbActionScoreTableService _dbActionScoreTableService;
+    public readonly IDbActionService _dbActionService;
 
-    public HumanService(
-        TicTacToeDbContext db, IDbActionService dbActionService, 
-        IDbActionGameService dbActionGameService)
+    public HumanService(IDbActionScoreTableService dbActionScoreTableService, IDbActionService dbActionService)
     {
+        _dbActionScoreTableService = dbActionScoreTableService;
         _dbActionService = dbActionService;
-        _dbActionGameService = dbActionGameService;
     }
     public async Task<TotalGamesVsHumanModel> GetTotalGamesVsHumanByScoreTableIdAsync(int scoreTableId)
     {
         try
         {
             TotalGamesVsHumanModel totalGamesVsHuman = new();
-            totalGamesVsHuman = (TotalGamesVsHumanModel)await _dbActionService.GetTotalGamesScoreTableIdAsync(totalGamesVsHuman, scoreTableId);
+            totalGamesVsHuman = (TotalGamesVsHumanModel)await _dbActionScoreTableService.GetTotalGamesScoreTableIdAsync(totalGamesVsHuman, scoreTableId);
             if (totalGamesVsHuman is null)
             {
                 throw new Exception();
@@ -32,35 +31,28 @@ public class HumanService : IHumanService
             throw new Exception();
         }
     }
-
     public async Task SetScoresTableFinishedGame(Winner winner)
     {
         try
         {
-            var players = await _dbActionGameService.GetTotalGameVsHumanTable(winner);
+            var players = await _dbActionScoreTableService.GetTotalGamesVsHumanAsync(winner.PlayerName1, winner.PlayerName2);
             TotalGamesVsHumanModel player1 = new();
             TotalGamesVsHumanModel player2 = new();
             int count = 0;
             foreach (var item in players)
             {
-                if(count == 0)
+                if (count == 0)
                 {
                     count += 1;
-                    player1 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
-                    player1.Victories = item.Victories;
-                    player1.Losses = item.Losses;
-                    player1.Ties = item.Ties;
+                    HumanServiceFuncs.SetTotalGamesVsHuman(winner, player1, item);
                 }
                 else
                 {
                     count += 1;
-                    player2 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
-                    player2.Victories = item.Victories;
-                    player2.Losses = item.Losses;
-                    player2.Ties = item.Ties;
+                    HumanServiceFuncs.SetTotalGamesVsHuman(winner, player2, item);
                 }
             }
-            if(count == 1)
+            if (count == 1)
             {
                 await _dbActionService.UpdateAsync(player1);
             }
@@ -75,8 +67,7 @@ public class HumanService : IHumanService
             throw new Exception();
         }
     }
-
-    public async Task UpdateTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel) 
+    public async Task UpdateTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel)
     {
         try
         {
@@ -90,4 +81,3 @@ public class HumanService : IHumanService
     }
 
 }
-

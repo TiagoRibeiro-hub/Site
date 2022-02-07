@@ -13,60 +13,6 @@ public class DbActionGameService : IDbActionGameService
         _dbActionService = dbActionService;
     }
 
-    public async Task<bool> IsRegisterByPlayerName(string playerName)
-    {
-        try
-        {
-            bool isReg = await _db.ScoresTable.AnyAsync(x => x.PlayerName == playerName);
-            if (isReg)
-            {
-                return true;
-            }
-            return false;
-        }
-        catch (Exception)
-        {
-            throw new Exception();
-        }
-    }
-    public async Task<int> GetScoresTableIdByPlayerNameAsync(string playerName)
-    {
-        try
-        {
-            var res = await _db.ScoresTable.Select(x => new
-            {
-                x.Id,
-                x.PlayerName
-            }).Where(x => x.PlayerName == playerName).FirstOrDefaultAsync();
-
-            if (res is null)
-            {
-                throw new Exception();
-            }
-
-            return res.Id;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
-    public async Task<ScoresTableModel> GetScoresTableByPlayerNameAsync(string playerName)
-    {
-        try
-        {
-            var scoresTable = await _db.ScoresTable.FirstOrDefaultAsync(x => x.PlayerName == playerName);
-            if (scoresTable is null)
-            {
-                throw new Exception();
-            }
-            return scoresTable;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
     public async Task<(string, string)> GetPlayersGameByGameIdAsync(int gameId)
     {
         try
@@ -90,68 +36,7 @@ public class DbActionGameService : IDbActionGameService
             throw new Exception();
         }
     }
-    public async Task<HashSet<TotalGameVsHumanTable>> GetTotalGameVsHumanTable(Winner winner)
-    {
-        try
-        {
-            TotalGamesVsHumanModel model = new();
-            var players = await _dbActionService.GetTotalGamesVsHumanAsync(winner.PlayerName1, winner.PlayerName2);
 
-            if (players is null)
-            {
-                throw new Exception();
-            }
-
-            HashSet<TotalGameVsHumanTable> playersList = new();
-            foreach (var item in players)
-            {
-                TotalGameVsHumanTable p = new()
-                {
-                    PlayerName = item.PlayerName,
-                    ScoreTableId = item.TotalGamesVsHuman.ScoreTableId,
-                    Victories = item.TotalGamesVsHuman.Victories,
-                    Losses = item.TotalGamesVsHuman.Losses,
-                    Ties = item.TotalGamesVsHuman.Ties,
-                };
-                if(winner.State.ToLower() == GameState.Tie.ToString().ToLower())
-                {
-                    p.Ties += 1;
-                }
-                else
-                {
-                    if (winner.WinnerName == item.PlayerName)
-                    {
-                        p.Victories += 1;
-                    }
-                    if (winner.LoserName == item.PlayerName)
-                    {
-                        p.Losses += 1;
-                    }
-                }         
-                playersList.Add(p);
-            }
-
-            return playersList;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
-
-
-    public async Task InsertScoresTableAsync(ScoresTableModel scoreTable)
-    {
-        try
-        {
-            await _dbActionService.InsertAsync(scoreTable);
-            Task.CompletedTask.Wait();
-        }
-        catch (Exception)
-        {
-            throw new Exception();
-        }
-    }
     public async Task<int> InsertInitializeGame(GameModel game, HashSet<Moves> listPlayerMovesInit)
     {
         try
@@ -214,3 +99,5 @@ public class DbActionGameService : IDbActionGameService
         };
     }
 }
+
+
