@@ -87,21 +87,24 @@ public class ScoresService : IScoresService
             {
                 if (game.Easy)
                 {
-                    TotalGamesEasyModel vsComputerEasy = await _computerService.GetTotalGamesEasyByScoreTableIdAsync(scoreTableId);
+                    TotalGamesEasyModel vsComputerEasy = new();
+                    vsComputerEasy = (TotalGamesEasyModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerEasy, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
                     vsComputerEasy.TotalGames += 1;
                     await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerEasy);
                 }
                 if (game.Intermediate)
                 {
-                    TotalGamesIntermediateModel vsComputerIntermediate = await _computerService.GetTotalGamesIntermediateByScoreTableIdAsync(scoreTableId);
+                    TotalGamesIntermediateModel vsComputerIntermediate = new();
+                    vsComputerIntermediate = (TotalGamesIntermediateModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerIntermediate, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerIntermediate.StartFirst += 1 : vsComputerIntermediate.StartSecond += 1;
                     vsComputerIntermediate.TotalGames += 1;
                     await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerIntermediate);
                 }
                 if (game.Hard)
                 {
-                    TotalGamesHardModel vsComputerHard = await _computerService.GetTotalGamesHardByScoreTableIdAsync(scoreTableId);
+                    TotalGamesHardModel vsComputerHard = new();
+                    vsComputerHard = (TotalGamesHardModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerHard, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerHard.StartFirst += 1 : vsComputerHard.StartSecond += 1;
                     vsComputerHard.TotalGames += 1;
                     await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerHard);

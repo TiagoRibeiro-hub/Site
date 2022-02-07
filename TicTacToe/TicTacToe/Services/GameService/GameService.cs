@@ -31,11 +31,11 @@ public class GameService : IGameService
                 Game gamePlayer2 = registerPlayers.GameInit();
                 gamePlayer2.Player = registerPlayers.GetPlayersFromPlayersRequestList();
                 await _scoreService.TableScoreInitialize(gamePlayer2);
-                gameId = await InitializeGame(gamePlayer1, gamePlayer2);
+                gameId = await SetGameAsync(gamePlayer1, gamePlayer2);
             }
             else
             {
-                gameId = await InitializeGame(gamePlayer1);
+                gameId = await SetGameAsync(gamePlayer1);
             }
             Task.CompletedTask.Wait();
             return gameId;
@@ -45,7 +45,7 @@ public class GameService : IGameService
             throw new Exception();
         }
     }
-    private async Task<int> InitializeGame(Game player1, Game player2 = null)
+    private async Task<int> SetGameAsync(Game player1, Game player2 = null)
     {
         try
         {

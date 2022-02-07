@@ -5,7 +5,6 @@ using TicTacToeClass;
 namespace TicTacToe.DbActionService;
 public class HumanService : IHumanService
 {
-    private readonly TicTacToeDbContext _db;
     private readonly IDbActionService _dbActionService;
     private readonly IDbActionGameService _dbActionGameService;
 
@@ -13,7 +12,6 @@ public class HumanService : IHumanService
         TicTacToeDbContext db, IDbActionService dbActionService, 
         IDbActionGameService dbActionGameService)
     {
-        _db = db;
         _dbActionService = dbActionService;
         _dbActionGameService = dbActionGameService;
     }
@@ -21,7 +19,8 @@ public class HumanService : IHumanService
     {
         try
         {
-            var totalGamesVsHuman = await _db.TotalGamesVsHuman.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            TotalGamesVsHumanModel totalGamesVsHuman = new();
+            totalGamesVsHuman = (TotalGamesVsHumanModel)await _dbActionService.GetTotalGamesScoreTableIdAsync(totalGamesVsHuman, scoreTableId);
             if (totalGamesVsHuman is null)
             {
                 throw new Exception();
@@ -47,12 +46,16 @@ public class HumanService : IHumanService
                 if(count == 0)
                 {
                     player1 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
-                    SetQualifications(player1, item);
+                    player1.Victories = item.Victories;
+                    player1.Losses = item.Losses;
+                    player1.Ties = item.Ties;
                 }
                 else
                 {
                     player2 = await GetTotalGamesVsHumanByScoreTableIdAsync(item.ScoreTableId);
-                    SetQualifications(player2, item);
+                    player2.Victories = item.Victories;
+                    player2.Losses = item.Losses;
+                    player2.Ties = item.Ties;
                 }
                 count += 1;
             }
@@ -63,13 +66,6 @@ public class HumanService : IHumanService
         {
             throw new Exception();
         }
-    }
-
-    private static void SetQualifications(TotalGamesVsHumanModel player1, TotalGameVsHumanTable item)
-    {
-        player1.Victories = item.Victories;
-        player1.Losses = item.Losses;
-        player1.Ties = item.Ties;
     }
 
     public async Task UpdateTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel) 

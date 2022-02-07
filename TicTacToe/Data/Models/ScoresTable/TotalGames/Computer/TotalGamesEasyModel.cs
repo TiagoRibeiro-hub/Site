@@ -11,4 +11,5 @@ public class TotalGamesEasyModel
     public int Ties { get; set; } = 0;
     public TotalGamesVsComputerModel TotalGamesVsComputer { get; set; }
     public int TotalGamesVsComputerId { get; set; }
+
 }
