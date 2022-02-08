@@ -24,6 +24,12 @@ public static class ComputerServiceFuncs
 
         return move;
     }
+    public static int GetRandomMove(List<int> possibleMoves)
+    {
+        var random = new Random();
+        int index = random.Next(possibleMoves.Count);
+        return possibleMoves[index];
+    }
     private static int HorizontalRtoL(HashSet<int> possibleMoves, HashSet<int> opponentMoves)
     {
         if (opponentMoves.Contains(1) && opponentMoves.Contains(2))

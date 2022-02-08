@@ -89,7 +89,7 @@ namespace TicTacToe.Controllers
         [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> GamePlayComputer([FromBody] Request<GameRequest> request)
+        public async Task<Response> GamePlayComputer([FromBody] Request<GameComputerRequest> request)
         {
             try
             {

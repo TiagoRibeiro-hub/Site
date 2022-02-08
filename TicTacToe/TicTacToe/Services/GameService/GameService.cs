@@ -115,7 +115,7 @@ public class GameService : IGameService
         return winner;
     }
 
-    public async Task<GameResponse> GamePlayedAiAsync(GameRequest request)
+    public async Task<GameResponse> GamePlayedAiAsync(GameComputerRequest request)
     {
         try
         {
@@ -128,7 +128,7 @@ public class GameService : IGameService
 
             if (request.Difficulty.ToLower() == Difficulty.Easy.ToString().ToLower())
             {
-                game.Player.Moves.Move = await _computerService.GetEasyPlayedMoveAsync(game.PossibleMoves);
+                game.Player.Moves.Move = await _computerService.GetEasyPlayedMoveAsync(game);
             }
             if (request.Difficulty.ToLower() == Difficulty.Intermediate.ToString().ToLower())
             {

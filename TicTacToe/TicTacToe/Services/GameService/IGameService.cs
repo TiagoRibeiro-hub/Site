@@ -4,6 +4,6 @@
     {
         Task<GameResponse> InitializeGameAsync(RegisterPlayersRequest registerPlayers);
         Task<GameResponse> GamePlayedAsync(GameRequest game);
-        Task<GameResponse> GamePlayedAiAsync(GameRequest game);
+        Task<GameResponse> GamePlayedAiAsync(GameComputerRequest game);
     }
 }

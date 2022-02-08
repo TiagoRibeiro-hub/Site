@@ -13,28 +13,15 @@ public class ComputerService : IComputerService
         _db = db;
     }
 
-    public Task<int> GetEasyPlayedMoveAsync(List<int> possibleMoves)
+    public Task<int> GetEasyPlayedMoveAsync(Game game)
     {
         try
         {
-            var random = new Random();
-            int index = random.Next(possibleMoves.Count);
-            return Task.FromResult(possibleMoves[index]);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
-    public Task<int> GetIntermediatePlayedMoveAsync(Game game)
-    {
-        try
-        {
-            if(game.PossibleMoves.Count == 9)
+            if (game.PossibleMoves.Count == 9)
             {
                 return Task.FromResult(5);
             }
-            if(game.PossibleMoves.Count == 8)
+            if (game.PossibleMoves.Count == 8)
             {
                 if (game.PossibleMoves.Contains(5))
                 {
@@ -42,7 +29,7 @@ public class ComputerService : IComputerService
                 }
                 else
                 {
-                    return GetEasyPlayedMoveAsync(game.PossibleMoves);
+                    return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves));
                 }
             }
             if (game.PossibleMoves.Count <= 7)
@@ -62,7 +49,7 @@ public class ComputerService : IComputerService
                         throw new Exception();
                     }
                     int move = ComputerServiceFuncs.GetMove(game.PossibleMoves.ToHashSet(), opponentMoves);
-                    if(move != 0)
+                    if (move != 0)
                     {
                         return Task.FromResult(move);
                     }
@@ -73,13 +60,52 @@ public class ComputerService : IComputerService
                 }
 
             }
-            return GetEasyPlayedMoveAsync(game.PossibleMoves);
+            return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves));
         }
         catch (Exception ex)
         {
             throw new Exception();
         }
     }
+
+    
+    public Task<int> GetIntermediatePlayedMoveAsync(Game game)
+    {
+        try
+        {
+            MinimaxMoves human = new();
+            MinimaxMoves computer = new();
+            // Turn
+            MinimaxFuncs.ChangeTurn(game.PossibleMoves.ToHashSet(), human, computer);
+            // Copy the current game
+            HashSet<int> possibleMovesCopy = MinimaxFuncs.CopyPossibleMoves(game.PossibleMoves.ToHashSet());
+            // List played moves both players
+            var isAny = _db.Moves.Select(x => new
+            {
+                x.GameId,
+                x.Move,
+                x.PlayerName
+            }).Where(x => x.GameId == game.GameId).ToHashSet();
+            if (isAny.Any())
+            {
+                (human.ListPlayedMoves, computer.ListPlayedMoves) = MinimaxFuncs.GetPlayedMoves(isAny, game.Player.Name);
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+            return Task.FromResult(0);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+   
+
+
+
     public Task<int> GetHardPlayedMoveAsync(Game game)
     {
         try
