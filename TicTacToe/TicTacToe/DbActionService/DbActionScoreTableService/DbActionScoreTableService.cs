@@ -50,7 +50,7 @@ public class DbActionScoreTableService : IDbActionScoreTableService
             throw new Exception();
         }
     }
-    public async Task<object> GetTotalGamesScoreTableIdAsync<TEntity>(TEntity entity, int scoreTableId) where TEntity : class
+    public async Task<object> GetTotalGamesByScoreTableIdAsync<TEntity>(TEntity entity, int scoreTableId) where TEntity : class
     {
         try
         {

@@ -8,14 +8,16 @@ public class GameService : IGameService
     private readonly IWinnerService _winnerService;
     private readonly IDbActionGameService _dbActionGameService;
     private readonly IScoresService _scoreService;
+    private readonly IComputerService _computerService;
 
     public GameService(
         IWinnerService winnerService, IDbActionGameService dbActionGameService,
-        IScoresService scoreService)
+        IScoresService scoreService, IComputerService computerService)
     {
         _winnerService = winnerService;
         _dbActionGameService = dbActionGameService;
         _scoreService = scoreService;
+        _computerService = computerService;
     }
 
     public async Task<GameResponse> InitializeGameAsync(RegisterPlayersRequest registerPlayers)
@@ -75,7 +77,6 @@ public class GameService : IGameService
         }
     }
 
-
     public async Task<GameResponse> GamePlayedAsync(GameRequest request)
     {
         try
@@ -88,16 +89,7 @@ public class GameService : IGameService
             };
             game.Player.Name = request.PlayerName;
             game.Player.Moves.Move = request.MovePlayed;
-            var resPlayerList = _winnerService.GetListMovesAsync(game);
-            var resRegMove = _dbActionGameService.RegisterMove(game);
-            game.Player.Moves.ListPlayedMoves = await resPlayerList;
-            var resWinner = _winnerService.GetWinnerAsync(game);
-            await resRegMove;
-            Winner winner = await resWinner;
-            if (winner.GameFinished)
-            {
-                await _scoreService.SetScoresTableFinishedGame(winner);
-            }
+            Winner winner = await GetWinner(game);
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.PossibleMoves);
         }
@@ -106,5 +98,53 @@ public class GameService : IGameService
             throw new Exception();
         }
     }
-}
+    private async Task<Winner> GetWinner(Game game)
+    {
+        var resPlayerList = _winnerService.GetListMovesAsync(game);
+        var resRegMove = _dbActionGameService.RegisterMove(game);
+        game.Player.Moves.ListPlayedMoves = await resPlayerList;
+        var resWinner = _winnerService.GetWinnerAsync(game);
+        await resRegMove;
+        Winner winner = await resWinner;
+        if (winner.GameFinished)
+        {
+            await _scoreService.SetScoresTableFinishedGame(winner);
+        }
 
+        return winner;
+    }
+
+    public async Task<GameResponse> GamePlayedAiAsync(GameRequest request)
+    {
+        try
+        {
+            Game game = new()
+            {
+                GameId = request.IdGame,
+                PossibleMoves = request.PossibleMoves,
+            };
+            game.Player.Name = Computer.Name;
+
+            if (request.Difficulty.ToLower() == Difficulty.Easy.ToString().ToLower())
+            {
+                await _computerService.GetEasyPlayedMoveAsync(game.PossibleMoves);
+            }
+            if (request.Difficulty.ToLower() == Difficulty.Intermediate.ToString().ToLower())
+            {
+                await _computerService.GetIntermediatePlayedMoveAsync(game.PossibleMoves);
+            }
+            if (request.Difficulty.ToLower() == Difficulty.Hard.ToString().ToLower())
+            {
+                await _computerService.GetHardPlayedMoveAsync(game.PossibleMoves);
+            }
+            Winner winner = await GetWinner(game);
+            Task.CompletedTask.Wait();
+            return winner.SetGameResponseFromWinner(game.PossibleMoves);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+
+}

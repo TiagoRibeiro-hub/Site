@@ -60,7 +60,7 @@ namespace TicTacToe.Controllers
                 }
                 if (request.Content.IsComputer)
                 {
-                    return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is against human"));
+                    return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the human player"));
                 }
                 if (request.Content.MovePlayed < 1 || request.Content.MovePlayed > 9)
                 {
@@ -91,7 +91,29 @@ namespace TicTacToe.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
         public async Task<Response> GamePlayComputer([FromBody] Request<GameRequest> request)
         {
-            return new Response();
+            try
+            {
+                if (request.Content is null)
+                {
+                    return new ResponseError(ApiSharedFuncs.RequestIsNull);
+                }
+                if (!request.Content.IsComputer)
+                {
+                    return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the computer player"));
+                }
+
+                GameResponse gameResponse = await _gameService.GamePlayedAiAsync(request.Content);
+                return new Response<GameResponse>()
+                {
+                    Content = gameResponse,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                HashSet<string> errors = ApiSharedFuncs.GetListErrord(ex);
+                return new ResponseErrorException(errors, ex.InnerException.ToString());
+            }
         }
 
     }

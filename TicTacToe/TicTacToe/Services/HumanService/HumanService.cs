@@ -14,23 +14,6 @@ public class HumanService : IHumanService
         _dbActionScoreTableService = dbActionScoreTableService;
         _dbActionService = dbActionService;
     }
-    public async Task<TotalGamesVsHumanModel> GetTotalGamesVsHumanByScoreTableIdAsync(int scoreTableId)
-    {
-        try
-        {
-            TotalGamesVsHumanModel totalGamesVsHuman = new();
-            totalGamesVsHuman = (TotalGamesVsHumanModel)await _dbActionScoreTableService.GetTotalGamesScoreTableIdAsync(totalGamesVsHuman, scoreTableId);
-            if (totalGamesVsHuman is null)
-            {
-                throw new Exception();
-            }
-            return totalGamesVsHuman;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
     public async Task SetScoresTableFinishedGame(Winner winner)
     {
         try
@@ -63,18 +46,6 @@ public class HumanService : IHumanService
             Task.CompletedTask.Wait();
         }
         catch (Exception ex)
-        {
-            throw new Exception();
-        }
-    }
-    public async Task UpdateTotalGamesVsHumanAsync(TotalGamesVsHumanModel totalGamesVsHumanModel)
-    {
-        try
-        {
-            await _dbActionService.UpdateAsync(totalGamesVsHumanModel);
-            Task.CompletedTask.Wait();
-        }
-        catch (Exception)
         {
             throw new Exception();
         }

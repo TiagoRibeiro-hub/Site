@@ -3,9 +3,9 @@
 namespace TicTacToe.Services;
 public interface IComputerService
 {
-    Task UpdateTotalGamesVsComputerAsync<TEntity>(TEntity entity) where TEntity : class;
-
-    Task<object> GetTotalGamesScoreTableIdAsync<TEntity>(TEntity entity, int scoreTableId) where TEntity : class;
+    Task<int> GetEasyPlayedMoveAsync(List<int> possibleMoves);
+    Task<int> GetIntermediatePlayedMoveAsync(List<int> possibleMoves);
+    Task<int> GetHardPlayedMoveAsync(List<int> possibleMoves);
 
 }
 

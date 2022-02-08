@@ -5,20 +5,18 @@ namespace TicTacToe.Services;
 public class ScoresService : IScoresService
 {
     private readonly IHumanService _humanService;
-    private readonly IComputerService _computerService;
     private readonly IDbActionService _dbActionService;
-    private readonly IDbActionScoreTableService _dbScoreTableService;
+    private readonly IDbActionScoreTableService _dbActionScoreTableService;
     private readonly IDbActionGameService _dbActionGameService;
 
     public ScoresService(
-        IHumanService humanService, IComputerService computerService, 
-        IDbActionService dbActionService, IDbActionScoreTableService dbScoreTableService, 
+        IHumanService humanService, 
+        IDbActionService dbActionService, IDbActionScoreTableService dbActionScoreTableService, 
         IDbActionGameService dbActionGameService)
     {
         _humanService = humanService;
-        _computerService = computerService;
         _dbActionService = dbActionService;
-        _dbScoreTableService = dbScoreTableService;
+        _dbActionScoreTableService = dbActionScoreTableService;
         _dbActionGameService = dbActionGameService;
     }
 
@@ -26,7 +24,7 @@ public class ScoresService : IScoresService
     {
         try
         {
-            bool isReg = await _dbScoreTableService.IsRegisterByPlayerName(game.Player.Name);
+            bool isReg = await _dbActionScoreTableService.IsRegisterByPlayerName(game.Player.Name);
             if (!isReg)
             {
                 await SetScoresTableAsync(game);
@@ -88,39 +86,40 @@ public class ScoresService : IScoresService
     {
         try
         {
-            int scoreTableId = await _dbScoreTableService.GetScoresTableIdByPlayerNameAsync(game.Player.Name);
+            int scoreTableId = await _dbActionScoreTableService.GetScoresTableIdByPlayerNameAsync(game.Player.Name);
             if (game.IsComputer)
             {
                 if (game.Easy)
                 {
                     TotalGamesEasyModel vsComputerEasy = new();
-                    vsComputerEasy = (TotalGamesEasyModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerEasy, scoreTableId);
+                    vsComputerEasy = (TotalGamesEasyModel)await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync(vsComputerEasy, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
                     vsComputerEasy.TotalGames += 1;
-                    await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerEasy);
+                    await _dbActionService.UpdateAsync(vsComputerEasy);
                 }
                 if (game.Intermediate)
                 {
                     TotalGamesIntermediateModel vsComputerIntermediate = new();
-                    vsComputerIntermediate = (TotalGamesIntermediateModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerIntermediate, scoreTableId);
+                    vsComputerIntermediate = (TotalGamesIntermediateModel)await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync(vsComputerIntermediate, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerIntermediate.StartFirst += 1 : vsComputerIntermediate.StartSecond += 1;
                     vsComputerIntermediate.TotalGames += 1;
-                    await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerIntermediate);
+                    await _dbActionService.UpdateAsync(vsComputerIntermediate);
                 }
                 if (game.Hard)
                 {
                     TotalGamesHardModel vsComputerHard = new();
-                    vsComputerHard = (TotalGamesHardModel)await _computerService.GetTotalGamesScoreTableIdAsync(vsComputerHard, scoreTableId);
+                    vsComputerHard = (TotalGamesHardModel)await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync(vsComputerHard, scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerHard.StartFirst += 1 : vsComputerHard.StartSecond += 1;
                     vsComputerHard.TotalGames += 1;
-                    await _computerService.UpdateTotalGamesVsComputerAsync(vsComputerHard);
+                    await _dbActionService.UpdateAsync(vsComputerHard);
                 }
             }
             else
             {
-                TotalGamesVsHumanModel vsHumanModel = await _humanService.GetTotalGamesVsHumanByScoreTableIdAsync(scoreTableId);
+                TotalGamesVsHumanModel vsHumanModel = new();
+                vsHumanModel = (TotalGamesVsHumanModel)await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync(vsHumanModel, scoreTableId);
                 _ = game.Player.StartFirst == true ? vsHumanModel.StartFirst += 1 : vsHumanModel.StartSecond += 1;
-                await _humanService.UpdateTotalGamesVsHumanAsync(vsHumanModel);
+                await _dbActionService.UpdateAsync(vsHumanModel);
             }
             Task.CompletedTask.Wait();
         }
@@ -131,7 +130,6 @@ public class ScoresService : IScoresService
 
     }
 
-    //
     public async Task SetScoresTableFinishedGame(Winner winner)
     {
         try

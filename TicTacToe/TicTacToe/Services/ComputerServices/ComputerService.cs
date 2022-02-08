@@ -5,42 +5,47 @@ using TicTacToe.DbActionService;
 namespace TicTacToe.Services;
 public class ComputerService : IComputerService
 {
-    private readonly IDbActionScoreTableService _dbActionScoreTableService;
     public readonly IDbActionService _dbActionService;
-    public ComputerService(IDbActionScoreTableService dbActionScoreTableService, IDbActionService dbActionService)
+    public ComputerService(IDbActionService dbActionService)
     {
-        _dbActionScoreTableService = dbActionScoreTableService;
         _dbActionService = dbActionService;
     }
 
-    public async Task<object> GetTotalGamesScoreTableIdAsync<TEntity>(TEntity entity, int scoreTableId) where TEntity : class
+    public Task<int> GetEasyPlayedMoveAsync(List<int> possibleMoves)
     {
         try
         {
-            object result = new();
-            result = await _dbActionScoreTableService.GetTotalGamesScoreTableIdAsync(entity, scoreTableId);
-            if(result is null)
-            {
-                throw new Exception();
-            }
-            return result;
+            return Task.FromResult(0);
         }
         catch (Exception ex)
         {
             throw new Exception();
         }
     }
-    public async Task UpdateTotalGamesVsComputerAsync<TEntity>(TEntity entity) where TEntity : class
+
+    public Task<int> GetIntermediatePlayedMoveAsync(List<int> possibleMoves)
     {
         try
         {
-            await _dbActionService.UpdateAsync(entity);
-            Task.CompletedTask.Wait();
+            return Task.FromResult(0);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             throw new Exception();
         }
     }
+
+    public Task<int> GetHardPlayedMoveAsync(List<int> possibleMoves)
+    {
+        try
+        {
+            return Task.FromResult(0);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception();
+        }
+    }
+
 }
 
