@@ -77,16 +77,15 @@ public class DbActionGameService : IDbActionGameService
     {
         try
         {
-            var isAny = await _db.Moves.AnyAsync(x => x.Id == game.GameId);
-            int lastMove = 0;
-            if (isAny)
+            var isAny = _db.Moves.Select(x => new
             {
-                lastMove = await _db.Moves.Select(x => new
-                {
-                    x.Id,
-                    x.PlayerName,
-                    x.MoveNumber
-                }).Where(x => x.Id == game.GameId && x.PlayerName == game.Player.Name).MaxAsync(x => x.MoveNumber);
+                x.GameId,
+                x.MoveNumber
+            }).Where(x => x.GameId == game.GameId).ToHashSet();
+            int lastMove = 0;
+            if (isAny.Any())
+            {
+                lastMove = isAny.Max(x => x.MoveNumber);
             }
             MovesModel movesPlayer = game.SetMovesModelFromGame(lastMove);
             await _dbActionService.InsertAsync(movesPlayer);

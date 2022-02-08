@@ -2,7 +2,7 @@
 using TicTacToe.Data;
 
 namespace TicTacToe.DbActionService;
-
+#nullable disable
 public class DbActionScoreTableService : IDbActionScoreTableService
 {
     private readonly TicTacToeDbContext _db;

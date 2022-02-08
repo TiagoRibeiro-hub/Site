@@ -87,7 +87,6 @@ public class GameService : IGameService
                 PossibleMoves = request.PossibleMoves,
             };
             game.Player.Name = request.PlayerName;
-            game.Player.Moves.IsfirstMove = request.IsFirstMove;
             game.Player.Moves.Move = request.MovePlayed;
             var resPlayerList = _winnerService.GetListMovesAsync(game);
             var resRegMove = _dbActionGameService.RegisterMove(game);

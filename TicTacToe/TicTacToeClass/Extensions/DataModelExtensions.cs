@@ -23,16 +23,8 @@ public static class DataModelExtensions
             GameId = x.GameId,
             PlayerName = x.Player.Name,
             Move = x.Player.Moves.Move,
+            MoveNumber = lastMove + 1
         };
-
-        if (x.Player.Moves.IsfirstMove)
-        {
-            moves.MoveNumber = 1;
-        }
-        else
-        {
-            moves.MoveNumber = lastMove + 1;
-        }
         return moves.SetMovesModelFromMoves();
     }
 }
