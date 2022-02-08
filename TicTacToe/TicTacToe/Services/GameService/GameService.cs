@@ -35,11 +35,11 @@ public class GameService : IGameService
                 Game gamePlayer2 = registerPlayers.GameInit();
                 gamePlayer2.Player = registerPlayers.GetPlayersFromPlayersRequestList();
                 await _scoreService.TableScoreInitialize(gamePlayer2);
-                gameResponse.IdGame = await SetGameAsync(gamePlayer1, gamePlayer2);
+                (gameResponse.IdGame, gameResponse.Difficulty) = await SetGameAsync(gamePlayer1, gamePlayer2);
             }
             else
             {
-                gameResponse.IdGame = await SetGameAsync(gamePlayer1);
+                (gameResponse.IdGame, gameResponse.Difficulty) = await SetGameAsync(gamePlayer1);
             }
             Task.CompletedTask.Wait();
             return gameResponse;
@@ -49,7 +49,7 @@ public class GameService : IGameService
             throw new Exception();
         }
     }
-    private async Task<int> SetGameAsync(Game player1, Game player2 = null)
+    private async Task<(int, string)> SetGameAsync(Game player1, Game player2 = null)
     {
         try
         {
@@ -69,7 +69,7 @@ public class GameService : IGameService
 
             int gameId = await _dbActionGameService.InsertInitializeGame(gameModel, listPlayerMovesInit);
             Task.CompletedTask.Wait();
-            return gameId;
+            return (gameId, gameModel.Difficulty);
         }
         catch (Exception ex)
         {
@@ -86,6 +86,7 @@ public class GameService : IGameService
             {
                 GameId = request.IdGame,
                 PossibleMoves = request.PossibleMoves,
+                Difficulty = request.Difficulty,
             };
             game.Player.Name = request.PlayerName;
             game.Player.Moves.Move = request.MovePlayed;

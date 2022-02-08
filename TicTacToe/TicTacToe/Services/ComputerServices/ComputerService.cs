@@ -51,12 +51,12 @@ public class ComputerService : IComputerService
                 var isAny = _db.Moves.Select(x => new
                 {
                     x.GameId,
-                    x.MoveNumber,
+                    x.Move,
                     x.PlayerName
                 }).Where(x => x.GameId == game.GameId && x.PlayerName != game.Player.Name).ToHashSet();
                 if (isAny.Any())
                 {
-                    opponentMoves = isAny.Select(x => x.MoveNumber).ToHashSet();
+                    opponentMoves = isAny.Select(x => x.Move).ToHashSet();
                     if (!opponentMoves.Any())
                     {
                         throw new Exception();

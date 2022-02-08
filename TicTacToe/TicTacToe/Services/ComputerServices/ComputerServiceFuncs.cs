@@ -3,37 +3,25 @@ public static class ComputerServiceFuncs
 {
     public static int GetMove(HashSet<int> possibleMoves, HashSet<int> opponentMoves)
     {
-        var random = new Random();
-        int count = 5, move = 0;
-        do
+        int move = 0;
+        move = HorizontalRtoL(possibleMoves, opponentMoves);
+        if (move == 0)
         {
-            int x = random.Next(count);
-            count -= 1;
-            if (x == 1)
-            {
-                move = HorizontalRtoL(possibleMoves, opponentMoves);
-            }
-            if (x == 2)
-            {
-                move = HorizontalLtoR(possibleMoves, opponentMoves);
-            }
-            if (x == 3)
+            move = HorizontalLtoR(possibleMoves, opponentMoves);
+            if (move == 0)
             {
                 move = VerticalUtoD(possibleMoves, opponentMoves);
+                if (move == 0)
+                {
+                    move = VerticalDtoU(possibleMoves, opponentMoves);
+                    if (move == 0)
+                    {
+                        move = Diagonal(possibleMoves, opponentMoves);
+                    }
+                }
             }
-            if (x == 4)
-            {
-                move = VerticalDtoU(possibleMoves, opponentMoves);
-            }
-            if (x == 5)
-            {
-                move = Diagonal(possibleMoves, opponentMoves);
-            }
-            if (move != 0 || count == 0)
-            {
-                break;
-            }
-        } while (true);
+        }
+
         return move;
     }
     private static int HorizontalRtoL(HashSet<int> possibleMoves, HashSet<int> opponentMoves)
