@@ -127,16 +127,18 @@ public class GameService : IGameService
 
             if (request.Difficulty.ToLower() == Difficulty.Easy.ToString().ToLower())
             {
-                await _computerService.GetEasyPlayedMoveAsync(game.PossibleMoves);
+                game.Player.Moves.Move = await _computerService.GetEasyPlayedMoveAsync(game.PossibleMoves);
             }
             if (request.Difficulty.ToLower() == Difficulty.Intermediate.ToString().ToLower())
             {
-                await _computerService.GetIntermediatePlayedMoveAsync(game.PossibleMoves);
+                game.Player.Moves.Move = await _computerService.GetIntermediatePlayedMoveAsync(game);
             }
             if (request.Difficulty.ToLower() == Difficulty.Hard.ToString().ToLower())
             {
-                await _computerService.GetHardPlayedMoveAsync(game.PossibleMoves);
+                game.Player.Moves.Move = await _computerService.GetHardPlayedMoveAsync(game);
             }
+
+            game.PossibleMoves.Remove(game.Player.Moves.Move);
             Winner winner = await GetWinner(game);
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.PossibleMoves);
