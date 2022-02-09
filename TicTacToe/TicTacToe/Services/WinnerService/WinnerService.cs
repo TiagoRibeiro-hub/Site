@@ -17,9 +17,9 @@ public class WinnerService : IWinnerService
         {
             x.GameId,
             x.PlayerName,
-            x.Move
+            x.MoveTo
         }).Where(x => x.GameId == game.GameId && x.PlayerName == game.Player.Name)
-        .Select(x => x.Move).ToHashSet();
+        .Select(x => int.Parse(x.MoveTo)).ToHashSet();
 
         if(playerMoves is null)
         {
@@ -33,7 +33,7 @@ public class WinnerService : IWinnerService
         {
             Winner winner = new();
             winner.GameId = game.GameId;
-            game.Player.Moves.ListPlayedMoves.Add(game.Player.Moves.Move);
+            game.Player.Moves.ListPlayedMoves.Add(int.Parse(game.Player.Moves.MoveTo));
             winner.HaveWinner = WinnerFuncs.HaveWinnerMethod(game.Player.Moves.ListPlayedMoves);
 
             if (winner.HaveWinner)

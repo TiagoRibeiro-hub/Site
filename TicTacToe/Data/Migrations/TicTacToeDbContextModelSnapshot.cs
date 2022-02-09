@@ -73,11 +73,15 @@ namespace Data.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Move")
-                        .HasColumnType("int");
+                    b.Property<string>("MoveFrom")
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<int>("MoveNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("MoveTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()

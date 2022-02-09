@@ -11,7 +11,7 @@ public static class DataModelExtensions
         {
             PlayerName = x.PlayerName,
             GameId = x.GameId,
-            Move = x.Move,
+            MoveTo = x.MoveTo,
             MoveNumber = x.MoveNumber,
         };
     }
@@ -22,7 +22,7 @@ public static class DataModelExtensions
         {
             GameId = x.GameId,
             PlayerName = x.Player.Name,
-            Move = x.Player.Moves.Move,
+            MoveTo = x.Player.Moves.MoveTo,
             MoveNumber = lastMove + 1
         };
         return moves.SetMovesModelFromMoves();

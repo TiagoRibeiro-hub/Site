@@ -3,9 +3,9 @@
 namespace TicTacToe.Services;
 public interface IComputerService
 {
-    Task<int> GetEasyPlayedMoveAsync(Game game);
-    Task<int> GetIntermediatePlayedMoveAsync(Game game);
-    Task<int> GetHardPlayedMoveAsync(Game game);
+    Task<string> GetEasyPlayedMoveAsync(Game game);
+    Task<string> GetIntermediatePlayedMoveAsync(Game game);
+    Task<string> GetHardPlayedMoveAsync(Game game);
 
 }
 

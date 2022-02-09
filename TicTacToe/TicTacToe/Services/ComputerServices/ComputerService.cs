@@ -13,23 +13,23 @@ public class ComputerService : IComputerService
         _db = db;
     }
 
-    public Task<int> GetEasyPlayedMoveAsync(Game game)
+    public Task<string> GetEasyPlayedMoveAsync(Game game)
     {
         try
         {
             if (game.PossibleMoves.Count == 9)
             {
-                return Task.FromResult(5);
+                return Task.FromResult("5");
             }
             if (game.PossibleMoves.Count == 8)
             {
                 if (game.PossibleMoves.Contains(5))
                 {
-                    return Task.FromResult(5);
+                    return Task.FromResult("5");
                 }
                 else
                 {
-                    return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves));
+                    return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves).ToString());
                 }
             }
             if (game.PossibleMoves.Count <= 7)
@@ -38,12 +38,12 @@ public class ComputerService : IComputerService
                 var isAny = _db.Moves.Select(x => new
                 {
                     x.GameId,
-                    x.Move,
+                    x.MoveTo,
                     x.PlayerName
                 }).Where(x => x.GameId == game.GameId && x.PlayerName != game.Player.Name).ToHashSet();
                 if (isAny.Any())
                 {
-                    opponentMoves = isAny.Select(x => x.Move).ToHashSet();
+                    opponentMoves = isAny.Select(x => int.Parse(x.MoveTo)).ToHashSet();
                     if (!opponentMoves.Any())
                     {
                         throw new Exception();
@@ -51,7 +51,7 @@ public class ComputerService : IComputerService
                     int move = ComputerServiceFuncs.GetMove(game.PossibleMoves.ToHashSet(), opponentMoves);
                     if (move != 0)
                     {
-                        return Task.FromResult(move);
+                        return Task.FromResult(move.ToString());
                     }
                 }
                 else
@@ -60,7 +60,7 @@ public class ComputerService : IComputerService
                 }
 
             }
-            return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves));
+            return Task.FromResult(ComputerServiceFuncs.GetRandomMove(game.PossibleMoves).ToString());
         }
         catch (Exception ex)
         {
@@ -69,7 +69,7 @@ public class ComputerService : IComputerService
     }
 
     
-    public Task<int> GetIntermediatePlayedMoveAsync(Game game)
+    public Task<string> GetIntermediatePlayedMoveAsync(Game game)
     {
         try
         {
@@ -83,7 +83,7 @@ public class ComputerService : IComputerService
             var isAny = _db.Moves.Select(x => new
             {
                 x.GameId,
-                x.Move,
+                x.MoveTo,
                 x.PlayerName
             }).Where(x => x.GameId == game.GameId).ToHashSet();
             if (isAny.Any())
@@ -95,7 +95,12 @@ public class ComputerService : IComputerService
                 throw new Exception();
             }
 
-            return Task.FromResult(0);
+
+
+
+
+
+            return Task.FromResult("0");
         }
         catch (Exception ex)
         {
@@ -106,11 +111,11 @@ public class ComputerService : IComputerService
 
 
 
-    public Task<int> GetHardPlayedMoveAsync(Game game)
+    public Task<string> GetHardPlayedMoveAsync(Game game)
     {
         try
         {
-            return Task.FromResult(0);
+            return Task.FromResult("0");
         }
         catch (Exception ex)
         {

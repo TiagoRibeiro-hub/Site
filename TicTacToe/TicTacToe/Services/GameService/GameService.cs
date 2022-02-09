@@ -20,6 +20,7 @@ public class GameService : IGameService
         _computerService = computerService;
     }
 
+
     public async Task<GameResponse> InitializeGameAsync(RegisterPlayersRequest registerPlayers)
     {
         try
@@ -46,7 +47,7 @@ public class GameService : IGameService
         }
         catch (Exception ex)
         {
-            throw new Exception();
+            throw ex;
         }
     }
     private async Task<(int, string)> SetGameAsync(Game player1, Game player2 = null)
@@ -73,7 +74,7 @@ public class GameService : IGameService
         }
         catch (Exception ex)
         {
-            throw new Exception();
+            throw ex;
         }
     }
 
@@ -89,14 +90,14 @@ public class GameService : IGameService
                 Difficulty = request.Difficulty,
             };
             game.Player.Name = request.PlayerName;
-            game.Player.Moves.Move = request.MovePlayed;
+            game.Player.Moves.MoveTo = request.MovePlayed.ToString();
             Winner winner = await GetWinner(game);
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.PossibleMoves);
         }
         catch (Exception ex)
         {
-            throw new Exception();
+            throw ex;
         }
     }
     private async Task<Winner> GetWinner(Game game)
@@ -128,26 +129,25 @@ public class GameService : IGameService
 
             if (request.Difficulty.ToLower() == Difficulty.Easy.ToString().ToLower())
             {
-                game.Player.Moves.Move = await _computerService.GetEasyPlayedMoveAsync(game);
+                game.Player.Moves.MoveTo = await _computerService.GetEasyPlayedMoveAsync(game);
             }
             if (request.Difficulty.ToLower() == Difficulty.Intermediate.ToString().ToLower())
             {
-                game.Player.Moves.Move = await _computerService.GetIntermediatePlayedMoveAsync(game);
+                game.Player.Moves.MoveTo = await _computerService.GetIntermediatePlayedMoveAsync(game);
             }
             if (request.Difficulty.ToLower() == Difficulty.Hard.ToString().ToLower())
             {
-                game.Player.Moves.Move = await _computerService.GetHardPlayedMoveAsync(game);
+                game.Player.Moves.MoveTo = await _computerService.GetHardPlayedMoveAsync(game);
             }
 
-            game.PossibleMoves.Remove(game.Player.Moves.Move);
+            game.PossibleMoves.Remove(int.Parse(game.Player.Moves.MoveTo));
             Winner winner = await GetWinner(game);
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.PossibleMoves);
         }
         catch (Exception ex)
         {
-            throw new Exception();
+            throw ex;
         }
     }
-
 }

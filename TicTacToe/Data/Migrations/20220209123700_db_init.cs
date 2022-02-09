@@ -49,7 +49,8 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlayerName = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Move = table.Column<int>(type: "int", nullable: false),
+                    MoveTo = table.Column<string>(type: "nvarchar(15)", nullable: false),
+                    MoveFrom = table.Column<string>(type: "nvarchar(15)", nullable: true),
                     MoveNumber = table.Column<int>(type: "int", nullable: false),
                     DateTimeMove = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)

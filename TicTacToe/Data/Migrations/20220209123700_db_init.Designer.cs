@@ -12,7 +12,7 @@ using TicTacToe.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    [Migration("20220205165915_db_init")]
+    [Migration("20220209123700_db_init")]
     partial class db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,11 +75,15 @@ namespace Data.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Move")
-                        .HasColumnType("int");
+                    b.Property<string>("MoveFrom")
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<int>("MoveNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("MoveTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()

@@ -11,7 +11,6 @@ public class DbActionScoreTableService : IDbActionScoreTableService
     {
         _db = db;
     }
-
     public async Task<bool> IsRegisterByPlayerName(string playerName)
     {
         try

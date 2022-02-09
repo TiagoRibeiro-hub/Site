@@ -53,7 +53,8 @@ public class TicTacToeDbContext : DbContext
             //Columns
             b.Property(x => x.Id).HasColumnType("int").ValueGeneratedOnAdd().HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn); ;
             b.Property(x => x.PlayerName).HasColumnType("nvarchar(50)").IsRequired();
-            b.Property(x => x.Move).HasColumnType("int").IsRequired();
+            b.Property(x => x.MoveTo).HasColumnType("nvarchar(15)").IsRequired();
+            b.Property(x => x.MoveFrom).HasColumnType("nvarchar(15)").IsRequired(false);
             b.Property(x => x.MoveNumber).HasColumnType("int").IsRequired();
             b.Property(x => x.DateTimeMove).HasColumnType("datetime2").IsRequired();
 

@@ -19,11 +19,11 @@ public static class MinimaxFuncs
         {
             if(item.PlayerName != computerName)
             {
-                resultHuman.Add(item.Move);
+                resultHuman.Add(int.Parse(item.MoveTo));
             }
             else
             {
-                resultComputer.Add(item.Move);
+                resultComputer.Add(int.Parse(item.MoveTo));
             }           
         }
         return (
