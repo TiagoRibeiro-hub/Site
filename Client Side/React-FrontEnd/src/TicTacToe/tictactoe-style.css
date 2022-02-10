@@ -1,0 +1,90 @@
+#tictactoe {
+    background-color: rgb(12, 44, 77);
+    height: 100vh;
+    width: auto;
+    margin: 0;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    width: 600px;
+    padding: 30px;
+}
+
+#input-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#input-label {
+    color: white;
+    margin: 5px 0px 0px 0px;
+}
+
+.input-box-with {
+    width: 400px;
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border-radius: 15px;
+    margin: 0px 0px 10px 0px;
+}
+
+.difficult-btn {
+    width: 400px;
+    background-color: rgb(205, 205, 223);
+    border: 3px black solid;
+    color: black;
+    border-radius: 30px;
+    margin: 10px 0px 10px 0px;
+}
+
+#title {
+    padding-top: 30px;
+}
+
+#title h1 {
+    text-align: center;
+    color: white;
+    padding-bottom: 10px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid white;
+}
+
+#tictactoe-content-board {
+    display: grid;
+    place-content: center;
+    height: auto;
+}
+
+#tictactoe-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 620px;
+    height: 620px;
+}
+
+#square {
+    display: grid;
+    place-content: center;
+    width: 180px;
+    height: 180px;
+    border: 2px solid white;
+    margin: 0px 5px 0px 5px;
+    color: white;
+    font-size: 5rem;
+}
