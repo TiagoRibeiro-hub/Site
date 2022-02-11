@@ -1,8 +1,8 @@
-import 'TicTacToe/tictactoe-style.css';
+import 'Games/TicTacToe/tictactoe-style.css';
 
 export default function VsHuman() {
   return (
-    <div  className='display-none'>
+    <div>
       <div className='input-div'>
           <div id="title">
             <h1>First Player</h1>

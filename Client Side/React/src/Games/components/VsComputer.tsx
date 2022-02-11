@@ -1,8 +1,8 @@
-import 'TicTacToe/tictactoe-style.css';
+import 'Games/TicTacToe/tictactoe-style.css';
 
 export default function VsComputer() {
     return (
-        <div className='display-none'> 
+        <div> 
             <div id='register' className='container-fluid'>
                 <div id='input-div'>
                     <label id='input-label'>Email</label>

@@ -6,7 +6,7 @@ import {
 import Home from 'page/Home/Home';
 import TicTacToe from 'page/TicTacToe/Tictactoe';
 import Chess from 'page/Chess/Chess';
-import TicTacToeGame from "TicTacToe/components/TicTacToeGame";
+import TicTacToeGame from "Games/TicTacToe/components/TicTacToeGame";
 
 function App() {
   return (

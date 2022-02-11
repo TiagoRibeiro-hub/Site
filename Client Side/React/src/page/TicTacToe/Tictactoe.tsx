@@ -1,8 +1,8 @@
-import TicTacToeGame from 'TicTacToe/components/TicTacToeGame';
-import Vs from 'TicTacToe/components/Vs';
-import VsComputer from 'TicTacToe/components/VsComputer';
-import VsHuman from 'TicTacToe/components/VsHuman';
-import 'TicTacToe/tictactoe-style.css';
+import TicTacToeGame from 'Games/TicTacToe/components/TicTacToeGame';
+import 'Games/TicTacToe/tictactoe-style.css';
+import VsHuman from 'Games/components/VsHuman';
+import Vs from 'Games/components/Vs';
+import VsComputer from 'Games/components/VsComputer';
 
 export default function Tictactoe() {
     return (
@@ -13,14 +13,14 @@ export default function Tictactoe() {
             <div className='row'>
                 <Vs />
             </div>
-            <div className='row'>
-                <TicTacToeGame />
-            </div>
-            <div className='row'>
+            <div className='row display-none'>
                 <VsComputer />
             </div>
-            <div className='row'>
+            <div className='row display-none'>
                 <VsHuman />
+            </div>
+            <div className='row display-none'>
+                <TicTacToeGame />
             </div>
         </div>
     );

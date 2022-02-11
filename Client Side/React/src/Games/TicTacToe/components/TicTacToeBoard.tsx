@@ -1,4 +1,4 @@
-import 'TicTacToe/tictactoe-style.css';
+import 'Games/TicTacToe/tictactoe-style.css';
 import Square from './Square';
 import { useState, useEffect } from 'react';
 
