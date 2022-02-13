@@ -62,13 +62,13 @@ namespace TicTacToe.Controllers
                 {
                     return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the human player"));
                 }
-                if (request.Content.MovePlayed < 1 || request.Content.MovePlayed > 9)
+                if (int.Parse(request.Content.MoveTo) < 1 || int.Parse(request.Content.MoveTo) > 9)
                 {
                     return new ResponseError("Possible moves between 1 & 9");
                 }
-                if (request.Content.PossibleMoves.Contains(request.Content.MovePlayed) == false)
+                if (request.Content.PossibleMoves.Contains(int.Parse(request.Content.MoveTo)) == false)
                 {
-                    return new ResponseError($"{request.Content.MovePlayed} has already been played");
+                    return new ResponseError($"{request.Content.MoveTo} has already been played");
                 }
 
                 GameResponse gameResponse = await _gameService.GamePlayedAsync(request.Content);

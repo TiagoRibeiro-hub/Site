@@ -49,32 +49,34 @@ public class DbActionScoreTableService : IDbActionScoreTableService
             throw new Exception();
         }
     }
-    public async Task<object> GetTotalGamesByScoreTableIdAsync<TEntity>(TEntity entity, int scoreTableId) where TEntity : class
+    public async Task<TEntity> GetTotalGamesByScoreTableIdAsync<TEntity>(int scoreTableId) where TEntity : class, new()
     {
         try
         {
-            object result = new();
-            if (entity.GetType().Equals(typeof(TotalGamesVsHumanModel)))
-            {
-                result = await _db.TotalGamesVsHuman.FirstOrDefaultAsync(x => x.Id == scoreTableId);
-            }
-            if (entity.GetType().Equals(typeof(TotalGamesEasyModel)))
-            {
-                result = await _db.TotalGamesEasy.FirstOrDefaultAsync(x => x.Id == scoreTableId);
-            }
-            if (entity.GetType().Equals(typeof(TotalGamesIntermediateModel)))
-            {
-                result = await _db.TotalGamesIntermediate.FirstOrDefaultAsync(x => x.Id == scoreTableId);
-            }
-            if (entity.GetType().Equals(typeof(TotalGamesHardModel)))
-            {
-                result = await _db.TotalGamesHard.FirstOrDefaultAsync(x => x.Id == scoreTableId);
-            }
-            if (result is null)
-            {
-                throw new Exception();
-            }
-            return result;
+            return await _db.Set<TEntity>().FindAsync(scoreTableId);
+             
+            //object result = new();
+            //if (entity.GetType().Equals(typeof(TotalGamesVsHumanModel)))
+            //{
+            //    result = await _db.TotalGamesVsHuman.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            //}
+            //if (entity.GetType().Equals(typeof(TotalGamesEasyModel)))
+            //{
+            //    result = await _db.TotalGamesEasy.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            //}
+            //if (entity.GetType().Equals(typeof(TotalGamesIntermediateModel)))
+            //{
+            //    result = await _db.TotalGamesIntermediate.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            //}
+            //if (entity.GetType().Equals(typeof(TotalGamesHardModel)))
+            //{
+            //    result = await _db.TotalGamesHard.FirstOrDefaultAsync(x => x.Id == scoreTableId);
+            //}
+            //if (result is null)
+            //{
+            //    throw new Exception();
+            //}
+            //return result;
         }
         catch (Exception ex)
         {

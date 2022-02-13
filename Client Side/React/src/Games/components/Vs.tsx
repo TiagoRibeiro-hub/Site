@@ -1,4 +1,4 @@
-import 'Games/TicTacToe/tictactoe-style.css';
+
 
 export default function Vs() {
   return (

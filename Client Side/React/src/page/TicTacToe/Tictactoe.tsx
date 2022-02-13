@@ -1,5 +1,4 @@
 import TicTacToeGame from 'Games/TicTacToe/components/TicTacToeGame';
-import 'Games/TicTacToe/tictactoe-style.css';
 import VsHuman from 'Games/components/VsHuman';
 import Vs from 'Games/components/Vs';
 import VsComputer from 'Games/components/VsComputer';

@@ -1,0 +1,15 @@
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\Games.Infrastructure.deps.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\Games.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\ref\Games.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\Games.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\Games.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\bin\Debug\net6.0\Games.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.csproj.CopyComplete
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\ref\Games.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Infrastructure\obj\Debug\net6.0\Games.Infrastructure.pdb

@@ -8,6 +8,10 @@ namespace TicTacToe.Data;
 #nullable disable
 public class TicTacToeDbContext : DbContext
 {
+    public TicTacToeDbContext()
+    {
+    }
+
     public TicTacToeDbContext(DbContextOptions<TicTacToeDbContext> options) : base(options)
     {
 

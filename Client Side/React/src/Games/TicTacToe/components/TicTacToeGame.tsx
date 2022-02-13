@@ -1,4 +1,3 @@
-import 'Games/TicTacToe/tictactoe-style.css';
 import TicTacToeBoard from './TicTacToeBoard';
 
 export default function TicTacToeGame() {

@@ -1,5 +1,4 @@
-﻿namespace TicTacToe;
-#nullable disable
+﻿namespace ApiShared;
 public class Response
 {
     public string Message { get; set; } = "Everthing Ok";

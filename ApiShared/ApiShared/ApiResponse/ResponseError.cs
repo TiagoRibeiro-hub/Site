@@ -1,6 +1,4 @@
-﻿using TicTacToe;
-
-namespace ApiShared;
+﻿namespace ApiShared;
 public class ResponseError : Response
 {
     public ResponseError(string message)

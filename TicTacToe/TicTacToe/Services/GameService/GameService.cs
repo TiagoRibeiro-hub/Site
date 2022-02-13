@@ -82,7 +82,7 @@ public class GameService : IGameService
     {
         try
         {
-            request.PossibleMoves.Remove(request.MovePlayed);
+            request.PossibleMoves.Remove(int.Parse(request.MoveTo));
             Game game = new()
             {
                 GameId = request.IdGame,
@@ -90,7 +90,7 @@ public class GameService : IGameService
                 Difficulty = request.Difficulty,
             };
             game.Player.Name = request.PlayerName;
-            game.Player.Moves.MoveTo = request.MovePlayed.ToString();
+            game.Player.Moves.MoveTo = request.MoveTo.ToString();
             Winner winner = await GetWinner(game);
             Task.CompletedTask.Wait();
             return winner.SetGameResponseFromWinner(game.PossibleMoves);

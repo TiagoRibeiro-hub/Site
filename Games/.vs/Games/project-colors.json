@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8fe9bb19-0c8e-487b-9379-a6e30a5e9464": {
+      "ProjectGuid": "8fe9bb19-0c8e-487b-9379-a6e30a5e9464",
+      "DisplayName": "Games.Web",
+      "ColorIndex": 0
+    },
+    "95c82395-8f06-419c-8c6c-d8bb1cfbae9d": {
+      "ProjectGuid": "95c82395-8f06-419c-8c6c-d8bb1cfbae9d",
+      "DisplayName": "Games.Core",
+      "ColorIndex": 1
+    },
+    "b3dcabc7-bd15-44c2-8071-918c323f7da1": {
+      "ProjectGuid": "b3dcabc7-bd15-44c2-8071-918c323f7da1",
+      "DisplayName": "Games.Infrastructure",
+      "ColorIndex": 2
+    },
+    "a83c8180-e94f-402e-a983-2581106e8cf5": {
+      "ProjectGuid": "a83c8180-e94f-402e-a983-2581106e8cf5",
+      "DisplayName": "Games.Shared",
+      "ColorIndex": 3
+    },
+    "a5c655ba-4ac8-4b12-b46e-ec1cf5c29b89": {
+      "ProjectGuid": "a5c655ba-4ac8-4b12-b46e-ec1cf5c29b89",
+      "DisplayName": "Games.Data",
+      "ColorIndex": 4
+    }
+  },
+  "NextColorIndex": 5
+}

@@ -91,8 +91,7 @@ public class ScoresService : IScoresService
             {
                 if (game.Easy)
                 {
-                    TotalGamesEasyModel vsComputerEasy = new();
-                    vsComputerEasy = (TotalGamesEasyModel)await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync(vsComputerEasy, scoreTableId);
+                    var vsComputerEasy = await _dbActionScoreTableService.GetTotalGamesByScoreTableIdAsync<TotalGamesEasyModel>(scoreTableId);
                     _ = game.Player.StartFirst == true ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
                     vsComputerEasy.TotalGames += 1;
                     await _dbActionService.UpdateAsync(vsComputerEasy);

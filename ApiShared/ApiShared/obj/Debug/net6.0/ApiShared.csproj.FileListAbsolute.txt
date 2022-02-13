@@ -9,3 +9,4 @@ D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiS
 D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll
 D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ref\ApiShared.dll
 D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.pdb
+D:\Projectos\Projectos\PersonalWebSite\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.csproj.AssemblyReference.cache
