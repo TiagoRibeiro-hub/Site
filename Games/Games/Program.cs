@@ -1,12 +1,10 @@
 using Games.Core.Services;
-using Games.Data;
+using Games.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddTicTacToeDbContext();
-builder.Services.AddChessDbContext();
-
+builder.Services.AddDbServices();
 builder.Services.AddServices();
 
 builder.Services.AddControllers();

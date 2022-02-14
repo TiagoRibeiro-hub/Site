@@ -2,29 +2,30 @@
 #nullable disable
 public class Player
 {
+    public Player()
+    {
+
+    }
     public Player(string name)
     {
         Name = name;
     }
 
-    public Player(string name, string turn)
+    public Player(string name, string email)
     {
         Name = name;
-        Turn = turn;
+        Email = email;
     }
 
-    public Player(string name, string email, string turn, Moves moves)
+    public Player(string name, string email, string turn)
     {
         Name = name;
         Email = email;
         Turn = turn;
-        Moves = moves;
     }
 
     public string Name { get; set; }
     public string Email { get; set; }
     public string Turn { get; set; }
-    public Moves Moves { get; set; }
 
 }
-

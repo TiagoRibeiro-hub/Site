@@ -2,6 +2,10 @@
 
 public class Moves
 {
+    public Moves()
+    {
+
+    }
     public Moves(int gameId, string playerName, string moveTo, int moveNumber, HashSet<int> listPlayedMoves)
     {
         GameId = gameId;

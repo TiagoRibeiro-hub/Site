@@ -10,14 +10,13 @@ public class GameService : IGameService
 
     public async Task<GameVsComputerResponse> InitializeGameVsComputer(RegisterVsComputer request, GameType gameType)
     {
-        if(gameType == GameType.TicTacToe)
+        if (gameType == GameType.TicTacToe)
         {
             return await _gameTicTacToeService.InitializeGameVsComputer(request);
         }
 
         return null;
     }
-
     public async Task<GameResponse> InitializeGameVsHuman(RegisterVsHuman request, GameType gameType)
     {
         if (gameType == GameType.TicTacToe)
