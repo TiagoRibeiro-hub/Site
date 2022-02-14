@@ -8,23 +8,23 @@ public class GameService : IGameService
         _gameTicTacToeService = gameTicTacToeService;
     }
 
-    public async Task<GameVsComputerResponse> InitializeGameVsComputer(RegisterVsComputer request, GameType gameType)
+    public async Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request, string gameType)
     {
-        if (gameType == GameType.TicTacToe)
+        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.InitializeGameVsComputer(request);
         }
-
         return null;
     }
-    public async Task<GameResponse> InitializeGameVsHuman(RegisterVsHuman request, GameType gameType)
+
+    public async Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request, string gameType)
     {
-        if (gameType == GameType.TicTacToe)
+        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.InitializeGameVsHuman(request);
         }
-
         return null;
     }
+
 }
 

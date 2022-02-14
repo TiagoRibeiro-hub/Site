@@ -10,7 +10,7 @@ public class ChessDbContextFactory : IDesignTimeDbContextFactory<ChessDbContext>
 
         builder.UseSqlServer(configuration.GetConnectionString("ChessConnection"), config =>
         {
-            config.MigrationsAssembly("Games.Infrastructure");
+            config.MigrationsAssembly("Games.Data");
         });
 
         return new ChessDbContext(builder.Options);

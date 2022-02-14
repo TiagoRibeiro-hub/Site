@@ -10,7 +10,7 @@ public class TicTacToeDbContextFactory : IDesignTimeDbContextFactory<TicTacToeDb
 
         builder.UseSqlServer(configuration.GetConnectionString("TicTacToeConnection"), config =>
         {
-            config.MigrationsAssembly("Games.Infrastructure");
+            config.MigrationsAssembly("Games.Data");
         });
 
         return new TicTacToeDbContext(builder.Options);

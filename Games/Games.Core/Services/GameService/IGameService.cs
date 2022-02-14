@@ -1,7 +1,7 @@
 ﻿namespace Games.Core.Services;
 public interface IGameService
 {
-    Task<GameResponse> InitializeGameVsHuman(RegisterVsHuman request, GameType gameType);
-    Task<GameVsComputerResponse> InitializeGameVsComputer(RegisterVsComputer request, GameType gameType);
+    Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request, string gameType);
+    Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request, string gameType);
 }
 

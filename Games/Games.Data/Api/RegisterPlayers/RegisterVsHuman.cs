@@ -1,14 +1,13 @@
 ﻿using Games.Infrastructure.Game;
 
 namespace Games.Infrastructure.Api;
-public class RegisterVsHuman
+public class RegisterVsHuman : Register
 {
-    public RegisterVsHuman(Player player1, Player player2)
+    public RegisterVsHuman(Player player, Player player2) :base(player)
     {
-        Player1 = player1;
+        Player = player;
         Player2 = player2;
     }
 
-    public Player Player1 { get; set; }
     public Player Player2 { get; set; }
 }

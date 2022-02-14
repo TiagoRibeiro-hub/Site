@@ -10,7 +10,7 @@ public static class TicTacToeConfig
         {
             config.UseSqlServer(configuration.GetConnectionString("TicTacToeConnection"), config =>
             {
-                config.MigrationsAssembly("Games.Infrastructure");
+                config.MigrationsAssembly("Games.Data");
             });
         });
 
