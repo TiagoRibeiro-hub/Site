@@ -3,9 +3,10 @@
 namespace Games.Infrastructure.Api;
 public class RegisterVsComputer : Register
 {
-    public RegisterVsComputer(Player player, bool isComputer, string difficulty) : base(player)
+    public RegisterVsComputer(Player player, string startFirst, bool isComputer, string difficulty) : base(player, startFirst)
     {
         Player = player;
+        StartFirst = startFirst;
         IsComputer = isComputer;
         Difficulty = difficulty;
     }

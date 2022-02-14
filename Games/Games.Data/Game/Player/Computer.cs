@@ -2,5 +2,5 @@
 
 public static class Computer
 {
-    internal const string Name = "The Machine";
+    public const string Name = "The Machine";
 }

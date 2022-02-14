@@ -12,7 +12,7 @@ public class GameService : IGameService
     {
         if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
-            return await _gameTicTacToeService.InitializeGameVsComputer(request);
+            return await _gameTicTacToeService.InitializeGameVsComputerAsync(request);
         }
         return null;
     }
@@ -21,7 +21,7 @@ public class GameService : IGameService
     {
         if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
-            return await _gameTicTacToeService.InitializeGameVsHuman(request);
+            return await _gameTicTacToeService.InitializeGameVsHumanAsync(request);
         }
         return null;
     }

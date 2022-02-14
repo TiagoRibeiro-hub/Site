@@ -1,5 +1,5 @@
-﻿using Games.Data;
-using Games.Infrastructure;
+﻿using Games.Core.Services;
+using Games.Data;
 namespace Games.Web.Services;
 public static class DbServices
 {

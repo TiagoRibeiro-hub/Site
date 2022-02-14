@@ -6,3 +6,5 @@ global using Microsoft.Extensions.DependencyInjection;
 global using System.Reflection;
 
 global using Games.Data.Data;
+global using Games.Infrastructure.Api;
+global using Games.Infrastructure.Game;
