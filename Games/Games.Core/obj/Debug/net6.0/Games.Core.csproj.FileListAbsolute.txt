@@ -15,3 +15,5 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\Games.C
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\Games.Core.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\ref\Games.Core.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\Games.Core.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\bin\Debug\net6.0\Games.Core.runtimeconfig.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\Games.Core.genruntimeconfig.cache

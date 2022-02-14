@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Web", "Games\Games.Web.csproj", "{8FE9BB19-0C8E-487B-9379-A6E30A5E9464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Web", "Games.Web\Games.Web.csproj", "{8FE9BB19-0C8E-487B-9379-A6E30A5E9464}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Core", "Games.Core\Games.Core.csproj", "{95C82395-8F06-419C-8C6C-D8BB1CFBAE9D}"
 EndProject
