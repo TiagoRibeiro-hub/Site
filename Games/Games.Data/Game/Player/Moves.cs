@@ -26,9 +26,9 @@ public class Moves
     }
 
     public int GameId { get; set; }
-    public string PlayerName { get; set; }
-    public string MoveTo { get; set; }
-    public string MoveFrom { get; set; }
+    public string? PlayerName { get; set; }
+    public string? MoveTo { get; set; }
+    public string? MoveFrom { get; set; }
     public int MoveNumber { get; set; } 
     public HashSet<int> ListPlayedMoves { get; set; } = new();
 }

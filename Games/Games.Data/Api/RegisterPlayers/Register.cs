@@ -4,12 +4,10 @@ namespace Games.Infrastructure.Api;
 
 public class Register
 {
-    public Register(Player player, string startFirst)
+    public Register(Player player)
     {
         Player = player;
-        StartFirst = startFirst;
     }
 
     public Player Player { get; set; }
-    public string StartFirst { get; set; }
 }

@@ -17,5 +17,5 @@ public class GameVsComputerResponse : GameResponse
         Difficulty = difficulty;
     }
 
-    public string Difficulty { get; set; }
+    public string? Difficulty { get; set; }
 }

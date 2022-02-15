@@ -2,15 +2,15 @@
 using Games.Core.Services;
 using Games.Infrastructure.Api;
 using Microsoft.AspNetCore.Mvc;
-
+#nullable disable
 namespace Games.Web.Controllers
 {
     [ApiController]
     [Route("[controller]/{gametype}")]
-    public class GameVsComputerController : Controller
+    public class VsComputerController : Controller
     {
         private readonly IGameService _gameService;
-        public GameVsComputerController(IGameService gameService)
+        public VsComputerController(IGameService gameService)
         {
             _gameService = gameService;
         }
@@ -49,5 +49,6 @@ namespace Games.Web.Controllers
                 return new ResponseErrorException(errors, ex.InnerException.ToString());
             }
         }
+#nullable enable
     }
 }

@@ -1,6 +1,4 @@
-﻿using Games.Infrastructure.Game;
-
-namespace Games.Infrastructure.Api;
+﻿namespace Games.Infrastructure.Api;
 
 public class GameResponse
 {
@@ -21,8 +19,8 @@ public class GameResponse
     }
 
     public int IdGame { get; set; }
-    public string PlayerName { get; set; }
-    public string GameState { get; set; }
+    public string? PlayerName { get; set; }
+    public string? GameState { get; set; }
     public string? GameResult { get; set; }
-    public HashSet<int> PossibleMoves { get; set; }
+    public HashSet<int>? PossibleMoves { get; set; }
 }

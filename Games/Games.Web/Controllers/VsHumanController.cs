@@ -2,15 +2,15 @@
 using Games.Core.Services;
 using Games.Infrastructure.Api;
 using Microsoft.AspNetCore.Mvc;
-
+#nullable disable
 namespace Games.Web.Controllers
 {
     [ApiController]
     [Route("[controller]/{gametype}")]
-    public class GameVsHumanController : Controller
+    public class VsHumanController : Controller
     {       
         private readonly IGameService _gameService;
-        public GameVsHumanController(IGameService gameService)
+        public VsHumanController(IGameService gameService)
         {
             _gameService = gameService;
         }
@@ -49,6 +49,6 @@ namespace Games.Web.Controllers
             }
         }
 
-      
+#nullable enable
     }
 }

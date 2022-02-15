@@ -18,7 +18,7 @@ public class GameTicTacToeService : IGameTicTacToeService
         GameEntity game = request.SetGameEntityVsComputer();
         ScoresTableEntity scoresTable = request.SetScoreTableVsComputer();
         int idGame = await _repository.InsertAndGetIdAsync(game);
-        _= _scoreTableService.TableScoreInitialize(scoresTable);
+        await _scoreTableService.TableScoreInitialize(scoresTable, game);
         return new GameVsComputerResponse(idGame: idGame);
     }
 
@@ -27,7 +27,7 @@ public class GameTicTacToeService : IGameTicTacToeService
         GameEntity game = request.SetGameEntityVsHuman();
         HashSet<ScoresTableEntity> scoresTablesList = request.SetScoreTableVsHuman();
         int idGame = await _repository.InsertAndGetIdAsync(game);
-        _ = _scoreTableService.TableScoreInitializeList(scoresTablesList);
+        _ = _scoreTableService.TableScoreInitializeList(scoresTablesList, game);
         return new GameResponse(idGame: idGame);
     }
 }

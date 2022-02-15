@@ -12,23 +12,22 @@ public class TicTacToeRepository : IRepository
 
     public async Task<int> InsertAndGetIdAsync<TEntity>(TEntity entity) where TEntity : class
     {
-        using (IDbContextTransaction transaction = _db.Database.BeginTransaction())
+        using IDbContextTransaction transaction = _db.Database.BeginTransaction();
+        try
         {
-            try
-            {
-                await _db.Set<TEntity>().AddAsync(entity);
-                await _db.SaveChangesAsync();
-                await transaction.CommitAsync();
-                return entity.GetEntityKeyValue();
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync();
-                throw new Exception();
-            }
+            await _db.Set<TEntity>().AddAsync(entity);
+            await _db.SaveChangesAsync();
+            int gameId = entity.GetEntityKeyValue();
+            await transaction.CommitAsync();
+            return gameId;
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw new Exception(ex.ToString());
         }
     }
-    public async Task InsertAsync<TEntity, T>(TEntity entity) where TEntity : class
+    public async Task InsertAsync<TEntity>(TEntity entity) where TEntity : class
     {
         try
         {
@@ -37,25 +36,43 @@ public class TicTacToeRepository : IRepository
         }
         catch (Exception ex)
         {
-            throw new Exception();
+            throw new Exception(ex.ToString());
         }
     }
-
-    public Task InsertAsyncAsync<TEntity>(TEntity entity) where TEntity : class
+    public async Task InsertRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _db.Set<TEntity>().AddRangeAsync(entity, entity1);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
-    public Task InsertRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
+    public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class
     {
-        throw new NotImplementedException();
+        try
+        {
+            _db.Set<TEntity>().Update(entity);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
-    public Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class
+    public async Task UpdateRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
     {
-        throw new NotImplementedException();
+        try
+        {
+            _db.Set<TEntity>().UpdateRange(entity, entity1);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
-    public Task UpdateRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
-    {
-        throw new NotImplementedException();
-    }
-
 }
