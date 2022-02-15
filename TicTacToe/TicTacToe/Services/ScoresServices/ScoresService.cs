@@ -51,7 +51,7 @@ public class ScoresService : IScoresService
             };
 
             if (game.IsComputer)
-            {
+            {       
                 if (game.Easy)
                 {
                     _ = game.Player.StartFirst == true ? scoreTable.TotalGamesVsComputer.TotalGamesEasy.StartFirst += 1 : scoreTable.TotalGamesVsComputer.TotalGamesEasy.StartSecond += 1;

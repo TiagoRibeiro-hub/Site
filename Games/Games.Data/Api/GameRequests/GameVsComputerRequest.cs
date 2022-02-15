@@ -1,16 +1,16 @@
-﻿namespace Games.Infrastructure.Api;
-public class GameVsComputerRequest
+﻿namespace Games.Data.Api;
+public class GameVsComputerRequest : GameRequest
 {
-    public GameVsComputerRequest(int idGame, string turn, string difficulty, HashSet<int> possibleMoves)
+    public GameVsComputerRequest(int idGame, bool isComputer, string difficulty, Dictionary<string, string> possibleMoves)
+        : base(idGame, isComputer, possibleMoves)
     {
         IdGame = idGame;
-        Turn = turn;
+        IsComputer = isComputer;
         Difficulty = difficulty;
         PossibleMoves = possibleMoves;
     }
 
-    public int IdGame { get; set; }
-    public string Turn { get; set; }
+
     public string Difficulty { get; set; }
-    public HashSet<int> PossibleMoves { get; set; }
+
 }

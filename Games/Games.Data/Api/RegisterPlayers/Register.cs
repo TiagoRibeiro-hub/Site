@@ -1,6 +1,4 @@
-﻿using Games.Infrastructure.Game;
-
-namespace Games.Infrastructure.Api;
+﻿namespace Games.Data.Api;
 
 public class Register
 {

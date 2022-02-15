@@ -1,4 +1,4 @@
-﻿namespace Games.Infrastructure.Enums;
+﻿namespace Games.Data.Enums;
 public enum Turn
 {
     Player1,

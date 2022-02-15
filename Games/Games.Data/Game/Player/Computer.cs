@@ -1,4 +1,4 @@
-﻿namespace Games.Infrastructure.Game;
+﻿namespace Games.Data.Game;
 
 public static class Computer
 {

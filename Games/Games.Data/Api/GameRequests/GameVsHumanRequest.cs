@@ -1,19 +1,22 @@
-﻿using Games.Infrastructure.Game;
+﻿namespace Games.Data.Api;
 
-namespace Games.Infrastructure.Api;
-
-public class GameVsHumanRequest
+public class GameVsHumanRequest : GameRequest
 {
-    public GameVsHumanRequest(int idGame, Player player, string moveTo, HashSet<int> possibleMoves)
+    public GameVsHumanRequest()
+    {
+
+    }
+    public GameVsHumanRequest(int idGame, bool isComputer, Player player, string moveTo, Dictionary<string, string> possibleMoves) 
+        : base(idGame, isComputer, possibleMoves)
     {
         IdGame = idGame;
+        IsComputer = isComputer;
         Player = player;
         MoveTo = moveTo;
         PossibleMoves = possibleMoves;
     }
 
-    public int IdGame { get; set; }
     public Player Player { get; set; }
     public string MoveTo { get; set; }
-    public HashSet<int> PossibleMoves { get; set; }
+    
 }

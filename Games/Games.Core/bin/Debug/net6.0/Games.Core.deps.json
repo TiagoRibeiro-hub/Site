@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore": "6.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "ApiShared": "1.0.0.0"
         },
         "runtime": {
           "Games.Core.dll": {}
@@ -591,6 +592,14 @@
         "runtime": {
           "Games.Infrastructure.dll": {}
         }
+      },
+      "ApiShared/1.0.0.0": {
+        "runtime": {
+          "ApiShared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -964,6 +973,11 @@
     },
     "Games.Infrastructure/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ApiShared/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

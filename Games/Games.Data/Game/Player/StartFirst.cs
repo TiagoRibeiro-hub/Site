@@ -1,4 +1,4 @@
-﻿namespace Games.Infrastructure.Game;
+﻿namespace Games.Data.Game;
 
 public class StartFirst
 {
@@ -15,7 +15,7 @@ public class StartFirst
 
     internal string GetStartFirst()
     {
-        return Turn.ToLower() == Games.Infrastructure.Enums.Turn.Player1.ToString().ToLower() ? Player1 : Player2;
+        return Turn.ToLower() == Games.Data.Enums.Turn.Player1.ToString().ToLower() ? Player1 : Player2;
     }
 
 

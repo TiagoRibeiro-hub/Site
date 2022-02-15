@@ -1,8 +1,8 @@
-﻿using Games.Infrastructure.Enums;
+﻿
 
 namespace Games.Data.Extensions;
 
-public static class ScoresTableExtension
+public static class ScoresTableExtensions
 {
     public static ScoresTableEntity SetScoreTableVsComputer(this RegisterVsComputer x)
     {

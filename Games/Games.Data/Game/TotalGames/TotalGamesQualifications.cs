@@ -1,4 +1,4 @@
-﻿namespace Games.Infrastructure.TotalGames;
+﻿namespace Games.Data.TotalGames;
 public class TotalGamesQualifications
 {
     public TotalGamesQualifications(int scoreTableId, string playerName, int victories, int losses, int ties)

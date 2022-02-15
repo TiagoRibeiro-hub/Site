@@ -1,6 +1,6 @@
 ﻿using ApiShared;
 using Games.Core.Services;
-using Games.Infrastructure.Api;
+using Games.Data.Api;
 using Microsoft.AspNetCore.Mvc;
 #nullable disable
 namespace Games.Web.Controllers
@@ -27,13 +27,13 @@ namespace Games.Web.Controllers
             {
                 if (request.Content is null || string.IsNullOrWhiteSpace(gameType))
                 {
-                    return new ResponseError(ApiSharedFuncs.RequestIsNull);
+                    return new ResponseError(ApiSharedFuncs.RequestIsNull, false);
                 }
 
                 GameResponse gameResponse = await _gameService.InitializeVsHuman(request.Content, gameType);
                 if (gameResponse is null || gameResponse.IdGame < 0)
                 {
-                    return new ResponseError(ApiSharedFuncs.SomethingWentWrong);
+                    return new ResponseError(ApiSharedFuncs.SomethingWentWrong, false);
                 }
 
                 return new Response<GameResponse>()
@@ -49,6 +49,45 @@ namespace Games.Web.Controllers
             }
         }
 
+        [HttpPost("[action]")]
+        [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
+        public async Task<Response> Play(
+            [FromBody] Request<GameVsHumanRequest> request,
+            [FromRoute] string gameType)
+        {
+            try
+            {
+                if (request.Content is null)
+                {
+                    return new ResponseError(ApiSharedFuncs.RequestIsNull, false);
+                }
+                if (request.Content.IsComputer)
+                {
+                    return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the human player"), false);
+                }
+                ResponseError responseError = await _gameService.MoveValidation(request.Content, gameType);
+                if(responseError.IsSuccess)
+                {
+                    GameResponse gameResponse = await _gameService.PlayVsHuman(request.Content, gameType);
+                    if (gameResponse is null)
+                    {
+                        return new ResponseError(ApiSharedFuncs.SomethingWentWrong, false);
+                    }
+                    return new Response<GameResponse>()
+                    {
+                        Content = gameResponse,
+                    };
+                }
+                return responseError;
+            }
+            catch (Exception ex)
+            {
+                HashSet<string> errors = ApiSharedFuncs.GetListErrord(ex);
+                return new ResponseErrorException(errors, ex.InnerException.ToString());
+            }
+        }
 #nullable enable
     }
 }

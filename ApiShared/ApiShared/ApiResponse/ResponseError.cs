@@ -1,10 +1,14 @@
 ﻿namespace ApiShared;
 public class ResponseError : Response
 {
-    public ResponseError(string message)
+    public ResponseError(string message, bool isSuccess)
     {
         Message = message;
-        IsSuccess = false;
+        IsSuccess = isSuccess;
+    }
+    public ResponseError(bool isSuccess)
+    {
+        IsSuccess = isSuccess;
     }
 
 }

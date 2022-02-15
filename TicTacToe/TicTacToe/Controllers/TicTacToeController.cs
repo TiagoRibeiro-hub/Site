@@ -107,7 +107,6 @@ namespace TicTacToe.Controllers
                 {
                     Content = gameResponse,
                 };
-
             }
             catch (Exception ex)
             {

@@ -1,13 +1,13 @@
-﻿namespace Games.Infrastructure.Api;
+﻿namespace Games.Data.Api;
 
 public class GameVsComputerResponse : GameResponse
 {
-    public GameVsComputerResponse(int idGame) : base(idGame)
+    public GameVsComputerResponse(int idGame, Dictionary<string, string> possibleMoves) : base(idGame, possibleMoves)
     {
 
     }
     public GameVsComputerResponse(int idGame, string player, string gameState,
-        string? gameResult, HashSet<int> possibleMoves, string difficulty) : base(idGame, player, gameState, gameResult, possibleMoves)
+        string? gameResult, Dictionary<string, string> possibleMoves, string difficulty) : base(idGame, player, gameState, gameResult, possibleMoves)
     {
         IdGame = idGame;
         PlayerName = player;

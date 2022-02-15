@@ -19,9 +19,11 @@ public static class ServicesConfig
 
         services.AddScoped<ITotalGamesVsHumanService, TotalGamesVsHumanService>();
 
+        
         services.AddScoped<ScoreTableFuncs>();
         services.AddScoped<IScoreTableService, ScoreTableService>();
 
+        services.AddScoped<GameFuncs>();
         services.AddScoped<IGameTicTacToeService, GameTicTacToeService>();  
 
         services.AddScoped<IGameService, GameService>();

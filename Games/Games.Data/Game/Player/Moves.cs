@@ -1,4 +1,4 @@
-﻿namespace Games.Infrastructure.Game;
+﻿namespace Games.Data.Game;
 
 public class Moves
 {
@@ -6,7 +6,7 @@ public class Moves
     {
 
     }
-    public Moves(int gameId, string playerName, string moveTo, int moveNumber, HashSet<int> listPlayedMoves)
+    public Moves(int gameId, string playerName, string moveTo, int moveNumber, Dictionary<string, string> listPlayedMoves)
     {
         GameId = gameId;
         PlayerName = playerName;
@@ -15,7 +15,7 @@ public class Moves
         ListPlayedMoves = listPlayedMoves;
     }
 
-    public Moves(int gameId, string playerName, string moveTo, string moveFrom, int moveNumber, HashSet<int> listPlayedMoves)
+    public Moves(int gameId, string playerName, string moveTo, string moveFrom, int moveNumber, Dictionary<string, string> listPlayedMoves)
     {
         GameId = gameId;
         PlayerName = playerName;
@@ -30,5 +30,5 @@ public class Moves
     public string? MoveTo { get; set; }
     public string? MoveFrom { get; set; }
     public int MoveNumber { get; set; } 
-    public HashSet<int> ListPlayedMoves { get; set; } = new();
+    public Dictionary<string, string> ListPlayedMoves { get; set; } = new();
 }
