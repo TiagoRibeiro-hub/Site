@@ -6,6 +6,7 @@ public static class ServicesConfig
 {
     public static void AddRepository(this IServiceCollection services)
     {
+        services.AddScoped<IReadRepository, GameTicTacToeRepository>();
         services.AddScoped<IRepository, TicTacToeRepository>();
     }
     public static void AddServices(this IServiceCollection services)

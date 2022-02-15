@@ -1,7 +1,5 @@
 ﻿using Games.Data;
 using Microsoft.EntityFrameworkCore.Storage;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace Games.Infrastructure.RepositoryService;
 public class TicTacToeRepository : IRepository
@@ -30,7 +28,6 @@ public class TicTacToeRepository : IRepository
             }
         }
     }
-
     public async Task InsertAsync<TEntity, T>(TEntity entity) where TEntity : class
     {
         try
@@ -48,37 +45,17 @@ public class TicTacToeRepository : IRepository
     {
         throw new NotImplementedException();
     }
-
     public Task InsertRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
     {
         throw new NotImplementedException();
     }
-
     public Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class
     {
         throw new NotImplementedException();
     }
-
     public Task UpdateRangeAsync<TEntity>(TEntity entity, TEntity entity1) where TEntity : class
     {
         throw new NotImplementedException();
     }
-}
 
-public static class RepositoryExtension
-{
-    public static int GetEntityKeyValue<TEntity>(this TEntity entity) where TEntity : class
-    {
-        int ret = 0;
-        PropertyInfo key = typeof(TEntity).GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length != 0);
-        if (key != null)
-        {
-            ret = (int)key.GetValue(entity, null);
-            if (ret > 0)
-            {
-                return ret;
-            }
-        }
-        throw new Exception();
-    }
 }
