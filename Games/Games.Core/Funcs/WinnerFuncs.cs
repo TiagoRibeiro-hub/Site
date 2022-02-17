@@ -17,7 +17,7 @@ public class WinnerFuncs
         _expressionBool = x => x.GameId == request.IdGame && x.PlayerName == request.Player.Name;
         _expressionInt = x => x.MoveTo;
         var playerMoves = await _readRepository.GetSelectedTableToListAsync(_expressionBool, _expressionInt);
-        bool haveWinner = WinnerCheckTictacToe.HaveWinnerMethod(playerMoves);
+        bool haveWinner = WinnerCheckTictacToe.HaveWinner(playerMoves, request.TicTacToeNrCol);
         throw new NotImplementedException();
     }
 

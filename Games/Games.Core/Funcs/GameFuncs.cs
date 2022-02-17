@@ -9,10 +9,11 @@ public class GameFuncs
         _winnerFuncs = winnerFuncs;
     }
 
-    public Dictionary<string, string> SetInitialPossibleMovesTicTacToe()
+    public Dictionary<string, string> SetInitialPossibleMovesTicTacToe(int ticTacToeNrCol)
     {
+        int max = ticTacToeNrCol * ticTacToeNrCol + 1;
         Dictionary<string, string> result = new();
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < max; i++)
         {
             result.Add(i.ToString(), i.ToString());
         }

@@ -2,18 +2,13 @@
 
 public class GameVsComputerResponse : GameResponse
 {
-    public GameVsComputerResponse(int idGame, Dictionary<string, string> possibleMoves) : base(idGame, possibleMoves)
+    public GameVsComputerResponse(int idGame, Dictionary<string, string> possibleMoves, int ticTacToeNrCol) : base(idGame, possibleMoves, ticTacToeNrCol)
     {
 
     }
     public GameVsComputerResponse(int idGame, string player, string gameState,
-        string? gameResult, Dictionary<string, string> possibleMoves, string difficulty) : base(idGame, player, gameState, gameResult, possibleMoves)
+        string? gameResult, Dictionary<string, string> possibleMoves, int ticTacToeNrCol, string difficulty) : base(idGame, player, gameState, gameResult, possibleMoves, ticTacToeNrCol)
     {
-        IdGame = idGame;
-        PlayerName = player;
-        GameState = gameState;
-        GameResult = gameResult;
-        PossibleMoves = possibleMoves;
         Difficulty = difficulty;
     }
 

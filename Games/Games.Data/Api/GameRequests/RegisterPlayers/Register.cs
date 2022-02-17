@@ -1,11 +1,6 @@
 ﻿namespace Games.Data.Api;
-
+#nullable disable
 public class Register : Request
 {
-    public Register(Player player)
-    {
-        Player = player;
-    }
-
     public Player Player { get; set; }
 }

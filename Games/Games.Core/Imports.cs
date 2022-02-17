@@ -9,5 +9,6 @@ global using Games.Infrastructure.RepositoryService;
 
 global using Games.Core.Services;
 global using Games.Core.Funcs;
+global using Games.Core.Algorithm;
 
 global using System.Linq.Expressions;

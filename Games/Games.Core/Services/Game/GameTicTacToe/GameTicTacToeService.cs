@@ -20,9 +20,14 @@ public class GameTicTacToeService : IGameTicTacToeService
         HashSet<ScoresTableEntity> scoresTablesList = request.SetScoreTableVsHuman();
         int idGame = await _repository.InsertAndGetIdAsync(game);
         var res = _scoreTableService.TableScoreInitializeList(scoresTablesList, game);
-        Dictionary<string, string> possibleMoves = _gameFuncs.SetInitialPossibleMovesTicTacToe();
+        Dictionary<string, string> possibleMoves = _gameFuncs.SetInitialPossibleMovesTicTacToe(request.TicTacToeNrCol);
         await res;
-        return new GameResponse(idGame: idGame, possibleMoves: possibleMoves);
+        return new GameResponse
+            (
+                idGame: idGame,
+                possibleMoves: possibleMoves,
+                ticTacToeNrCol: request.TicTacToeNrCol
+            );
     }
     public async Task<GameResponse> PlayVsHumanAsync(GameVsHumanRequest request)
     {
@@ -50,9 +55,14 @@ public class GameTicTacToeService : IGameTicTacToeService
         ScoresTableEntity scoresTable = request.SetScoreTableVsComputer();
         int idGame = await _repository.InsertAndGetIdAsync(game);
         var res = _scoreTableService.TableScoreInitialize(scoresTable, game);
-        Dictionary<string, string> possibleMoves = _gameFuncs.SetInitialPossibleMovesTicTacToe();
+        Dictionary<string, string> possibleMoves = _gameFuncs.SetInitialPossibleMovesTicTacToe(request.TicTacToeNrCol);
         await res;
-        return new GameVsComputerResponse(idGame: idGame, possibleMoves: possibleMoves);
+        return new GameVsComputerResponse
+            (
+                idGame: idGame,
+                possibleMoves: possibleMoves,
+                ticTacToeNrCol: request.TicTacToeNrCol
+            );
     }
 
     public Task<GameVsComputerResponse> PlayVsComputerAsync(GameVsComputerRequest request)

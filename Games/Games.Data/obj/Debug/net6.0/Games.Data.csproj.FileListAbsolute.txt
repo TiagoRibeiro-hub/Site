@@ -3,7 +3,6 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\Games.D
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\Games.Data.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\ref\Games.Data.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\Games.Data.pdb
-D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.csproj.AssemblyReference.cache
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.AssemblyInfoInputs.cache
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.AssemblyInfo.cs

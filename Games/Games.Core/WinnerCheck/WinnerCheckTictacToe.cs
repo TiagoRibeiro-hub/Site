@@ -2,7 +2,7 @@
 
 public static class WinnerCheckTictacToe
 {
-    internal static bool HaveWinnerMethod(List<string> listMovesPlayer, int nrCol = 3)
+    internal static bool HaveWinner(List<string> listMovesPlayer, int nrCol)
     {
         if (Diagonal(listMovesPlayer, nrCol)) return true;
         if (Vertical(listMovesPlayer, nrCol)) return true;
@@ -10,23 +10,22 @@ public static class WinnerCheckTictacToe
 
         return false;
     }
-    internal static bool Diagonal(List<string> moves, int nrCol = 3)
+    internal static bool Diagonal(List<string> moves, int nrCol)
     {
-        int nextNr_1 = 1;
-        int nextNr_2 = nrCol;
+        int nextNr_Diagonal1 = 1;
+        int nextNr_Diagonal2 = nrCol;
         int count_1 = 0, count_2 = 0;
-
-        for (int i = 0; i < moves.Count; i++)
+        foreach (var move in moves)
         {
-            if(moves[i] == nextNr_1.ToString())
+            if (move == nextNr_Diagonal1.ToString())
             {
                 count_1 += 1;
-                nextNr_1 += nrCol + 1;
+                nextNr_Diagonal1 += nrCol + 1;
             }
-            if (moves[i] == nextNr_2.ToString())
+            if (move == nextNr_Diagonal2.ToString())
             {
                 count_2 += 1;
-                nextNr_2 += nrCol - 1;
+                nextNr_Diagonal2 += nrCol - 1;
             }
             if (count_1 == nrCol || count_2 == nrCol)
             {
@@ -35,30 +34,64 @@ public static class WinnerCheckTictacToe
         }
         return false;
     }
-    internal static bool Vertical(List<string> moves, int nrCol = 3)
+    internal static bool Vertical(List<string> moves, int nrCol)
     {
-        if (nrCol == 3)
+        List<List<string>> listPossibleInLine = new();
+        for (int i = 1; i <= nrCol; i++)
         {
-            if ((moves.Contains("1") && moves.Contains("4") && moves.Contains("7")) ||
-                (moves.Contains("2") && moves.Contains("5") && moves.Contains("8")) ||
-                (moves.Contains("3") && moves.Contains("6") && moves.Contains("9")))
+            List<string> list = new();
+            int nextNr = i;
+            for (int j = 1; j <= nrCol; j++)
+            {
+                list.Add(nextNr.ToString());
+                nextNr += nrCol;
+            }
+        }
+        int count = 0;
+        foreach (var list in listPossibleInLine)
+        {
+            foreach (var item in list)
+            {
+                foreach (var move in moves)
+                {
+                    if(item == move)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            if(count == nrCol)
             {
                 return true;
             }
         }
         return false;
     }
-    internal static bool Horizontal(List<string> moves, int nrCol = 3)
+    internal static bool Horizontal(List<string> moves, int nrCol)
     {
-        if (nrCol == 3)
+        Dictionary<int, List<int>> listPossibleInLine = new();
+        for (int i = 1; i <= nrCol; i++)
         {
-            if ((moves.Contains("1") && moves.Contains("2") && moves.Contains("3")) ||
+            List<int> inLineMoves = new();
+            int nextNr = i;
+            for (int j = 1; j <= nrCol; j++)
+            {
+                inLineMoves.Add(nextNr);
+                nextNr += 1;
+            }
+            listPossibleInLine.Add(i, inLineMoves);
+        }
+        foreach (var move in moves)
+        {
+
+        }
+        if ((moves.Contains("1") && moves.Contains("2") && moves.Contains("3")) ||
                 (moves.Contains("4") && moves.Contains("5") && moves.Contains("6")) ||
                 (moves.Contains("7") && moves.Contains("8") && moves.Contains("9")))
-            {
-                return true;
-            }
+        {
+            return true;
         }
+
         return false;
     }
 }
