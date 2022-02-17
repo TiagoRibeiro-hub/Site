@@ -9,5 +9,8 @@ public interface IReadRepository
         where TEntity : class
         where TResult : IConvertible;
 
+    Task<List<TResult>> GetSelectedTableToListAsync<TEntity, TResult>(Expression<Func<TEntity, bool>> expressionWhere, Expression<Func<TEntity, TResult>> expressionSelect)
+        where TEntity : class
+        where TResult : IConvertible;
 }
 

@@ -79,6 +79,25 @@ public class GameTicTacToeRepository : IReadRepository
         }
     }
 
+    public async Task<List<TResult>> GetSelectedTableToListAsync<TEntity, TResult>(Expression<Func<TEntity, bool>> expressionWhere, Expression<Func<TEntity, TResult>> expressionSelect)
+        where TEntity : class
+        where TResult : IConvertible
+    {
+        try
+        {
+            var result = await _db.Set<TEntity>().Where(expressionWhere).Select(expressionSelect).ToListAsync();
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
+    }
+
 #nullable enable
 
 

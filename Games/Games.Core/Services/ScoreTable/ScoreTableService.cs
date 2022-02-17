@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Services;
 internal class ScoreTableService : IScoreTableService
 {
     private readonly IReadRepository _readRepository;

@@ -1,4 +1,4 @@
-﻿namespace Games.Core.Services;
+﻿namespace Games.Core.Funcs;
 
 public class GameFuncs
 {

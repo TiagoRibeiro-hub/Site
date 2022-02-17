@@ -1,6 +1,4 @@
-﻿using Games.Infrastructure.RepositoryService;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Funcs;
 internal class ScoreTableFuncs
 {
     private readonly IReadRepository _readRepository;
