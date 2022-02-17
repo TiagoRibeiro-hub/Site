@@ -12,10 +12,10 @@ public static class MoveExtensions
             7 => 3,
             6 => 4,
             5 => 5,
-            4 => 4,
-            3 => 3,
-            2 => 2,
-            1 => 1,
+            4 => 6,
+            3 => 7,
+            2 => 8,
+            1 => 9,
             _ => 0,
         };
     }
@@ -26,13 +26,14 @@ public static class MoveExtensions
         {
             throw new Exception();
         }
-        return new MovesEntity()
-        {
-            PlayerName = x.Player.Name,
-            MoveTo = x.MoveTo,
-            MoveNumber = moveNumber,
-            GameId = x.IdGame
-        };
+        return new MovesEntity
+        (
+            playerName: x.Player.Name,
+            moveTo: x.MoveTo,
+            moveFrom: x.MoveFrom,
+            moveNumber: moveNumber,
+            gameId: x.IdGame
+        );
     }
 
 }

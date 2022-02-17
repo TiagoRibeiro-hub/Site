@@ -2,6 +2,13 @@
 
 public class GameFuncs
 {
+    private readonly WinnerFuncs _winnerFuncs;
+
+    public GameFuncs(WinnerFuncs winnerFuncs)
+    {
+        _winnerFuncs = winnerFuncs;
+    }
+
     public Dictionary<string, string> SetInitialPossibleMovesTicTacToe()
     {
         Dictionary<string, string> result = new();
@@ -12,9 +19,12 @@ public class GameFuncs
         return result;
     }
 
-    public Task<GameResponse> GetWinnerAsync(GameVsHumanRequest request)
+    public async Task<GameResponse?> GetWinnerAsync(GameVsHumanRequest request)
     {
-
+        if(request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        {
+           return await _winnerFuncs.GetWinnerTicTacToe(request);
+        }
         return null;
     }
 }

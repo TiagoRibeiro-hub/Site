@@ -1,6 +1,6 @@
 ﻿namespace Games.Data.Api;
 
-public class Register
+public class Register : Request
 {
     public Register(Player player)
     {

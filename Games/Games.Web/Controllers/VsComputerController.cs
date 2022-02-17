@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Games.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]/{gametype}")]
+    [Route("[controller]")]
     public class VsComputerController : Controller
     {
         private readonly IGameService _gameService;
@@ -20,18 +20,16 @@ namespace Games.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Response<GameVsComputerResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> Initialize(
-            [FromBody] Request<RegisterVsComputer> request, 
-            [FromRoute] string gameType)
+        public async Task<Response> Initialize([FromBody] Request<RegisterVsComputer> request)
         {
             try
             {
-                if (request.Content is null || string.IsNullOrWhiteSpace(gameType))
+                if (request.Content is null || string.IsNullOrWhiteSpace(request.Content.GameType))
                 {
                     return new ResponseError(ApiSharedFuncs.RequestIsNull, false);
                 }
 
-                GameVsComputerResponse gameResponse = await _gameService.InitializeVsComputer(request.Content, gameType);
+                GameVsComputerResponse gameResponse = await _gameService.InitializeVsComputer(request.Content);
                 
                 if (gameResponse is null || gameResponse.IdGame < 0)
                 {
@@ -55,9 +53,7 @@ namespace Games.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> Play(
-         [FromBody] Request<GameVsComputerRequest> request,
-         [FromRoute] string gameType)
+        public async Task<Response> Play([FromBody] Request<GameVsComputerRequest> request)
         {
             try
             {
@@ -70,7 +66,7 @@ namespace Games.Web.Controllers
                     return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the computer player"), false);
                 }
 
-                GameResponse gameResponse = await _gameService.PlayVsComputer(request.Content, gameType);
+                GameResponse gameResponse = await _gameService.PlayVsComputer(request.Content);
                 if (gameResponse is null)
                 {
                     return new ResponseError(ApiSharedFuncs.SomethingWentWrong, false);

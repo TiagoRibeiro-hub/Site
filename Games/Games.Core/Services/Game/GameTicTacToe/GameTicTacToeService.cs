@@ -1,8 +1,4 @@
-﻿using Games.Data.Api;
-using Games.Data.Extensions;
-using Games.Infrastructure.RepositoryService;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Services;
 public class GameTicTacToeService : IGameTicTacToeService
 {
     private readonly IRepository _repository;
@@ -28,14 +24,19 @@ public class GameTicTacToeService : IGameTicTacToeService
         await res;
         return new GameResponse(idGame: idGame, possibleMoves: possibleMoves);
     }
-
     public async Task<GameResponse> PlayVsHumanAsync(GameVsHumanRequest request)
     {
         MovesEntity moves = request.SetMovesEntityVsHuman();
         var res = _repository.InsertAsync(moves);
         request.PossibleMoves.Remove(request.MoveTo);
         await res;
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         GameResponse gameResponse = await _gameFuncs.GetWinnerAsync(request);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+        if (gameResponse == null)
+        {
+            throw new Exception();
+        }
         return gameResponse;
     }
 

@@ -2,7 +2,18 @@
 #nullable disable
 public class MovesEntity
 {
-    public int Id { get; set; }
+    public MovesEntity(
+        string playerName, string moveTo, string moveFrom, 
+        int moveNumber, int gameId)
+    {
+        PlayerName = playerName;
+        MoveTo = moveTo;
+        MoveFrom = moveFrom;
+        MoveNumber = moveNumber;
+        GameId = gameId;
+    }
+
+    public int Id { get; private set; }
     public string PlayerName { get; set; }
     public string MoveTo { get; set; }
     public string MoveFrom { get; set; }

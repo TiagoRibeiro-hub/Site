@@ -1,6 +1,4 @@
-﻿using Games.Data.Api;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Services;
 public interface IGameTicTacToeService
 {
     Task<GameResponse> InitializeGameVsHumanAsync(RegisterVsHuman request);

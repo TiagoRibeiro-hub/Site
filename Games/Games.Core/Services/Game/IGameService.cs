@@ -1,14 +1,12 @@
-﻿using ApiShared;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Services;
 public interface IGameService
 {
-    Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request, string gameType);
-    Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request, string gameType);
+    Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request);
+    Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request);
 
-    Task<ResponseError> MoveValidation(GameVsHumanRequest game, string gameType);
-    Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request, string gameType);
+    Task<ResponseError> MoveValidation(GameVsHumanRequest game);
+    Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request);
 
-    Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request, string gameType);
+    Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request);
 }
 

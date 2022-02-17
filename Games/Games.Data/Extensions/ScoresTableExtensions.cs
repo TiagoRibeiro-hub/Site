@@ -6,25 +6,25 @@ public static class ScoresTableExtensions
 {
     public static ScoresTableEntity SetScoreTableVsComputer(this RegisterVsComputer x)
     {
-        return new ScoresTableEntity()
-        {
-            Email = x.Player.Email,
-            PlayerName = x.Player.Name,
-        };
+        return new ScoresTableEntity
+        (
+            email: x.Player.Email,
+            playerName: x.Player.Name
+        );
     }
     public static HashSet<ScoresTableEntity> SetScoreTableVsHuman(this RegisterVsHuman x)
     {
         HashSet<ScoresTableEntity> scoresTableList = new();
-        scoresTableList.Add(new ScoresTableEntity()
-        {
-            Email = x.Player.Email,
-            PlayerName = x.Player.Name,
-        });
-        scoresTableList.Add(new ScoresTableEntity()
-        {
-            Email = x.Player2.Email,
-            PlayerName = x.Player2.Name,
-        });
+        scoresTableList.Add(new ScoresTableEntity
+        (
+            email: x.Player.Email,
+            playerName: x.Player.Name
+        ));
+        scoresTableList.Add(new ScoresTableEntity
+        (
+            email: x.Player2.Email,
+            playerName: x.Player2.Name
+        ));
         return scoresTableList;
     }
     public static ScoresTableEntity SetScoreTableTotalGames(this ScoresTableEntity scoreTable, GameEntity game)

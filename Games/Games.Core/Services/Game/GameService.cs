@@ -1,6 +1,4 @@
-﻿using ApiShared;
-
-namespace Games.Core.Services;
+﻿namespace Games.Core.Services;
 public class GameService : IGameService
 {
     private readonly IGameTicTacToeService _gameTicTacToeService;
@@ -11,18 +9,17 @@ public class GameService : IGameService
     }
 
     #region Human
-    public async Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request, string gameType)
+    public async Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request)
     {
-        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.InitializeGameVsHumanAsync(request);
         }
         return null;
     }
-
-    public Task<ResponseError> MoveValidation(GameVsHumanRequest game, string gameType)
+    public Task<ResponseError> MoveValidation(GameVsHumanRequest game)
     {
-        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (game.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
             {
@@ -36,9 +33,9 @@ public class GameService : IGameService
         return Task.FromResult(new ResponseError(true));
     }
 
-    public async Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request, string gameType)
+    public async Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request)
     {
-        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.PlayVsHumanAsync(request);
         }
@@ -49,18 +46,18 @@ public class GameService : IGameService
 
     #region Computer
 
-    public async Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request, string gameType)
+    public async Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request)
     {
-        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.InitializeGameVsComputerAsync(request);
         }
         return null;
     }
    
-    public async Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request, string gameType)
+    public async Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request)
     {
-        if (gameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
         {
             return await _gameTicTacToeService.PlayVsComputerAsync(request);
         }

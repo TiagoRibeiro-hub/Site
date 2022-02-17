@@ -1,7 +1,6 @@
-﻿using Games.Infrastructure.RepositoryService;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Games.Core.Services;
+namespace Games.Core;
 public static class ServicesConfig
 {
     public static void AddRepository(this IServiceCollection services)
@@ -23,6 +22,7 @@ public static class ServicesConfig
         services.AddScoped<ScoreTableFuncs>();
         services.AddScoped<IScoreTableService, ScoreTableService>();
 
+        services.AddScoped<WinnerFuncs>();
         services.AddScoped<GameFuncs>();
         services.AddScoped<IGameTicTacToeService, GameTicTacToeService>();  
 

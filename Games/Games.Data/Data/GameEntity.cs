@@ -2,7 +2,24 @@
 #nullable disable
 public class GameEntity
 {
-    public int Id { get; set; }
+    public GameEntity(
+        string player1_Name, string player2_Name, bool isComputer, 
+        string difficulty, string startFirst)
+    {
+        Player1_Name = player1_Name;
+        Player2_Name = player2_Name;
+        IsComputer = isComputer;
+        Difficulty = difficulty;
+        StartFirst = startFirst;
+    }
+
+    public GameEntity(int id, DateTime dateTimeEnd)
+    {
+        Id = id;
+        DateTimeEnd = dateTimeEnd;
+    }
+
+    public int Id { get; private set; }
     public string Player1_Name { get; set; }
     public string Player2_Name { get; set; }
     public bool IsComputer { get; set; } = false;

@@ -1,6 +1,4 @@
-﻿using Games.Data.Extensions;
-using Games.Infrastructure.RepositoryService;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Games.Core.Services;
 internal class ScoreTableService : IScoreTableService
@@ -42,7 +40,6 @@ internal class ScoreTableService : IScoreTableService
             throw new Exception(ex.ToString());
         }
     }
-
     public async Task TableScoreInitializeList(HashSet<ScoresTableEntity> scoresTableList, GameEntity game)
     {
         try

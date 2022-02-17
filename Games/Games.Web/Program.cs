@@ -1,4 +1,4 @@
-using Games.Core.Services;
+using Games.Core;
 using Games.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);

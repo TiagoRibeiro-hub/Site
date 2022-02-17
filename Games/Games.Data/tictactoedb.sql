@@ -12,6 +12,8 @@ SELECT * FROM [TicTacToe].[dbo].[Game]
 SELECT * FROM [TicTacToe].[dbo].[Moves]
 SELECT * FROM [TicTacToe].[dbo].[ScoresTable]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesVsHuman]
+
+SELECT * FROM [TicTacToe].[dbo].[ScoresTable]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesVsComputer]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesEasy]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesIntermediate]
@@ -27,3 +29,6 @@ From ScoresTable AS s
 	inner join TotalGamesIntermediate As i on h.ScoreTableId = i.TotalGamesVsComputerId
 	inner join TotalGamesHard As x on h.ScoreTableId = x.TotalGamesVsComputerId
 where s.PlayerName = 'tiago' 
+
+Delete from [TicTacToe].[dbo].[ScoresTable]
+where PlayerName = 'maria'

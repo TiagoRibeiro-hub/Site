@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Games.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]/{gametype}")]
+    [Route("[controller]")]
     public class VsHumanController : Controller
     {       
         private readonly IGameService _gameService;
@@ -19,18 +19,16 @@ namespace Games.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> Initialize(
-            [FromBody] Request<RegisterVsHuman> request, 
-            [FromRoute] string gameType)
+        public async Task<Response> Initialize([FromBody] Request<RegisterVsHuman> request)
         {
             try
             {
-                if (request.Content is null || string.IsNullOrWhiteSpace(gameType))
+                if (request.Content is null || string.IsNullOrWhiteSpace(request.Content.GameType))
                 {
                     return new ResponseError(ApiSharedFuncs.RequestIsNull, false);
                 }
 
-                GameResponse gameResponse = await _gameService.InitializeVsHuman(request.Content, gameType);
+                GameResponse gameResponse = await _gameService.InitializeVsHuman(request.Content);
                 if (gameResponse is null || gameResponse.IdGame < 0)
                 {
                     return new ResponseError(ApiSharedFuncs.SomethingWentWrong, false);
@@ -53,9 +51,7 @@ namespace Games.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Response<GameResponse>))]
         [ProducesResponseType(400, Type = typeof(ResponseError))]
         [ProducesResponseType(500, Type = typeof(ResponseErrorException))]
-        public async Task<Response> Play(
-            [FromBody] Request<GameVsHumanRequest> request,
-            [FromRoute] string gameType)
+        public async Task<Response> Play([FromBody] Request<GameVsHumanRequest> request)
         {
             try
             {
@@ -67,10 +63,10 @@ namespace Games.Web.Controllers
                 {
                     return new ResponseError(ApiSharedFuncs.SetApisWrongEndPoint("This is the human player"), false);
                 }
-                ResponseError responseError = await _gameService.MoveValidation(request.Content, gameType);
+                ResponseError responseError = await _gameService.MoveValidation(request.Content);
                 if(responseError.IsSuccess)
                 {
-                    GameResponse gameResponse = await _gameService.PlayVsHuman(request.Content, gameType);
+                    GameResponse gameResponse = await _gameService.PlayVsHuman(request.Content);
                     if (gameResponse is null)
                     {
                         return new ResponseError(ApiSharedFuncs.SomethingWentWrong, false);
