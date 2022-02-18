@@ -16,7 +16,7 @@ public static class EnumExtensions
     }
     public static bool GetGameType(this GameType x, string gameType)
     {
-        if(x.GameTypeToString() == gameType.ToLower())
+        if(x.GameTypeToString() == gameType.ToUpper())
         {
             return true;
         }

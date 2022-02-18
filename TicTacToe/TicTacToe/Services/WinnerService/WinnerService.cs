@@ -13,6 +13,7 @@ public class WinnerService : IWinnerService
 
     public Task<HashSet<int>> GetListMovesAsync(Game game)
     {
+
         var playerMoves = _db.Moves.Select(x => new
         {
             x.GameId,

@@ -1,26 +1,25 @@
 ﻿namespace ApiShared;
+
 public class ResponseError : Response
 {
-    public ResponseError(string message, bool isSuccess)
+    public ResponseError()
     {
-        Message = message;
-        IsSuccess = isSuccess;
-    }
-    public ResponseError(bool isSuccess)
-    {
-        IsSuccess = isSuccess;
-    }
 
+    }
+    public ResponseError(string message, bool isSuccess) : base(message, isSuccess)
+    {
+
+    }
 }
 
-public class ResponseErrorException : Response
+public class ResponseError<T> : ResponseError where T : class
 {
-    public IEnumerable<string> Errors { get; set; } = new HashSet<string>();
-
-    public ResponseErrorException(IEnumerable<string> errors, string message)
+    public ResponseError(string message, bool isSuccess, T content) : base(message, isSuccess)
     {
-        Message = message;
-        IsSuccess = false;
-        Errors = errors;
+        Content = content;
     }
+
+    public T Content { get; set; }
+
 }
+

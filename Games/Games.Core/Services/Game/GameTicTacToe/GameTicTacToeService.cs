@@ -25,6 +25,7 @@ public class GameTicTacToeService : IGameTicTacToeService
         return new GameResponse
             (
                 idGame: idGame,
+                gameState: GameState.Start.GameStateToString(),
                 possibleMoves: possibleMoves,
                 ticTacToeNrCol: request.TicTacToeNrCol
             );
@@ -60,11 +61,14 @@ public class GameTicTacToeService : IGameTicTacToeService
         return new GameVsComputerResponse
             (
                 idGame: idGame,
+                player: request.Player.Name,
+                gameState: GameState.Start.GameStateToString(),
+                gameResult: null,
                 possibleMoves: possibleMoves,
-                ticTacToeNrCol: request.TicTacToeNrCol
+                ticTacToeNrCol: request.TicTacToeNrCol,
+                difficulty: request.Difficulty.ToUpper()
             );
     }
-
     public Task<GameVsComputerResponse> PlayVsComputerAsync(GameVsComputerRequest request)
     {
         throw new NotImplementedException();

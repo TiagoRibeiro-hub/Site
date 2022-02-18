@@ -2,15 +2,20 @@
 
 public class GameResponse
 {
-    public GameResponse(int idGame, Dictionary<string, string> possibleMoves, int ticTacToeNrCol)
+    public GameResponse()
+    {
+
+    }
+    public GameResponse(int idGame, string gameState, Dictionary<string, string> possibleMoves, int ticTacToeNrCol)
     {
         IdGame = idGame;
+        GameState = gameState;
         TicTacToe_NrCol = ticTacToeNrCol;
         PossibleMoves = possibleMoves;
     }
 
     public GameResponse(
-        int idGame, string player, string? gameState,
+        int idGame, string player, string gameState,
         string? gameResult, Dictionary<string, string> possibleMoves, int ticTacToeNrCol)
     {
         IdGame = idGame;
@@ -23,7 +28,7 @@ public class GameResponse
 
     public int IdGame { get; set; }
     public string? PlayerName { get; set; }
-    public string? GameState { get; set; }
+    public string GameState { get; set; }
     public string? GameResult { get; set; }
     public Dictionary<string, string> PossibleMoves { get; set; }
     public int TicTacToe_NrCol { get; set; }

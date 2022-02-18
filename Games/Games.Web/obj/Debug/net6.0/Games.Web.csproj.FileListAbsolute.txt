@@ -73,7 +73,6 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Games.We
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Games.Web.deps.json
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Games.Web.runtimeconfig.json
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Games.Web.dll
-D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\ref\Games.Web.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Games.Web.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Humanizer.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
@@ -136,3 +135,4 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\Games.We
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\ref\Games.Web.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\Games.Web.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\Games.Web.genruntimeconfig.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\refint\Games.Web.dll

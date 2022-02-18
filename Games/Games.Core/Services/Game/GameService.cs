@@ -19,18 +19,20 @@ public class GameService : IGameService
     }
     public Task<ResponseError> MoveValidation(GameVsHumanRequest game)
     {
+        ResponseError responseError = new();
         if (GameType.TicTacToe.GetGameType(game.GameType))
         {
             if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
             {
-                return Task.FromResult(new ResponseError("Possible moves between 1 & 9", false));
+                return Task.FromResult(responseError.Fail("Possible moves between 1 & 9"));
             }
             if (game.PossibleMoves.ContainsValue(game.MoveTo) == false)
             {
-                return Task.FromResult(new ResponseError($"{game.MoveTo} has already been played", false));
+                return Task.FromResult(responseError.Fail($"{game.MoveTo} has already been played"));
             }
         }
-        return Task.FromResult(new ResponseError(true));
+        
+        return Task.FromResult(responseError.NoErrors(ApiSharedConst.EverthingOk));
     }
     public async Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request)
     {
