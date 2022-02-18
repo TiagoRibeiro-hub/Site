@@ -22,9 +22,9 @@ public class GameFuncs
 
     public async Task<GameResponse?> GetWinnerAsync(GameVsHumanRequest request)
     {
-        if(request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(request.GameType))
         {
-           return await _winnerFuncs.GetWinnerTicTacToe(request);
+            return await _winnerFuncs.GetWinnerTicTacToe(request);
         }
         return null;
     }

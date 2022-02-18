@@ -11,7 +11,7 @@ public class GameService : IGameService
     #region Human
     public async Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request)
     {
-        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(request.GameType))
         {
             return await _gameTicTacToeService.InitializeGameVsHumanAsync(request);
         }
@@ -19,7 +19,7 @@ public class GameService : IGameService
     }
     public Task<ResponseError> MoveValidation(GameVsHumanRequest game)
     {
-        if (game.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(game.GameType))
         {
             if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
             {
@@ -32,10 +32,9 @@ public class GameService : IGameService
         }
         return Task.FromResult(new ResponseError(true));
     }
-
     public async Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request)
     {
-        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(request.GameType))
         {
             return await _gameTicTacToeService.PlayVsHumanAsync(request);
         }
@@ -48,7 +47,7 @@ public class GameService : IGameService
 
     public async Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request)
     {
-        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(request.GameType))
         {
             return await _gameTicTacToeService.InitializeGameVsComputerAsync(request);
         }
@@ -57,7 +56,7 @@ public class GameService : IGameService
    
     public async Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request)
     {
-        if (request.GameType.ToLower() == GameType.TicTacToe.ToString().ToLower())
+        if (GameType.TicTacToe.GetGameType(request.GameType))
         {
             return await _gameTicTacToeService.PlayVsComputerAsync(request);
         }

@@ -11,3 +11,4 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.D
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\ref\Games.Data.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.genruntimeconfig.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.csproj.AssemblyReference.cache

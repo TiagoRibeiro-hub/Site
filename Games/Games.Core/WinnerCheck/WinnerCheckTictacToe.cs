@@ -2,6 +2,16 @@
 
 public static class WinnerCheckTictacToe
 {
+    internal static (string, string) IsFinished(int possibleMovesCount)
+    {
+        if (possibleMovesCount <= 1)
+        {
+            return (GameState.Finished.GameStateToString(), GameResult.Tie.GameResultToString());
+        }
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+        return (GameState.Continue.GameStateToString(), null);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+    }
     internal static bool HaveWinner(List<string> listMovesPlayer, int nrCol)
     {
         if (Diagonal(listMovesPlayer, nrCol)) return true;
@@ -10,7 +20,7 @@ public static class WinnerCheckTictacToe
 
         return false;
     }
-    internal static bool Diagonal(List<string> moves, int nrCol)
+    private static bool Diagonal(List<string> moves, int nrCol)
     {
         int nextNr_Diagonal1 = 1;
         int nextNr_Diagonal2 = nrCol;
@@ -34,7 +44,7 @@ public static class WinnerCheckTictacToe
         }
         return false;
     }
-    internal static bool Vertical(List<string> moves, int nrCol)
+    private static bool Vertical(List<string> moves, int nrCol)
     {
         List<List<string>> listPossibleInLine = new();
         for (int i = 1; i <= nrCol; i++)
@@ -67,31 +77,37 @@ public static class WinnerCheckTictacToe
         }
         return false;
     }
-    internal static bool Horizontal(List<string> moves, int nrCol)
+    private static bool Horizontal(List<string> moves, int nrCol)
     {
-        Dictionary<int, List<int>> listPossibleInLine = new();
+        List<List<string>> listPossibleInLine = new();
         for (int i = 1; i <= nrCol; i++)
         {
-            List<int> inLineMoves = new();
+            List<string> list = new();
             int nextNr = i;
             for (int j = 1; j <= nrCol; j++)
             {
-                inLineMoves.Add(nextNr);
+                list.Add(nextNr.ToString());
                 nextNr += 1;
             }
-            listPossibleInLine.Add(i, inLineMoves);
         }
-        foreach (var move in moves)
+        int count = 0;
+        foreach (var list in listPossibleInLine)
         {
-
+            foreach (var item in list)
+            {
+                foreach (var move in moves)
+                {
+                    if (item == move)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            if (count == nrCol)
+            {
+                return true;
+            }
         }
-        if ((moves.Contains("1") && moves.Contains("2") && moves.Contains("3")) ||
-                (moves.Contains("4") && moves.Contains("5") && moves.Contains("6")) ||
-                (moves.Contains("7") && moves.Contains("8") && moves.Contains("9")))
-        {
-            return true;
-        }
-
         return false;
     }
 }

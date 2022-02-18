@@ -10,7 +10,7 @@ public class GameResponse
     }
 
     public GameResponse(
-        int idGame, string player, string gameState,
+        int idGame, string player, string? gameState,
         string? gameResult, Dictionary<string, string> possibleMoves, int ticTacToeNrCol)
     {
         IdGame = idGame;
