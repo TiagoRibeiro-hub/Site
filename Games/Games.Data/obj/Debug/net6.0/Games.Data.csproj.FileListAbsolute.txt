@@ -12,3 +12,6 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.D
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.genruntimeconfig.cache
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.csproj.AssemblyReference.cache
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\refint\Games.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\ApiShared.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\bin\Debug\net6.0\ApiShared.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Data\obj\Debug\net6.0\Games.Data.csproj.CopyComplete

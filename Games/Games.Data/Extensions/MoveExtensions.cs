@@ -3,11 +3,11 @@ namespace Games.Data.Extensions;
 
 public static class MoveExtensions
 {
-    public static MovesEntity SetMovesEntityVsHuman(this GameVsHumanRequest x)
+    public static MovesEntity SetMovesEntityVsHuman(this PlayRequest x)
     {
         return new MovesEntity
         (
-            playerName: x.Player.Name,
+            playerName: x.PlayerName,
             moveTo: x.MoveTo,
             moveFrom: x.MoveFrom,
             moveNumber: x.MoveNumber,

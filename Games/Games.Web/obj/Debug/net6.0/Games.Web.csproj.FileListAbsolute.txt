@@ -136,3 +136,5 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\ref\Game
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\Games.Web.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\Games.Web.genruntimeconfig.cache
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\obj\Debug\net6.0\refint\Games.Web.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Repository.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Web\bin\Debug\net6.0\Repository.pdb

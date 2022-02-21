@@ -20,6 +20,12 @@
     <ProjectReference Include="..\Games.Data\Games.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Repository">
+      <HintPath>..\..\Repository\Repository\bin\Debug\net6.0\Repository.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 
 

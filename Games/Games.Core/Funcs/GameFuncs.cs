@@ -20,7 +20,7 @@ public class GameFuncs
         return result;
     }
 
-    public async Task<GameResponse?> GetWinnerAsync(GameVsHumanRequest request)
+    public async Task<PlayResponse?> GetWinnerAsync(PlayRequest request)
     {
         if (GameType.TicTacToe.GetGameType(request.GameType))
         {

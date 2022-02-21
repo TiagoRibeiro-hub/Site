@@ -24,5 +24,8 @@
 		<Reference Include="ApiShared">
 			<HintPath>..\..\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
 		</Reference>
+		<Reference Include="Repository">
+		  <HintPath>..\..\Repository\Repository\bin\Debug\net6.0\Repository.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 </Project>

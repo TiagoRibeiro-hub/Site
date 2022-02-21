@@ -22,5 +22,9 @@
 	</ItemGroup>
 
 
-
+	<ItemGroup>
+		<Reference Include="ApiShared">
+			<HintPath>..\..\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>

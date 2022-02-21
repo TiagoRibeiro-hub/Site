@@ -19,3 +19,5 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\Games.C
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\bin\Debug\net6.0\ApiShared.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\bin\Debug\net6.0\ApiShared.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\obj\Debug\net6.0\refint\Games.Core.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\bin\Debug\net6.0\Repository.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Games.Core\bin\Debug\net6.0\Repository.pdb

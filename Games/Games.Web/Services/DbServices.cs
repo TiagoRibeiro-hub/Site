@@ -5,9 +5,9 @@ public static class DbServices
 {
     public static void AddDbServices(this IServiceCollection services)
     {
-
+        services.AddRegisteredPlayersDbContext();
         services.AddTicTacToeDbContext();
         services.AddChessDbContext();
-        services.AddRepository();
+        services.AddRepositorys();
     }
 }

@@ -2,30 +2,31 @@
 
 public static class ResponseExtensions
 {
-    public static ResponseError Fail(this ResponseError x, string message)
+    public static Response Fail(this Response x, string message)
     {
-        return new ResponseError
+        return new Response
             (
                 message: message,
                 isSuccess: false
             );
     }
-    public static ResponseError<T> Fail<T>(this ResponseError x, string message, T content) where T : class, new()
+
+    public static Response<T> Fail<T>(this Response x, T content) where T : class, new()
     {
-        return new ResponseError<T>
+        return new Response<T>
             (
-                message: message,
                 isSuccess: false,
                 content: content
             );
     }
 
-    public static ResponseError NoErrors(this ResponseError x, string message)
+    public static Response<T> Fail<T>(this Response x, string message, T content) where T : class, new()
     {
-        return new ResponseError
+        return new Response<T>
             (
                 message: message,
-                isSuccess: true
+                isSuccess: false,
+                content: content
             );
     }
 
@@ -46,5 +47,6 @@ public static class ResponseExtensions
                 content: content
             );
     }
+
 }
 

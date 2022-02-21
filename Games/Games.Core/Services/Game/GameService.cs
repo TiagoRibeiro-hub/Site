@@ -1,71 +1,87 @@
-﻿namespace Games.Core.Services;
+﻿using Games.Infrastructure;
+using Repository;
+
+namespace Games.Core.Services;
 public class GameService : IGameService
 {
-    private readonly IGameTicTacToeService _gameTicTacToeService;
-
-    public GameService(IGameTicTacToeService gameTicTacToeService)
+    private readonly IRegisteredPlayersRepository _unitOfWork;
+    private readonly ITicTacToeService _ticTacToeService;
+    public GameService(IRegisteredPlayersRepository unitOfWorkRegisteredPlayers, ITicTacToeService ticTacToeService)
     {
-        _gameTicTacToeService = gameTicTacToeService;
+        _unitOfWork = unitOfWorkRegisteredPlayers;
+        _ticTacToeService = ticTacToeService;
     }
 
-    #region Human
-    public async Task<GameResponse?> InitializeVsHuman(RegisterVsHuman request)
+    public async Task<Response?> RegisterPlayer(RegisterPlayerRequest registerPlayer)
     {
-        if (GameType.TicTacToe.GetGameType(request.GameType))
+        Response<RegisterPlayerResponse> response = new();
+        if (registerPlayer == null)
         {
-            return await _gameTicTacToeService.InitializeGameVsHumanAsync(request);
+            return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         }
-        return null;
-    }
-    public Task<ResponseError> MoveValidation(GameVsHumanRequest game)
-    {
-        ResponseError responseError = new();
-        if (GameType.TicTacToe.GetGameType(game.GameType))
+        bool isEmailRegistered, isPlayerNameRegistered;  
+        isEmailRegistered = await _unitOfWork.RegisteredPlayersRead.IsAnyAsync(Expr.IsExistByEmail(registerPlayer.Player.Email));
+        isPlayerNameRegistered = await _unitOfWork.RegisteredPlayersRead.IsAnyAsync(Expr.IsExistByPlayerName(registerPlayer.Player.Name));
+        if (isPlayerNameRegistered == false && isEmailRegistered == false)
         {
-            if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
-            {
-                return Task.FromResult(responseError.Fail("Possible moves between 1 & 9"));
-            }
-            if (game.PossibleMoves.ContainsValue(game.MoveTo) == false)
-            {
-                return Task.FromResult(responseError.Fail($"{game.MoveTo} has already been played"));
-            }
+            await _unitOfWork.RegisteredPlayersWrite.InsertAsync(registerPlayer.SetRegisteredPlayers());
+            await _unitOfWork.Complete();
+            return response.Success
+                        (
+                            content: new RegisterPlayerResponse(playerName: true, email: true),
+                            message: ApiSharedConst.EverthingOk
+                        );
         }
-        
-        return Task.FromResult(responseError.NoErrors(ApiSharedConst.EverthingOk));
-    }
-    public async Task<GameResponse?> PlayVsHuman(GameVsHumanRequest request)
-    {
-        if (GameType.TicTacToe.GetGameType(request.GameType))
+        if (isPlayerNameRegistered && isEmailRegistered)
         {
-            return await _gameTicTacToeService.PlayVsHumanAsync(request);
+            return response.Success
+                        (
+                            content: new RegisterPlayerResponse(playerName: isPlayerNameRegistered, email: isEmailRegistered),
+                            message: "Already Registered"
+                        );
         }
-        return null;
+        return response.Fail(content: new RegisterPlayerResponse(playerName: isPlayerNameRegistered, email: isEmailRegistered));
     }
 
-    #endregion
-
-    #region Computer
-
-    public async Task<GameVsComputerResponse?> InitializeVsComputer(RegisterVsComputer request)
+    public async Task<Response?> Initialize(InitializeGameRequest initializeGame)
     {
-        if (GameType.TicTacToe.GetGameType(request.GameType))
+        Response<InitializeGameResponse> response = new();
+        if (initializeGame == null)
         {
-            return await _gameTicTacToeService.InitializeGameVsComputerAsync(request);
+            return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         }
-        return null;
+        InitializeGameResponse initializeGameResponse = new();
+        if (initializeGame.GameType.ToUpper() == GameType.TicTacToe.GameTypeToString())
+        {
+            initializeGameResponse = await _ticTacToeService.Initialize(initializeGame);
+        }
+
+        if (initializeGameResponse is null)
+        {
+            return response.Fail(content: new Error(message: ApiSharedConst.SomethingWentWrong));
+        }
+        return response.Success
+        (
+            content: initializeGameResponse,
+            message: ApiSharedConst.EverthingOk
+        );
     }
-   
-    public async Task<GameVsComputerResponse?> PlayVsComputer(GameVsComputerRequest request)
+
+    public async Task<Response?> Play(PlayRequest playRequest)
     {
-        if (GameType.TicTacToe.GetGameType(request.GameType))
+        Response<PlayResponse> response = new();
+        if (playRequest == null)
         {
-            return await _gameTicTacToeService.PlayVsComputerAsync(request);
+            return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         }
-        return null;
+        return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
+        //if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
+        //{
+        //    return Task.FromResult(responseError.Fail("Possible moves between 1 & 9"));
+        //}
+        //if (game.PossibleMoves.ContainsValue(game.MoveTo) == false)
+        //{
+        //    return Task.FromResult(responseError.Fail($"{game.MoveTo} has already been played"));
+        //}
     }
-
-    #endregion
-
 }
-

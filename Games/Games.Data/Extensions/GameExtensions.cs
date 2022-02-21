@@ -2,29 +2,29 @@
 
 public static class GameExtensions
 {
-    public static GameEntity SetGameEntityVsComputer(this RegisterVsComputer x)
+    public static GameEntity SetGameEntity(this InitializeGameRequest x)
     {
-        StartFirst startFirst = new(x.Player.Turn, x.Player.Name, Computer.Name);
-        return new GameEntity
-        (
-            player1_Name: x.Player.Name,
-            player2_Name: Computer.Name,
-            isComputer: x.IsComputer,
-            difficulty: x.Difficulty,
-            startFirst: startFirst.GetStartFirst()
-        );
-    }
-    public static GameEntity SetGameEntityVsHuman(this RegisterVsHuman x)
-    {
-        StartFirst startFirst = new(x.Player.Turn, x.Player.Name, x.Player2.Name);
-        return new GameEntity
-        (
-            player1_Name: x.Player.Name,
-            player2_Name: x.Player2.Name,
-            isComputer: false,
-            difficulty: null,
-            startFirst: startFirst.GetStartFirst()
-        );
-    }
+        bool isComputer = false;
+        string difficulty = null, playerName_2;
 
+        if (x.VsComputer.IsComputer)
+        {
+            isComputer = true;
+            playerName_2 = Computer.Name;
+            difficulty = x.VsComputer.Difficulty;
+        }
+        else
+        {
+            playerName_2 = x.VsHuman.PlayerName_2;
+        }
+
+        return new GameEntity
+        (
+            player1_Name: x.PlayerName_1,
+            player2_Name: playerName_2,
+            isComputer: isComputer,
+            difficulty: difficulty,
+            startFirst: x.StartFirst
+        );
+    }
 }

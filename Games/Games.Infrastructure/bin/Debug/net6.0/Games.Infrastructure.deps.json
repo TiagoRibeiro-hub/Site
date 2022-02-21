@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore": "6.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Repository": "1.0.0.0"
         },
         "runtime": {
           "Games.Infrastructure.dll": {}
@@ -580,6 +581,14 @@
         "runtime": {
           "Games.Data.dll": {}
         }
+      },
+      "Repository/1.0.0.0": {
+        "runtime": {
+          "Repository.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -948,6 +957,11 @@
     },
     "Games.Data/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Repository/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
