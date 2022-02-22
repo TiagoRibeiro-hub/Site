@@ -31,6 +31,7 @@ public class TotalGamesTicTacToeRepository : ITotalGamesTicTacToeRepository
                 _ = game.StartFirst == playerName ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
                 vsComputerEasy.TotalGames += 1;
                 await _totalGamesEasy.TicTacToeWrite.UpdateAsync(vsComputerEasy);
+                await _totalGamesEasy.Complete();
             }
             if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
             {
@@ -38,6 +39,7 @@ public class TotalGamesTicTacToeRepository : ITotalGamesTicTacToeRepository
                 _ = game.StartFirst == playerName ? vsComputerIntermediate.StartFirst += 1 : vsComputerIntermediate.StartSecond += 1;
                 vsComputerIntermediate.TotalGames += 1;
                 await _totalGamesIntermediate.TicTacToeWrite.UpdateAsync(vsComputerIntermediate);
+                await _totalGamesIntermediate.Complete();
             }
             if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
             {
@@ -45,6 +47,7 @@ public class TotalGamesTicTacToeRepository : ITotalGamesTicTacToeRepository
                 _ = game.StartFirst == playerName ? vsComputerHard.StartFirst += 1 : vsComputerHard.StartSecond += 1;
                 vsComputerHard.TotalGames += 1;
                 await _totalGamesHard.TicTacToeWrite.UpdateAsync(vsComputerHard);
+                await _totalGamesHard.Complete();
             }
         }
         else
@@ -52,6 +55,7 @@ public class TotalGamesTicTacToeRepository : ITotalGamesTicTacToeRepository
             var vsHumanModel = await _totalGamesVsHuman.TicTacToeRead.FindAsync(scoreTableId);
             _ = game.StartFirst == playerName ? vsHumanModel.StartFirst += 1 : vsHumanModel.StartSecond += 1;
             await _totalGamesVsHuman.TicTacToeWrite.UpdateAsync(vsHumanModel);
+            await _totalGamesVsHuman.Complete();
         }
     }
 

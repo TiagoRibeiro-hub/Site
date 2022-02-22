@@ -10,6 +10,7 @@ GO
 
 SELECT * FROM [TicTacToe].[dbo].[Game]
 SELECT * FROM [TicTacToe].[dbo].[Moves]
+
 SELECT * FROM [TicTacToe].[dbo].[ScoresTable]
 SELECT * FROM [TicTacToe].[dbo].[TotalGamesVsHuman]
 

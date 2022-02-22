@@ -35,13 +35,13 @@ public class TicTacToeRepository : ITicTacToeRepository
     public async Task UpdateScoreTableTotalGamesAsync(InitializeGameRequest game)
     {
         Expression<Func<ScoresTableEntity, int>> selector = x => x.Id;
-        await Update(game, selector, game.PlayerName_1);
+        await UpdateTotalGames(game, selector, game.PlayerName_1);
         if (game.VsComputer.IsComputer == false)
         {
-            await Update(game, selector, game.VsHuman.PlayerName_2);
+            await UpdateTotalGames(game, selector, game.VsHuman.PlayerName_2);
         }     
     }
-    private async Task Update(InitializeGameRequest game, Expression<Func<ScoresTableEntity, int>> selector, string playerName)
+    private async Task UpdateTotalGames(InitializeGameRequest game, Expression<Func<ScoresTableEntity, int>> selector, string playerName)
     {
         Expression<Func<ScoresTableEntity, bool>> predicate = x => x.PlayerName == playerName;
         int scoreTableId = await _unitOfWorkScoresTableEntity.TicTacToeRead.GetFirstOrDefaultAsync(predicate, selector);
