@@ -7,3 +7,5 @@ CREATE DATABASE RegisteredPlayers
 GO
 USE RegisteredPlayers
 GO
+
+SELECT * FROM [RegisteredPlayers].[dbo].[RegisteredPlayers]

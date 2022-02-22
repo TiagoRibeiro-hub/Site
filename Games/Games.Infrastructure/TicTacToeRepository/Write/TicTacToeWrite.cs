@@ -4,7 +4,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public class TicTacToeWrite : Repository<GameEntity>, ITicTacToeWrite
+public class TicTacToeWrite<TEntity> : Repository<TEntity>, ITicTacToeWrite<TEntity> where TEntity : class
 {
     public TicTacToeWrite(TicTacToeDbContext dbContext) : base(dbContext)
     {

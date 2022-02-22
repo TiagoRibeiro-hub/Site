@@ -1,7 +1,6 @@
 ﻿namespace Games.Core.Services;
 
-public interface ITicTacToeService
+public interface IInitializeService
 {
     Task<InitializeGameResponse> Initialize(InitializeGameRequest initializeGame);
-    Task<Response?> Play(PlayRequest playRequest);
 }

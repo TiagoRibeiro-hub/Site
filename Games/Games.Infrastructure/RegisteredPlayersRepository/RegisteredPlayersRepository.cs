@@ -1,33 +1,31 @@
-﻿using Games.Data;
+﻿using Games.Data.Data;
+using System.Linq.Expressions;
 
 namespace Games.Infrastructure;
-
 public class RegisteredPlayersRepository : IRegisteredPlayersRepository
 {
-    public RegisteredPlayersDbContext _dbContext;
-    public RegisteredPlayersRepository(RegisteredPlayersDbContext dbContext)
-    {
-        _dbContext = dbContext;
-        RegisteredPlayersWrite = new RegisteredPlayersWrite(_dbContext);
-        RegisteredPlayersRead = new RegisteredPlayersRead(_dbContext);
-    }
-    public IRegisteredPlayersWrite RegisteredPlayersWrite { get; private set; }
-    public IRegisteredPlayersRead RegisteredPlayersRead { get; private set; }
+    private readonly IUnitOfWorkRegisteredPlayers<RegisteredPlayersEntity> _unitOfWorkRegisteredPlayers;
 
-    public async Task Complete()
+    public RegisteredPlayersRepository(IUnitOfWorkRegisteredPlayers<RegisteredPlayersEntity> registeredPlayersRepository)
     {
-        try
-        {
-            await _dbContext.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.ToString());
-        }
+        _unitOfWorkRegisteredPlayers = registeredPlayersRepository;
     }
 
-    public void Dispose()
+    public async Task<bool> IsExistByEmail(string email)
     {
-        _dbContext.Dispose();
+        Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerEmail == email;
+        return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+    }
+
+    public async Task<bool> IsExistByPlayerName(string playerName)
+    {
+        Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerName == playerName;
+        return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+    }
+
+    public async Task InsertAsync(RegisteredPlayersEntity registeredPlayersEntity)
+    {
+        await _unitOfWorkRegisteredPlayers.RegisteredPlayersWrite.InsertAsync(registeredPlayersEntity);
+        await _unitOfWorkRegisteredPlayers.Complete();
     }
 }

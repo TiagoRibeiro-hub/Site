@@ -1,33 +1,50 @@
-﻿using Games.Data;
+﻿using Games.Data.Api;
+using Games.Data.Data;
+using System.Linq.Expressions;
 
 namespace Games.Infrastructure;
-
 public class TicTacToeRepository : ITicTacToeRepository
 {
-    public TicTacToeDbContext _dbContext;
-    public TicTacToeRepository(TicTacToeDbContext dbContext)
-    {
-        _dbContext = dbContext;
-        TicTacToeWrite = new TicTacToeWrite(_dbContext);
-        TicTacToeRead = new TicTacToeRead(_dbContext);
-    }
-    public ITicTacToeWrite TicTacToeWrite { get; private set; }
-    public ITicTacToeRead TicTacToeRead { get; private set; }
+    private readonly IUnitOfWorkTicTacToe<GameEntity> _unitOfWorkGameEntity;
+    private readonly IUnitOfWorkTicTacToe<ScoresTableEntity> _unitOfWorkScoresTableEntity;
+    private readonly ITotalGamesTicTacToeRepository _totalGamesTicTacToeRepository;
 
-    public async Task Complete()
+    public TicTacToeRepository(
+        IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGameEntity, IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTableEntity, 
+        ITotalGamesTicTacToeRepository totalGamesTicTacToeRepository)
     {
-        try
-        {
-            await _dbContext.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.ToString());
-        }
+        _unitOfWorkGameEntity = unitOfWorkGameEntity;
+        _unitOfWorkScoresTableEntity = unitOfWorkScoresTableEntity;
+        _totalGamesTicTacToeRepository = totalGamesTicTacToeRepository;
     }
 
-    public void Dispose()
+    // Game
+    public async Task<int> InsertAndGetIdGameAsync(GameEntity game)
     {
-        _dbContext.Dispose();
+        return await _unitOfWorkGameEntity.TicTacToeWrite.InsertAndGetIdAsync(game);
+    }
+
+    // ScoresTable
+    public async Task InsertScoresTableAsync(ScoresTableEntity scoresTableEntity)
+    {
+        await _unitOfWorkScoresTableEntity.TicTacToeWrite.InsertAsync(scoresTableEntity);
+        await _unitOfWorkScoresTableEntity.Complete();
+    }
+
+    // Total Games
+    public async Task UpdateScoreTableTotalGamesAsync(InitializeGameRequest game)
+    {
+        Expression<Func<ScoresTableEntity, int>> selector = x => x.Id;
+        await Update(game, selector, game.PlayerName_1);
+        if (game.VsComputer.IsComputer == false)
+        {
+            await Update(game, selector, game.VsHuman.PlayerName_2);
+        }     
+    }
+    private async Task Update(InitializeGameRequest game, Expression<Func<ScoresTableEntity, int>> selector, string playerName)
+    {
+        Expression<Func<ScoresTableEntity, bool>> predicate = x => x.PlayerName == playerName;
+        int scoreTableId = await _unitOfWorkScoresTableEntity.TicTacToeRead.GetFirstOrDefaultAsync(predicate, selector);
+        await _totalGamesTicTacToeRepository.UpdateTotalGamesAsync(game, scoreTableId, playerName);
     }
 }

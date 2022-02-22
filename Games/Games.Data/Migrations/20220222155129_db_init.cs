@@ -34,7 +34,6 @@ namespace Games.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
                 constraints: table =>

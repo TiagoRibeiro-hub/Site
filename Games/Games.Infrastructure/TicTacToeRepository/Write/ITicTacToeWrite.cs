@@ -3,7 +3,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public interface ITicTacToeWrite : IRepository<GameEntity>
+public interface ITicTacToeWrite<TEntity> : IRepository<TEntity> where TEntity : class
 {
 
 }

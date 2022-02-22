@@ -4,12 +4,15 @@ using Repository;
 namespace Games.Core.Services;
 public class GameService : IGameService
 {
-    private readonly IRegisteredPlayersRepository _unitOfWork;
-    private readonly ITicTacToeService _ticTacToeService;
-    public GameService(IRegisteredPlayersRepository unitOfWorkRegisteredPlayers, ITicTacToeService ticTacToeService)
+    private readonly IRegisterPlayerService _registerPlayerService;
+    private readonly IInitializeService _initializeService;
+
+    public GameService(
+        IRegisterPlayerService registerPlayerService, 
+        IInitializeService initializeService)
     {
-        _unitOfWork = unitOfWorkRegisteredPlayers;
-        _ticTacToeService = ticTacToeService;
+        _registerPlayerService = registerPlayerService;
+        _initializeService = initializeService;
     }
 
     public async Task<Response?> RegisterPlayer(RegisterPlayerRequest registerPlayer)
@@ -19,30 +22,8 @@ public class GameService : IGameService
         {
             return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         }
-        bool isEmailRegistered, isPlayerNameRegistered;  
-        isEmailRegistered = await _unitOfWork.RegisteredPlayersRead.IsAnyAsync(Expr.IsExistByEmail(registerPlayer.Player.Email));
-        isPlayerNameRegistered = await _unitOfWork.RegisteredPlayersRead.IsAnyAsync(Expr.IsExistByPlayerName(registerPlayer.Player.Name));
-        if (isPlayerNameRegistered == false && isEmailRegistered == false)
-        {
-            await _unitOfWork.RegisteredPlayersWrite.InsertAsync(registerPlayer.SetRegisteredPlayers());
-            await _unitOfWork.Complete();
-            return response.Success
-                        (
-                            content: new RegisterPlayerResponse(playerName: true, email: true),
-                            message: ApiSharedConst.EverthingOk
-                        );
-        }
-        if (isPlayerNameRegistered && isEmailRegistered)
-        {
-            return response.Success
-                        (
-                            content: new RegisterPlayerResponse(playerName: isPlayerNameRegistered, email: isEmailRegistered),
-                            message: "Already Registered"
-                        );
-        }
-        return response.Fail(content: new RegisterPlayerResponse(playerName: isPlayerNameRegistered, email: isEmailRegistered));
+        return await _registerPlayerService.RegisterPlayer(registerPlayer);
     }
-
     public async Task<Response?> Initialize(InitializeGameRequest initializeGame)
     {
         Response<InitializeGameResponse> response = new();
@@ -50,12 +31,7 @@ public class GameService : IGameService
         {
             return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         }
-        InitializeGameResponse initializeGameResponse = new();
-        if (initializeGame.GameType.ToUpper() == GameType.TicTacToe.GameTypeToString())
-        {
-            initializeGameResponse = await _ticTacToeService.Initialize(initializeGame);
-        }
-
+        InitializeGameResponse initializeGameResponse = await _initializeService.Initialize(initializeGame);
         if (initializeGameResponse is null)
         {
             return response.Fail(content: new Error(message: ApiSharedConst.SomethingWentWrong));
@@ -66,7 +42,6 @@ public class GameService : IGameService
             message: ApiSharedConst.EverthingOk
         );
     }
-
     public async Task<Response?> Play(PlayRequest playRequest)
     {
         Response<PlayResponse> response = new();

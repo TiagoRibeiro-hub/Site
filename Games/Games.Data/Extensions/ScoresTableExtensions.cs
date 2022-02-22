@@ -4,29 +4,14 @@ namespace Games.Data.Extensions;
 
 public static class ScoresTableExtensions
 {
-    public static ScoresTableEntity SetScoreTableVsComputer(this InitializeGameRequest x)
+    public static ScoresTableEntity SetScoreTablePlayerName(this InitializeGameRequest x, string playerName)
     {
         return new ScoresTableEntity
         (
-            email: x.PlayerEmail_1,
-            playerName: x.PlayerName_1
+            playerName: playerName
         );
     }
-    //public static HashSet<ScoresTableEntity> SetScoreTableVsHuman(this RegisterVsHuman x)
-    //{
-    //    HashSet<ScoresTableEntity> scoresTableList = new();
-    //    scoresTableList.Add(new ScoresTableEntity
-    //    (
-    //        email: x.Player.Email,
-    //        playerName: x.Player.Name
-    //    ));
-    //    scoresTableList.Add(new ScoresTableEntity
-    //    (
-    //        email: x.Player2.Email,
-    //        playerName: x.Player2.Name
-    //    ));
-    //    return scoresTableList;
-    //}
+
     public static ScoresTableEntity SetScoreTableTotalGames(this ScoresTableEntity scoreTable, GameEntity game)
     {
         if (game.IsComputer)

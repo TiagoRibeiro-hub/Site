@@ -4,7 +4,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public class RegisteredPlayersRead : ReadRepository<RegisteredPlayersEntity>, IRegisteredPlayersRead
+public class RegisteredPlayersRead<TEntity> : ReadRepository<TEntity>, IRegisteredPlayersRead<TEntity> where TEntity : class
 {
     public RegisteredPlayersRead(RegisteredPlayersDbContext dbContext) : base(dbContext)
     {

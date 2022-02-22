@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Games.Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    [Migration("20220214140343_db_init")]
+    [Migration("20220222155129_db_init")]
     partial class db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,10 +103,6 @@ namespace Games.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()

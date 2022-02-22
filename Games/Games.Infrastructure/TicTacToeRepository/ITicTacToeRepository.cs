@@ -1,8 +1,11 @@
-﻿namespace Games.Infrastructure;
+﻿using Games.Data.Api;
+using Games.Data.Data;
 
-public interface ITicTacToeRepository : IDisposable
+namespace Games.Infrastructure;
+
+public interface ITicTacToeRepository
 {
-    ITicTacToeWrite TicTacToeWrite { get; }
-    ITicTacToeRead TicTacToeRead { get; }
-    Task Complete();
+    Task<int> InsertAndGetIdGameAsync(GameEntity game);
+    Task InsertScoresTableAsync(ScoresTableEntity scoresTableEntity);
+    Task UpdateScoreTableTotalGamesAsync(InitializeGameRequest game);
 }

@@ -6,10 +6,10 @@ public static class WinnerCheckTictacToe
     {
         if (possibleMovesCount <= 1)
         {
-            return (GameState.Finished.GameStateToString(), GameResult.Tie.GameResultToString());
+            return (GameState.Finished.GameStateToStringUpper(), GameResult.Tie.GameResultToStringUpper());
         }
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-        return (GameState.Continue.GameStateToString(), null);
+        return (GameState.Continue.GameStateToStringUpper(), null);
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
     }
     internal static bool HaveWinner(List<string> listMovesPlayer, int nrCol)

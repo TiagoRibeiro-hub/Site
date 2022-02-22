@@ -1,9 +1,10 @@
-﻿namespace Games.Infrastructure;
+﻿using Games.Data.Data;
 
-public interface IRegisteredPlayersRepository : IDisposable
+namespace Games.Infrastructure;
+
+public interface IRegisteredPlayersRepository
 {
-    IRegisteredPlayersWrite RegisteredPlayersWrite { get; }
-    IRegisteredPlayersRead RegisteredPlayersRead { get; }
-
-    Task Complete();
+    Task<bool> IsExistByEmail(string email);
+    Task<bool> IsExistByPlayerName(string playerName);
+    Task InsertAsync(RegisteredPlayersEntity registeredPlayersEntity);
 }

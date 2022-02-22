@@ -3,7 +3,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public interface IRegisteredPlayersWrite : IRepository<RegisteredPlayersEntity>
+public interface IRegisteredPlayersWrite<TEntity> : IRepository<TEntity> where TEntity : class
 {
 
 }

@@ -4,7 +4,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public class TicTacToeRead : ReadRepository<GameEntity>, ITicTacToeRead
+public class TicTacToeRead<TEntity> : ReadRepository<TEntity>, ITicTacToeRead<TEntity> where TEntity : class
 {
     public TicTacToeRead(TicTacToeDbContext dbContext) : base(dbContext)
     {

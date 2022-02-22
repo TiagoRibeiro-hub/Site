@@ -1,12 +1,6 @@
 ﻿namespace Games.Core.Services;
 internal class ScoreTableService : IScoreTableService
 {
-    private readonly ScoreTableFuncs _scoreTableFuncs;
-    public ScoreTableService(ScoreTableFuncs scoreTableFuncs)
-    {
-        _scoreTableFuncs = scoreTableFuncs;
-    }
-
     private Expression<Func<ScoresTableEntity, bool>>? _expressionBool;
     private Expression<Func<ScoresTableEntity, int>>? _expressionInt;
 

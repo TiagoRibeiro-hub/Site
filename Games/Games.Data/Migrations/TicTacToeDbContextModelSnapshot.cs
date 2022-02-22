@@ -102,10 +102,6 @@ namespace Games.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");

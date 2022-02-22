@@ -4,7 +4,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public class RegisteredPlayersWrite : Repository<RegisteredPlayersEntity>, IRegisteredPlayersWrite
+public class RegisteredPlayersWrite<TEntity> : Repository<TEntity>, IRegisteredPlayersWrite<TEntity> where TEntity : class
 {
     public RegisteredPlayersWrite(RegisteredPlayersDbContext dbContext) : base(dbContext)
     {

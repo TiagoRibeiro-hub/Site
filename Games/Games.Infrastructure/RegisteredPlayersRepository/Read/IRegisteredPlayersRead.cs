@@ -3,7 +3,7 @@ using Repository;
 
 namespace Games.Infrastructure;
 
-public interface IRegisteredPlayersRead : IReadRepository<RegisteredPlayersEntity>
+public interface IRegisteredPlayersRead<TEntity> : IReadRepository<TEntity> where TEntity : class
 {
 
 }
