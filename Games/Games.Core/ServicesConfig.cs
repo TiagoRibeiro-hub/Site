@@ -20,7 +20,7 @@ public static class ServicesConfig
         services.AddScoped<WinnerFuncs>();
         services.AddScoped<GameFuncs>();
 
-
+        services.AddScoped<IPlayTicTacToeService, PlayTicTacToeService>();
         services.AddScoped<IInitializeService, InitializeService>();
         services.AddScoped<IRegisterPlayerService, RegisterPlayerService>();
         services.AddScoped<IGameService, GameService>();

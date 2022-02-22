@@ -22,10 +22,10 @@ public class GameFuncs
 
     public async Task<PlayResponse?> GetWinnerAsync(PlayRequest request)
     {
-        if (GameType.TicTacToe.GetGameType(request.GameType))
-        {
-            return await _winnerFuncs.GetWinnerTicTacToe(request);
-        }
+        //if (GameType.TicTacToe.GetGameType(request.GameType))
+        //{
+        //    return await _winnerFuncs.GetWinnerTicTacToe(request);
+        //}
         return null;
     }
 }
