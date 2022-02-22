@@ -12,11 +12,11 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
         _dbContext = dbContext;
     }
 
-    public async Task<bool> IsAnyAsync(Expression<Func<TEntity, bool>> expression)
+    public async Task<bool> IsAnyAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
-            bool isReg = await _dbContext.Set<TEntity>().AnyAsync(expression);
+            bool isReg = await _dbContext.Set<TEntity>().AnyAsync(predicate);
             if (isReg)
             {
                 return true;
@@ -29,23 +29,70 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
         }
     }
 
-    public Task<TEntity> FindAsync(int id)
+    public async Task<TEntity> FindAsync(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            TEntity result = await _dbContext.Set<TEntity>().FindAsync(id);
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 
-    public Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, bool>> expressionWhere, Expression<Func<TEntity, TResult>> expressionSelect) where TResult : IConvertible
+    public async Task<IEnumerable<TEntity>> GetTableByAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await _dbContext.Set<TEntity>().Where(predicate).FirstOrDefaultAsync();
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return (IEnumerable<TEntity>)result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
+    }
+    public async Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> selector) where TResult : IConvertible
+    {
+        try
+        {
+            var result = await _dbContext.Set<TEntity>().Where(predicate).Select(selector).FirstOrDefaultAsync();
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 
-    public Task<IEnumerable<TEntity>> GetTableByAsync(Expression<Func<TEntity, bool>> expressionWhere)
+    public async Task<List<TResult>> GetToListAsync<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> selector) where TResult : IConvertible
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<TResult>> GetToListAsync<TResult>(Expression<Func<TEntity, bool>> expressionWhere, Expression<Func<TEntity, TResult>> expressionSelect) where TResult : IConvertible
-    {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await _dbContext.Set<TEntity>().Where(predicate).Select(selector).ToListAsync();
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 }

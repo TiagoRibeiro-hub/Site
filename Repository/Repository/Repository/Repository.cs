@@ -53,12 +53,27 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         }
     }
 
-    public Task InsertRangeAsync(TEntity entity, TEntity entity1)
+    public async Task InsertRangeAsync(TEntity entity, TEntity entity1)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _dbContext.Set<TEntity>().AddRangeAsync(entity, entity1);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
-    public Task UpdateRangeAsync(TEntity entity, TEntity entity1)
+    public async Task UpdateRangeAsync(TEntity entity, TEntity entity1)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 }
