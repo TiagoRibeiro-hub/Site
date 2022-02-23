@@ -7,7 +7,7 @@ namespace Games.Web.Controllers;
 [Route("[controller]")]
 public class TicTacToeController : BaseController
 {
-    public TicTacToeController(IGameService gameService) : base(gameService)
+    public TicTacToeController(IGamePhasesService gameService) : base(gameService)
     {
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Games.Data.Api;
 using Games.Data.Data;
+using Games.Data.Game;
 using System.Linq.Expressions;
 
 namespace Games.Infrastructure;
@@ -32,14 +33,14 @@ public class TicTacToeRepository : ITicTacToeRepository
     }
 
     // Total Games
-    public async Task UpdateScoreTableTotalGamesAsync(InitializeGameRequest game)
+    public async Task UpdateScoreTableTotalGamesAsync(TotalGamesUpdate game)
     {
         Expression<Func<ScoresTableEntity, int>> selector = x => x.Id;
-        await UpdateTotalGames(game, selector, game.PlayerName_1);
-        if (game.VsComputer.IsComputer == false)
-        {
-            await UpdateTotalGames(game, selector, game.VsHuman.PlayerName_2);
-        }     
+        //await UpdateTotalGames(game, selector, game.PlayerName_1);
+        //if (game.VsComputer.IsComputer == false)
+        //{
+        //    await UpdateTotalGames(game, selector, game.VsHuman.PlayerName_2);
+        //}     
     }
     private async Task UpdateTotalGames(InitializeGameRequest game, Expression<Func<ScoresTableEntity, int>> selector, string playerName)
     {

@@ -8,8 +8,8 @@ namespace Games.Web.Controllers;
 [ApiController]
 public abstract class BaseController : ControllerBase
 {
-    private readonly IGameService _gameService;
-    public BaseController(IGameService gameService)
+    private readonly IGamePhasesService _gameService;
+    public BaseController(IGamePhasesService gameService)
     {
         _gameService = gameService;
     }

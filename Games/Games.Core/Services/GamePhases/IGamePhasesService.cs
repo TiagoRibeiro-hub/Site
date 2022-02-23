@@ -1,6 +1,6 @@
 ﻿namespace Games.Core.Services;
 
-public interface IGameService
+public interface IGamePhasesService
 {
     Task<Response?> RegisterPlayer(RegisterPlayerRequest registerPlayer); 
     Task<Response?> Initialize(InitializeGameRequest initializeGame);

@@ -6,6 +6,5 @@ global using Games.Data.Data;
 global using Games.Data.Extensions;
 
 global using Games.Core.Services;
-global using Games.Core.Funcs;
 
 global using System.Linq.Expressions;

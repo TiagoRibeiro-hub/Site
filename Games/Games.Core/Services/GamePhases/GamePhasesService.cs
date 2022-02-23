@@ -2,12 +2,12 @@
 using Repository;
 
 namespace Games.Core.Services;
-public class GameService : IGameService
+public class GamePhasesService : IGamePhasesService
 {
     private readonly IRegisterPlayerService _registerPlayerService;
     private readonly IInitializeService _initializeService;
 
-    public GameService(
+    public GamePhasesService(
         IRegisterPlayerService registerPlayerService, 
         IInitializeService initializeService)
     {

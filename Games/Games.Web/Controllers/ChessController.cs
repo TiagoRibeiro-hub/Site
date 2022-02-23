@@ -7,7 +7,7 @@ namespace Games.Web.Controllers;
 [Route("[controller]")]
 public class ChessController : BaseController
 {
-    public ChessController(IGameService gameService) : base(gameService)
+    public ChessController(IGamePhasesService gameService) : base(gameService)
     {
     }
 }
