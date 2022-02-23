@@ -1,4 +1,5 @@
 ﻿namespace Games.Data;
+#nullable disable
 public class RegisteredPlayersDbContext : DbContext
 {
     public RegisteredPlayersDbContext(DbContextOptions<RegisteredPlayersDbContext> options) : base(options)

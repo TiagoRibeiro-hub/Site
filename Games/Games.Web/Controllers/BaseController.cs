@@ -4,6 +4,7 @@ using Games.Data.Api;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Games.Web.Controllers;
+#nullable disable
 
 [ApiController]
 public abstract class BaseController : ControllerBase

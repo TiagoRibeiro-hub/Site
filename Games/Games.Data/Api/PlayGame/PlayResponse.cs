@@ -37,7 +37,7 @@ public class PlayResponse
     public string? GameResult { get; set; }
     public bool? IsComputer { get; set; }
     public string? Difficulty { get; set; }
-    public Dictionary<string, string> PossibleMoves { get; set; }
+    public Dictionary<string, string>? PossibleMoves { get; set; }
 }
 
 

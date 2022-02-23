@@ -30,9 +30,4 @@
 		</Reference>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\Game\" />
-	  <Folder Include="Services\Play\" />
-	</ItemGroup>
-
 </Project>

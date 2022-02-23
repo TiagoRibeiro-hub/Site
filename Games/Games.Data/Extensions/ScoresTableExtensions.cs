@@ -4,13 +4,7 @@ namespace Games.Data.Extensions;
 
 public static class ScoresTableExtensions
 {
-    public static ScoresTableEntity SetScoreTablePlayerName(this InitializeGameRequest x, string playerName)
-    {
-        return new ScoresTableEntity
-        (
-            playerName: playerName
-        );
-    }
+
 
     public static ScoresTableEntity SetScoreTableTotalGames(this ScoresTableEntity scoreTable, GameEntity game)
     {

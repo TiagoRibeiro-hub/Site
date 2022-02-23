@@ -1,5 +1,5 @@
 ﻿namespace Games.Data.Api;
-
+#nullable disable
 public class InitializeGameResponse
 {
     public InitializeGameResponse()

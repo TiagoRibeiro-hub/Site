@@ -1,0 +1,14 @@
+﻿namespace Games.Infrastructure;
+#nullable disable
+public class TicTacToeRead<TEntity> : ReadRepository<TEntity>, ITicTacToeRead<TEntity> where TEntity : class
+{
+    public TicTacToeRead(TicTacToeDbContext dbContext) : base(dbContext)
+    {
+
+    }
+
+    public TicTacToeDbContext RegisteredPlayersDb
+    {
+        get { return _dbContext as TicTacToeDbContext; }
+    }
+}
