@@ -28,12 +28,13 @@ public class GamePhasesService : IGamePhasesService
     }
     public async Task<Response> Initialize(InitializeGameRequest initializeGame)
     {
-        Response<InitializeGameResponse> response = new();
-        if (initializeGame == null)
+        var validation = await _validationService.InitializeGameRequestValidator(initializeGame);
+        if (!validation.IsValid)
         {
-            //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
-        }
+            return await _validationService.GetErrors(validation);
+        }   
         InitializeGameResponse initializeGameResponse = await _initializePhaseService.Initialize(initializeGame);
+        Response<InitializeGameResponse> response = new();
         if (initializeGameResponse is null)
         {
             //return response.Fail(content: new Error(message: ApiSharedConst.SomethingWentWrong));

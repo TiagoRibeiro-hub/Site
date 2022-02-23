@@ -5,13 +5,6 @@ public class RegisterPlayerRequestValidator : AbstractValidator<RegisterPlayerRe
 {
     public RegisterPlayerRequestValidator()
     {
-        RuleFor(x => x.Player.Name)
-            .NotEmpty().NotNull()
-            .MinimumLength(3).MaximumLength(20)
-            .Matches("^[a-zA-Z0-9 ]*$");
-
-        RuleFor(x => x.Player.Email)
-            .NotEmpty().NotNull()
-            .EmailAddress();
+        RuleFor(x => x.Player).SetValidator(new PlayerValidator());
     }
 }

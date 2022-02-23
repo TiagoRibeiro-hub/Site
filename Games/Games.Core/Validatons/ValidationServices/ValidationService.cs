@@ -28,4 +28,11 @@ public class ValidationService : IValidationService
         var validation = validationRules.Validate(registerPlayer);
         return Task.FromResult(validation);
     }
+
+    public Task<ValidationResult> InitializeGameRequestValidator(InitializeGameRequest initializeGame)
+    {
+        InitializeGameRequestValidator validationRules = new();
+        var validation = validationRules.Validate(initializeGame);
+        return Task.FromResult(validation);
+    }
 }
