@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KmRVxpM+ZHZjMg+UScwzTl7S3W9XF0tiyDh9ul7gwEpBGxJL+69pmhA/J5YvVQbU1P3xEj2wVWFJUzNT0p4y8w==",
+  "dgSpecHash": "6KeBE8tSMZwhZ/Dp8Zd36f87im2xjK1m09dpJJXjuJMp3xPdV1YBvbmOYT9ho9CRhuIworZFd0RLnzSBr/e6KQ==",
   "success": true,
   "projectFilePath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Games.Core\\Games.Core.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\tiago\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\tiago\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.6\\fluentvalidation.aspnetcore.10.3.6.nupkg.sha512",
+    "C:\\Users\\tiago\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

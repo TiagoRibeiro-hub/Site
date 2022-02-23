@@ -10,7 +10,6 @@ public static class ResponseExtensions
                 isSuccess: false
             );
     }
-
     public static Response<T> Fail<T>(this Response x, T content) where T : class, new()
     {
         return new Response<T>

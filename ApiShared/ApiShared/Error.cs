@@ -5,11 +5,18 @@ public class Error
     {
 
     }
-    public Error(string message)
+
+    public Error(List<ErrorModel> errors)
     {
-        Message = message;
+        Errors = errors;
     }
 
-    public string Message { get; set; }
+    public List<ErrorModel> Errors { get; set; } = new();
+
 }
 
+public class ErrorModel
+{
+    public string FieldName { get; set; }
+    public string Message { get; set; }
+}

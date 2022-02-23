@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Games.Core;
 using Games.Web.Services;
 
@@ -8,6 +9,11 @@ builder.Services.AddServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddFluentValidation(config =>
+{
+    config.RegisterValidatorsFromAssemblyContaining<Program>();
+});
+
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(config =>
 {
