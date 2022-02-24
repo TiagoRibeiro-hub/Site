@@ -1,6 +1,6 @@
 ﻿namespace Games.Infrastructure;
 
-public interface ITicTacToeReadRepository : IReadScoresTableRepository
+public interface ITicTacToeReadRepository : IReadScoresTableRepository, IReadGameRepository
 {
 
 }

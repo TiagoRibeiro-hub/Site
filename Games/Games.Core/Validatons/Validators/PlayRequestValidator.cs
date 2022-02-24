@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-
+using Games.Infrastructure;
 
 namespace Games.Core.Validators;
 
 public class PlayRequestValidator : AbstractValidator<PlayRequest>
 {
-    public PlayRequestValidator(int gameId)
+    public PlayRequestValidator()
     {
         RuleFor(x => x.GameType)
             .SetValidator(x => new GameOptionsValidator(x.GameType.GameTypeName))
@@ -15,18 +15,18 @@ public class PlayRequestValidator : AbstractValidator<PlayRequest>
                 // if TicTacToe
                 When(x => x.GameType.GameTypeName.ToUpper() == GameType.TicTacToe.GameTypeToStringUpper(), () =>
                 {
-                    PlayRules(gameId, GameType.TicTacToe.GameTypeToStringUpper());
+                    PlayRules(GameType.TicTacToe);
                 });
 
                 // if Chess
                 When(x => x.GameType.GameTypeName.ToUpper() == GameType.Chess.GameTypeToStringUpper(), () =>
                 {
-                    PlayRules(gameId, GameType.Chess.GameTypeToStringUpper());
+                    PlayRules(GameType.Chess);
                 });
             });
     }
 
-    private void PlayRules(int gameId, string gameType)
+    private void PlayRules(GameType gameType)
     {
         // Id Game
         RuleFor(x => x.IdGame)
@@ -41,22 +41,20 @@ public class PlayRequestValidator : AbstractValidator<PlayRequest>
                     .NotEmpty().NotNull()
                     .DependentRules(() =>
                     {
+                        // vsComputer
                         RuleFor(x => x.VsComputer.IsComputer)
                             .Cascade(CascadeMode.Stop)
                             .NotEmpty().NotNull()
+                            .Must(x => x == false || x == true)
                             .DependentRules(() =>
                             {
                                 // human playing
                                 Unless(x => x.VsComputer.IsComputer == false, () =>
                                 {
-                                        // Movement
-                                        RuleFor(x => x.Movements)
-                                            .SetValidator(new MovementValidator(gameType))
-                                            .DependentRules(() =>
-                                            {
-                                                // PlayerName confirmar se pertence ao jogo
-                                                RuleFor(x => x.PlayerName).PlayerNameRule().IsPlayerBelongToGameWithMessage(gameId);
-                                            });      
+                                    // Movement
+                                    RuleFor(x => x.Movements)
+                                        .SetValidator(new MovementValidator(gameType.GameTypeToStringUpper()));
+
                                 }).Otherwise(() =>
                                 {
                                     RuleFor(x => x.VsComputer.Difficulty).IsDifficultyExistWithMessage();

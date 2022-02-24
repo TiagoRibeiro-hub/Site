@@ -31,24 +31,34 @@ public class ValidationService : IValidationService
         return Task.FromResult(response.Fail(content: errorResponse));
     }
 
-    public Task<ValidationResult> ValidateRegisterPlayerRequest(RegisterPlayerRequest registerPlayer)
+    public async Task<ValidationResult> ValidateRegisterPlayerRequest(RegisterPlayerRequest registerPlayer)
     {
         RegisterPlayerRequestValidator validationRules = new(_registeredPlayersRepository);
-        var validation = validationRules.Validate(registerPlayer);
-        return Task.FromResult(validation);
+        var validation = await validationRules.ValidateAsync(registerPlayer);
+        return validation;
     }
 
-    public Task<ValidationResult> InitializeGameRequestValidator(InitializeGameRequest initializeGame)
+    public async Task<ValidationResult> InitializeGameRequestValidator(InitializeGameRequest initializeGame)
     {
         InitializeGameRequestValidator validationRules = new(_ticTacToeReadRepository);
-        var validation = validationRules.Validate(initializeGame);
-        return Task.FromResult(validation);
+        var validation = await validationRules.ValidateAsync(initializeGame);
+        return validation;
     }
 
-    public Task<ValidationResult> PlayRequestValidator(PlayRequest playRequest)
+    public async Task<ValidationResult> PlayRequestValidator(PlayRequest playRequest)
     {
-        PlayRequestValidator validationRules = new(playRequest.IdGame);
-        var validation = validationRules.Validate(playRequest);
-        return Task.FromResult(validation);
+        PlayRequestValidator validationRules = new();
+        var validation = await validationRules.ValidateAsync(playRequest);
+        if (validation.IsValid)
+        {
+            Expression<Func<GameEntity, bool>> predicate = x => x.Id == playRequest.IdGame && (x.Player1_Name == playRequest.PlayerName || x.Player2_Name == playRequest.PlayerName);
+            bool isExist = await _ticTacToeReadRepository.IsAnyGameAsync(predicate);
+            if (isExist)
+            {
+                return validation;
+            }
+        }
+        validation.Errors.Add(new ValidationFailure("PlayerName", $"{playRequest.PlayerName} does not belong to this Game Id: {playRequest.IdGame}."));
+        return validation;
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace Games.Data.Game;
-
+#nullable disable
 public class Movement
 {
     public int MoveNumber { get; set; }

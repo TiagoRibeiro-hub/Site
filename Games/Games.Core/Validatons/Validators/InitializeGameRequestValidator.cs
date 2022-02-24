@@ -40,6 +40,7 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
                 RuleFor(x => x.VsComputer.IsComputer)
                     .Cascade(CascadeMode.Stop)
                     .NotEmpty().NotNull()
+                    .Must(x => x == false || x == true)
                     .DependentRules(() =>
                     {
                         // if vsComputer
