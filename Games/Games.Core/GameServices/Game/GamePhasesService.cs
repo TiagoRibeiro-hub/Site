@@ -47,11 +47,12 @@ public class GamePhasesService : IGamePhasesService
     }
 
 #nullable enable
-    public Task<Response?> Play<TEntity>(TEntity playRequest) where TEntity : class
+    public async Task<Response?> Play(PlayRequest playRequest)
     {
-        if (playRequest.GetType() == typeof(Request<PlayTicTacToeRequest>))
+        var validation = await _validationService.PlayRequestValidator(playRequest);
+        if (!validation.IsValid)
         {
-
+            return await _validationService.GetErrors(validation);
         }
         //    Response<PlayResponse> response = new();
         //if (playRequest == null)

@@ -1,4 +1,5 @@
 ﻿using Games.Core.Services;
+using Games.Data.Api;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Games.Web.Controllers;
@@ -7,15 +8,9 @@ namespace Games.Web.Controllers;
 [Route("[controller]")]
 public class ChessController : BaseController
 {
-    private readonly IGamePhasesService _gamePhasesService;
-
     public ChessController(IGamePhasesService gamePhasesService) : base(gamePhasesService)
     {
-        _gamePhasesService = gamePhasesService;
+
     }
 
-    public override Task<IActionResult> Play<TEntity>([FromBody] TEntity request)
-    {
-        throw new NotImplementedException();
-    }
 }

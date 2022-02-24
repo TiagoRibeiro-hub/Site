@@ -44,4 +44,11 @@ public class ValidationService : IValidationService
         var validation = validationRules.Validate(initializeGame);
         return Task.FromResult(validation);
     }
+
+    public Task<ValidationResult> PlayRequestValidator(PlayRequest playRequest)
+    {
+        PlayRequestValidator validationRules = new();
+        var validation = validationRules.Validate(playRequest);
+        return Task.FromResult(validation);
+    }
 }

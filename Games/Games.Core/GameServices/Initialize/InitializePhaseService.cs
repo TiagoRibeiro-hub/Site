@@ -14,11 +14,11 @@ public class InitializePhaseService : IInitializePhaseService
     public async Task<InitializeGameResponse> Initialize(InitializeGameRequest initializeGame)
     {
         InitializeGameResponse initializeGameResponse = new();
-        if (GameType.TicTacToe.GetGameType(initializeGame.GameType))
+        if (GameType.TicTacToe.GetGameType(initializeGame.GameType.GameTypeName))
         {
             initializeGameResponse = await _gameTicTacToeService.Initialize(initializeGame);
         }
-        if (GameType.TicTacToe.GetGameType(initializeGame.GameType))
+        if (GameType.TicTacToe.GetGameType(initializeGame.GameType.GameTypeName))
         {
             // 
         }
