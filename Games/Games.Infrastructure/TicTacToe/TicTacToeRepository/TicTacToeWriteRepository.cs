@@ -9,8 +9,8 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository, ITotalGamesRe
     private readonly IUnitOfWorkTicTacToe<TotalGamesVsHumanEntity> _totalGamesVsHuman;
 
     public TicTacToeWriteRepository(
-        IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGameEntity, IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTableEntity, 
-        IUnitOfWorkTicTacToe<TotalGamesEasyEntity> totalGamesEasy, IUnitOfWorkTicTacToe<TotalGamesIntermediateEntity> totalGamesIntermediate, 
+        IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGameEntity, IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTableEntity,
+        IUnitOfWorkTicTacToe<TotalGamesEasyEntity> totalGamesEasy, IUnitOfWorkTicTacToe<TotalGamesIntermediateEntity> totalGamesIntermediate,
         IUnitOfWorkTicTacToe<TotalGamesHardEntity> totalGamesHard, IUnitOfWorkTicTacToe<TotalGamesVsHumanEntity> totalGamesVsHuman)
     {
         _unitOfWorkGame = unitOfWorkGameEntity;
@@ -26,7 +26,14 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository, ITotalGamesRe
     #region Game
     public async Task<int> InsertAndGetIdGameAsync(GameEntity game)
     {
-        return await _unitOfWorkGame.TicTacToeWrite.InsertAndGetIdAsync(game);
+        try
+        {
+            return await _unitOfWorkGame.TicTacToeWrite.InsertAndGetIdAsync(game);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
     #endregion
 
@@ -34,8 +41,16 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository, ITotalGamesRe
     #region ScoresTable
     public async Task InsertScoresTableAsync(ScoresTableEntity scoresTableEntity)
     {
-        await _unitOfWorkScoresTable.TicTacToeWrite.InsertAsync(scoresTableEntity);
-        await _unitOfWorkScoresTable.Complete();
+        try
+        {
+            await _unitOfWorkScoresTable.TicTacToeWrite.InsertAsync(scoresTableEntity);
+            await _unitOfWorkScoresTable.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
+
     }
     #endregion
 
@@ -43,56 +58,91 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository, ITotalGamesRe
     #region TotalGames
     public async Task UpdateScoreTableTotalGamesAsync(TotalGamesUpdate game)
     {
-        if (game.VsComputer.IsComputer)
+        try
         {
-            if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
+            if (game.VsComputer.IsComputer)
             {
-                await UpdateTotalGamesEasyAsync(game);
+                if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
+                {
+                    await UpdateTotalGamesEasyAsync(game);
+                }
+                if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
+                {
+                    await UpdateTotalGamesIntermediateAsync(game);
+                }
+                if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
+                {
+                    await UpdateTotalGamesHardAsync(game);
+                }
             }
-            if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
+            else
             {
-                await UpdateTotalGamesIntermediateAsync(game);
-            }
-            if (Difficulty.Easy.GetDifficulty(game.VsComputer.Difficulty))
-            {
-                await UpdateTotalGamesHardAsync(game);
+                await UpdateTotalGamesVsHumanAsync(game);
             }
         }
-        else
+        catch (Exception ex)
         {
-                await UpdateTotalGamesVsHumanAsync(game);
+            throw new Exception(ex.ToString());
         }
     }
     public async Task UpdateTotalGamesEasyAsync(TotalGamesUpdate game)
     {
-        var vsComputerEasy = await _totalGamesEasy.TicTacToeRead.FindAsync(game.ScoreTableId);
-        _ = game.StartFirst == game.PlayerName ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
-        vsComputerEasy.TotalGames += 1;
-        await _totalGamesEasy.TicTacToeWrite.UpdateAsync(vsComputerEasy);
-        await _totalGamesEasy.Complete();
+        try
+        {
+            var vsComputerEasy = await _totalGamesEasy.TicTacToeRead.FindAsync(game.ScoreTableId);
+            _ = game.StartFirst == game.PlayerName ? vsComputerEasy.StartFirst += 1 : vsComputerEasy.StartSecond += 1;
+            vsComputerEasy.TotalGames += 1;
+            await _totalGamesEasy.TicTacToeWrite.UpdateAsync(vsComputerEasy);
+            await _totalGamesEasy.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
     public async Task UpdateTotalGamesIntermediateAsync(TotalGamesUpdate game)
     {
-        var vsComputerIntermediate = await _totalGamesIntermediate.TicTacToeRead.FindAsync(game.ScoreTableId);
-        _ = game.StartFirst == game.PlayerName ? vsComputerIntermediate.StartFirst += 1 : vsComputerIntermediate.StartSecond += 1;
-        vsComputerIntermediate.TotalGames += 1;
-        await _totalGamesIntermediate.TicTacToeWrite.UpdateAsync(vsComputerIntermediate);
-        await _totalGamesIntermediate.Complete();
+        try
+        {
+            var vsComputerIntermediate = await _totalGamesIntermediate.TicTacToeRead.FindAsync(game.ScoreTableId);
+            _ = game.StartFirst == game.PlayerName ? vsComputerIntermediate.StartFirst += 1 : vsComputerIntermediate.StartSecond += 1;
+            vsComputerIntermediate.TotalGames += 1;
+            await _totalGamesIntermediate.TicTacToeWrite.UpdateAsync(vsComputerIntermediate);
+            await _totalGamesIntermediate.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
     public async Task UpdateTotalGamesHardAsync(TotalGamesUpdate game)
     {
-        var vsComputerHard = await _totalGamesHard.TicTacToeRead.FindAsync(game.ScoreTableId);
-        _ = game.StartFirst == game.PlayerName ? vsComputerHard.StartFirst += 1 : vsComputerHard.StartSecond += 1;
-        vsComputerHard.TotalGames += 1;
-        await _totalGamesHard.TicTacToeWrite.UpdateAsync(vsComputerHard);
-        await _totalGamesHard.Complete();
+        try
+        {
+            var vsComputerHard = await _totalGamesHard.TicTacToeRead.FindAsync(game.ScoreTableId);
+            _ = game.StartFirst == game.PlayerName ? vsComputerHard.StartFirst += 1 : vsComputerHard.StartSecond += 1;
+            vsComputerHard.TotalGames += 1;
+            await _totalGamesHard.TicTacToeWrite.UpdateAsync(vsComputerHard);
+            await _totalGamesHard.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
     public async Task UpdateTotalGamesVsHumanAsync(TotalGamesUpdate game)
     {
-        var vsHumanModel = await _totalGamesVsHuman.TicTacToeRead.FindAsync(game.ScoreTableId);
-        _ = game.StartFirst == game.PlayerName ? vsHumanModel.StartFirst += 1 : vsHumanModel.StartSecond += 1;
-        await _totalGamesVsHuman.TicTacToeWrite.UpdateAsync(vsHumanModel);
-        await _totalGamesVsHuman.Complete();
+        try
+        {
+            var vsHumanModel = await _totalGamesVsHuman.TicTacToeRead.FindAsync(game.ScoreTableId);
+            _ = game.StartFirst == game.PlayerName ? vsHumanModel.StartFirst += 1 : vsHumanModel.StartSecond += 1;
+            await _totalGamesVsHuman.TicTacToeWrite.UpdateAsync(vsHumanModel);
+            await _totalGamesVsHuman.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
     #endregion
 }

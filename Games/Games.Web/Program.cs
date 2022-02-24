@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddFluentValidation(config =>
 {
     config.RegisterValidatorsFromAssemblyContaining<Program>();
+    config.DisableDataAnnotationsValidation = true;
 });
 
 builder.Services.AddSwaggerGen();

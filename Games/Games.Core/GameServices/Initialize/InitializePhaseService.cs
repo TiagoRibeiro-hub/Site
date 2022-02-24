@@ -16,12 +16,7 @@ public class InitializePhaseService : IInitializePhaseService
         InitializeGameResponse initializeGameResponse = new();
         if (GameType.TicTacToe.GetGameType(initializeGame.GameType))
         {
-            if (initializeGame.GameOptions.TicTacToeNumberColumns % 2 == 0 || initializeGame.GameOptions.TicTacToeNumberColumns < 3)
-            {
-                // Validatior
-            }
             initializeGameResponse = await _gameTicTacToeService.Initialize(initializeGame);
-
         }
         if (GameType.TicTacToe.GetGameType(initializeGame.GameType))
         {

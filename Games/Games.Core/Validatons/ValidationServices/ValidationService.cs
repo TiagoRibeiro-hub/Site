@@ -1,10 +1,18 @@
 ﻿using FluentValidation.Results;
 using Games.Core.Validators;
+using Games.Infrastructure;
 
 namespace Games.Core.Validatons;
 
 public class ValidationService : IValidationService
 {
+    private readonly IRegisteredPlayersRepository _registeredPlayersRepository;
+
+    public ValidationService(IRegisteredPlayersRepository registeredPlayersRepository)
+    {
+        _registeredPlayersRepository = registeredPlayersRepository;
+    }
+
     public Task<Response<Error>> GetErrors(ValidationResult validationResult)
     {
         var errors = validationResult.Errors.ToDictionary(x => x.PropertyName, x => x.ErrorMessage).ToArray();
@@ -24,7 +32,7 @@ public class ValidationService : IValidationService
 
     public Task<ValidationResult> ValidateRegisterPlayerRequest(RegisterPlayerRequest registerPlayer)
     {
-        RegisterPlayerRequestValidator validationRules = new();
+        RegisterPlayerRequestValidator validationRules = new(_registeredPlayersRepository);
         var validation = validationRules.Validate(registerPlayer);
         return Task.FromResult(validation);
     }
