@@ -37,29 +37,36 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
             .IsPlayerAllowedToPlayWithMessage(ticTacToeReadRepository, gameType)
             .DependentRules(() =>
             {
-                // if vsComputer
-                When(IsVsComputer, () =>
-                {
-                    RuleFor(x => x.VsComputer.Difficulty)
+                RuleFor(x => x.VsComputer.IsComputer)
                     .Cascade(CascadeMode.Stop)
                     .NotEmpty().NotNull()
-                    .IsDifficultyExistWithMessage()
                     .DependentRules(() =>
                     {
-                        StartFirstRules();
+                        // if vsComputer
+                        When(IsVsComputer, () =>
+                        {
+                            RuleFor(x => x.VsComputer.Difficulty)
+                            .Cascade(CascadeMode.Stop)
+                            .NotEmpty().NotNull()
+                            .IsDifficultyExistWithMessage()
+                            .DependentRules(() =>
+                            {
+                                StartFirstRules();
+                            });
+
+                        }).Otherwise(() =>
+                        {
+                            RuleFor(x => x.VsHuman.PlayerName_2)
+                                .Cascade(CascadeMode.Stop)
+                                .PlayerNameRule()
+                                .IsPlayerAllowedToPlayWithMessage(ticTacToeReadRepository, gameType)
+                                .DependentRules(() =>
+                                {
+                                    StartFirstRules();
+                                });
+                        });
                     });
 
-                }).Otherwise(() =>
-                {
-                    RuleFor(x => x.VsHuman.PlayerName_2)
-                        .Cascade(CascadeMode.Stop)
-                        .PlayerNameRule()
-                        .IsPlayerAllowedToPlayWithMessage(ticTacToeReadRepository, gameType)
-                        .DependentRules(() =>
-                        {
-                            StartFirstRules();
-                        }); 
-                });
             });
     }
     // Start First Rules

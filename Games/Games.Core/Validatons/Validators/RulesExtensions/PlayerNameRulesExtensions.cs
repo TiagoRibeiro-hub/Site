@@ -13,7 +13,7 @@ public static class PlayerNameRulesExtensions
             .WithMessage("Player name just allow letters, numbers and space");
     }
 
-    public static IRuleBuilderOptions<T, string> IsPlayerAllowedToPlayWithMessage<T>(this IRuleBuilder<T, string> ruleBuilder, 
+    public static IRuleBuilderOptions<T, string> IsPlayerAllowedToPlayWithMessage<T>(this IRuleBuilder<T, string> ruleBuilder,
         ITicTacToeReadRepository ticTacToeReadRepository, GameType gameType)
     {
         return ruleBuilder.MustAsync(async (playerName, cancellation) =>
@@ -34,5 +34,10 @@ public static class PlayerNameRulesExtensions
             }
             return false;
         }).WithMessage("This player is not allowed to play.");
+    }
+
+    public static IRuleBuilderOptions<T, string> IsPlayerBelongToGameWithMessage<T>(this IRuleBuilder<T, string> ruleBuilder, int gameId)
+    {
+        throw new NotImplementedException();
     }
 }
