@@ -1,8 +1,7 @@
 ﻿namespace Games.Infrastructure;
 
-public interface IWriteRepository
+public interface IWriteScoresTableRepository
 {
-    Task<int> InsertAndGetIdGameAsync(GameEntity game);
     Task InsertScoresTableAsync(ScoresTableEntity scoresTableEntity);
     Task UpdateScoreTableTotalGamesAsync(TotalGamesUpdate game);
 }

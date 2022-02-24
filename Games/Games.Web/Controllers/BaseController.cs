@@ -57,23 +57,7 @@ public abstract class BaseController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Play([FromBody] Request<PlayRequest> request)
-    {
-        try
-        {
-            var result = await _gamePhasesService.Play(request.Content);
-            if (result.GetType() == typeof(Response<Error>))
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            Response response = new();
-            response.Fail(ApiSharedConst.SomethingWentWrong, ex);
-            return StatusCode(500, response);
-        }
-    }
+    public abstract Task<IActionResult> Play<TEntity>([FromBody] TEntity request) where TEntity : class;
+
 }
 

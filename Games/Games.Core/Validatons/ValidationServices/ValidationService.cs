@@ -7,10 +7,11 @@ namespace Games.Core.Validatons;
 public class ValidationService : IValidationService
 {
     private readonly IRegisteredPlayersRepository _registeredPlayersRepository;
-
-    public ValidationService(IRegisteredPlayersRepository registeredPlayersRepository)
+    private readonly ITicTacToeReadRepository _ticTacToeReadRepository;
+    public ValidationService(IRegisteredPlayersRepository registeredPlayersRepository, ITicTacToeReadRepository ticTacToeReadRepository)
     {
         _registeredPlayersRepository = registeredPlayersRepository;
+        _ticTacToeReadRepository = ticTacToeReadRepository;
     }
 
     public Task<Response<Error>> GetErrors(ValidationResult validationResult)
@@ -39,7 +40,7 @@ public class ValidationService : IValidationService
 
     public Task<ValidationResult> InitializeGameRequestValidator(InitializeGameRequest initializeGame)
     {
-        InitializeGameRequestValidator validationRules = new();
+        InitializeGameRequestValidator validationRules = new(_ticTacToeReadRepository);
         var validation = validationRules.Validate(initializeGame);
         return Task.FromResult(validation);
     }

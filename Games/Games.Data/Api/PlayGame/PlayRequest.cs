@@ -11,3 +11,7 @@ public abstract class PlayRequest
     public Dictionary<string, string> PossibleMoves { get; set; }
 }
 
+public class PlayTicTacToeRequest
+{
+
+}

@@ -1,42 +1,43 @@
 ﻿using FluentValidation;
 using Games.Data.Game;
+using Games.Infrastructure;
+
 
 namespace Games.Core.Validators;
 
 public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRequest>
 {
-    public InitializeGameRequestValidator()
+    public InitializeGameRequestValidator(ITicTacToeReadRepository ticTacToeReadRepository)
     {
         RuleFor(x => x.GameType)
             .Cascade(CascadeMode.Stop)
             .NotEmpty().NotNull()
-            .Must(IsGameTypeExist);
+            .IsGameTypeExistWithMessage();
 
+        // GameTypeOptionsAndPlayers
+        #region GameTypeOptionsAndPlayers
+        // if TicTacToe
         When(IsGameTypeTicTacToe, () =>
         {
             RuleFor(x => x.GameOptions.TicTacToeNumberColumns)
                 .NotEmpty().NotNull()
-                .Must(IsOddNumber)
-                .WithMessage("TicTacToe Number of Columns must start at 3 and be a odd number");
+                .IsOddNumberWithMessage();
+
+            RulesForPlayers(ticTacToeReadRepository, GameType.TicTacToe);
         });
 
-        RuleFor(x => x.PlayerName_1).PlayerNameRule();
-
-        // if true
-        When(IsVsComputer, () =>
+        // if Chess
+        When(IsGameTypeChess, () =>
         {
-            RuleFor(x => x.VsComputer.Difficulty)
-            .NotEmpty().NotNull()
-            .Must(IsDificultyExist);
-
-        }).Otherwise(() =>
-        {
-            RuleFor(x => x.VsHuman).SetValidator(new VsHumanValidator());
+            RulesForPlayers(ticTacToeReadRepository, GameType.Chess);
         });
+        #endregion
 
         // Start First
         #region StartFirst
-        RuleFor(x => x.StartFirst).NotEmpty().NotNull();
+        RuleFor(x => x.StartFirst)
+            .NotEmpty().NotNull();
+
         // if vs computer
         When(IsVsComputer, () =>
         {
@@ -69,6 +70,30 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
         #endregion
     }
 
+    // Players Rules
+    private void RulesForPlayers(ITicTacToeReadRepository ticTacToeReadRepository, GameType gameType)
+    {
+        RuleFor(x => x.PlayerName_1)
+            .Cascade(CascadeMode.Stop)
+            .PlayerNameRule()
+            .IsPlayerAllowedToPlayWithMessage(ticTacToeReadRepository, gameType);
+
+        // if vsComputer
+        When(IsVsComputer, () =>
+        {
+            RuleFor(x => x.VsComputer.Difficulty)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty().NotNull()
+            .IsDifficultyExistWithMessage();
+
+        }).Otherwise(() =>
+        {
+            RuleFor(x => x.VsHuman.PlayerName_2)
+                .Cascade(CascadeMode.Stop)
+                .PlayerNameRule()
+                .IsPlayerAllowedToPlayWithMessage(ticTacToeReadRepository, gameType);
+        });
+    }
 
     // Start First Methods
     #region StartFirst
@@ -97,41 +122,24 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
         return false;
     }
     #endregion
-    // ENUMS
-    protected static bool IsDificultyExist(string arg)
+
+    // IsGameType
+    #region IsGameType
+    protected static bool GameTypeIsNull(InitializeGameRequest arg)
     {
-        return false;
+        return string.IsNullOrWhiteSpace(arg.GameType) ? true : false;
     }
     protected static bool IsGameTypeTicTacToe(InitializeGameRequest arg)
     {
-        if (!string.IsNullOrWhiteSpace(arg.GameType))
-        {
-            if (GameType.TicTacToe.GetGameType(arg.GameType))
-            {
-                return true;
-            }
-        }
-        return false;
+        return GameTypeIsNull(arg) ? false : GameType.TicTacToe.GetGameType(arg.GameType) ? true : false;
     }
-    private bool IsOddNumber(int ticTacToeNumberColumns)
+    protected bool IsGameTypeChess(InitializeGameRequest arg)
     {
-        if (ticTacToeNumberColumns % 2 == 0 || ticTacToeNumberColumns < 3)
-        {
-            return false;
-        }
-        return true;
+        return GameTypeIsNull(arg) ? false : GameType.Chess.GetGameType(arg.GameType) ? true : false;
     }
 
-    protected static bool IsGameTypeExist(string gameType)
-    {
-        foreach (var item in GameTypeEnum.GetList())
-        {
-            if (gameType.ToUpper() == item)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    #endregion
+
 
 }
+

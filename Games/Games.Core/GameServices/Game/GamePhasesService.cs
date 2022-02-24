@@ -37,7 +37,7 @@ public class GamePhasesService : IGamePhasesService
         Response<InitializeGameResponse> response = new();
         if (initializeGameResponse is null)
         {
-            //return response.Fail(content: new Error(message: ApiSharedConst.SomethingWentWrong));
+            return response.Fail(ApiSharedConst.SomethingWentWrong); // Error come from DataBase 
         }
         return response.Success
         (
@@ -47,13 +47,17 @@ public class GamePhasesService : IGamePhasesService
     }
 
 #nullable enable
-    public Task<Response?> Play(PlayRequest playRequest)
+    public Task<Response?> Play<TEntity>(TEntity playRequest) where TEntity : class
     {
-        Response<PlayResponse> response = new();
-        if (playRequest == null)
+        if (playRequest.GetType() == typeof(Request<PlayTicTacToeRequest>))
         {
-            //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
+
         }
+        //    Response<PlayResponse> response = new();
+        //if (playRequest == null)
+        //{
+        //    //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
+        //}
         //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         //if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
         //{

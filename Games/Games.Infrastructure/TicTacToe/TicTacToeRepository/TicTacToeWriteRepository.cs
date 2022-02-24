@@ -1,5 +1,5 @@
 ﻿namespace Games.Infrastructure;
-public class TicTacToeWriteRepository : ITicTacToeWriteRepository, ITotalGamesRepository
+public class TicTacToeWriteRepository : ITicTacToeWriteRepository
 {
     private readonly IUnitOfWorkTicTacToe<GameEntity> _unitOfWorkGame;
     private readonly IUnitOfWorkTicTacToe<ScoresTableEntity> _unitOfWorkScoresTable;

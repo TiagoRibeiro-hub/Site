@@ -21,13 +21,4 @@ public class GameTicTacToeService : IGameTicTacToeService
         return new InitializeGameResponse(idGame: gameId, startGame: true, possibleMoves: possibleMoves);
     }
 
-
-
-
-
-
-
-
-
-
 }

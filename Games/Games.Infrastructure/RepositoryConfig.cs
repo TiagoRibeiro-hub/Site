@@ -16,6 +16,7 @@ public static class RepositoryConfig
         services.AddScoped(typeof(IUnitOfWorkTicTacToe<>), typeof(UnitOfWorkTicTacToe<>));
         services.AddScoped(typeof(ITicTacToeWrite<>), typeof(TicTacToeWrite<>));
         services.AddScoped(typeof(ITicTacToeRead<>), typeof(TicTacToeRead<>));
+        services.AddScoped<ITicTacToeReadRepository, TicTacToeReadRepository>();
         services.AddScoped<ITicTacToeWriteRepository, TicTacToeWriteRepository>();
     }
 }

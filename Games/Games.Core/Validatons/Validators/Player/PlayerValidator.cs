@@ -14,15 +14,15 @@ public class PlayerValidator : AbstractValidator<Player>
             .Cascade(CascadeMode.Stop)
             .PlayerNameRule()
             .MustAsync(async (playerName, cancellation) =>
-             {
-                 var isExist = await registeredPlayersRepository.IsExistByPlayerName(playerName);
-                 if (isExist)
-                 {
-                     return false;
-                 }
-                 return true;
-             })
-            .WithMessage("This player name is already exist.");
+            {
+                var isExist = await registeredPlayersRepository.IsExistByPlayerName(playerName);
+                if (isExist)
+                {
+                    return false;
+                }
+                return true;
+            }).WithMessage("This player name is already exist."); ;
+            
 
         RuleFor(x => x.Email)
             .Cascade(CascadeMode.Stop)

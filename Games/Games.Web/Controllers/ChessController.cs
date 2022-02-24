@@ -7,7 +7,15 @@ namespace Games.Web.Controllers;
 [Route("[controller]")]
 public class ChessController : BaseController
 {
-    public ChessController(IGamePhasesService gameService) : base(gameService)
+    private readonly IGamePhasesService _gamePhasesService;
+
+    public ChessController(IGamePhasesService gamePhasesService) : base(gamePhasesService)
     {
+        _gamePhasesService = gamePhasesService;
+    }
+
+    public override Task<IActionResult> Play<TEntity>([FromBody] TEntity request)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -10,19 +10,40 @@ public class RegisteredPlayersRepository : IRegisteredPlayersRepository
 
     public async Task<bool> IsExistByEmail(string email)
     {
-        Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerEmail == email;
-        return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+        try
+        {
+            Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerEmail == email;
+            return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 
     public async Task<bool> IsExistByPlayerName(string playerName)
     {
-        Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerName == playerName;
-        return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+        try
+        {
+            Expression<Func<RegisteredPlayersEntity, bool>> predicate = x => x.PlayerName == playerName;
+            return await _unitOfWorkRegisteredPlayers.RegisteredPlayersRead.IsAnyAsync(predicate);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 
     public async Task InsertAsync(RegisteredPlayersEntity registeredPlayersEntity)
     {
-        await _unitOfWorkRegisteredPlayers.RegisteredPlayersWrite.InsertAsync(registeredPlayersEntity);
-        await _unitOfWorkRegisteredPlayers.Complete();
+        try
+        {
+            await _unitOfWorkRegisteredPlayers.RegisteredPlayersWrite.InsertAsync(registeredPlayersEntity);
+            await _unitOfWorkRegisteredPlayers.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
 }
