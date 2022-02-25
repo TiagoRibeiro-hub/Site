@@ -16,7 +16,7 @@ public class GameTicTacToeService : IGameTicTacToeService
         // 
         var taskUpdate = _ticTacToeService.UpdateScoreTableTotalGamesAsync(initializeGame);
         // 
-        Dictionary<string, string> possibleMoves = _ticTacToeService.SetInitialPossibleMovesTicTacToe(initializeGame.GameType.GameTypeOptions.TicTacToeNumberColumns);
+        Dictionary<string, string> possibleMoves = _ticTacToeService.SetInitialPossibleMovesTicTacToe(initializeGame.GameType.GetGameTypeOptions.TicTacToeNumberColumns);
         await taskUpdate;
         return new InitializeGameResponse(idGame: gameId, startGame: true, possibleMoves: possibleMoves);
     }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Games.Data.Game;
 using Games.Infrastructure;
 
@@ -82,13 +83,11 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
             // if false
             Unless(ConfirmPlayersVsComputer, () =>
             {
-                RuleFor(x => x.StartFirst)
-                    .Equal(Computer.Name).OverridePropertyName("StartFirst Option1")
-                    .WithMessage($"If computer start first write '{Computer.Name}'.");
-
-                RuleFor(x => x.StartFirst)
-                    .Equal(x => x.PlayerName_1).OverridePropertyName("StartFirst Option2")
-                    .WithMessage("If player1 start first write Player1 name.");
+                RuleFor(x => x.StartFirst).Custom((startFirst, context) =>
+                {
+                    context.AddFailure(new ValidationFailure("Start First Option1", $"If computer start first write '{Computer.Name}'"));
+                    context.AddFailure(new ValidationFailure("Start First Option2", "If player1 start first write Player1 name."));
+                });
             });
 
         }).Otherwise(() =>
@@ -96,16 +95,15 @@ public class InitializeGameRequestValidator : AbstractValidator<InitializeGameRe
             // if false
             Unless(ConfirmPlayers, () =>
             {
-                RuleFor(x => x.StartFirst)
-                    .Equal(x => x.PlayerName_1).OverridePropertyName("StartFirst Option1")
-                    .WithMessage("If player1 start first write Player1 name.");
-
-                RuleFor(x => x.StartFirst)
-                    .Equal(x => x.VsHuman.PlayerName_2).OverridePropertyName("StartFirst Option2")
-                    .WithMessage("If player2 start first write Player2 name.");
+                RuleFor(x => x.StartFirst).Custom((startFirst, context) =>
+                {
+                    context.AddFailure(new ValidationFailure("Start First Option1", "If player1 start first write Player1 name."));
+                    context.AddFailure(new ValidationFailure("Start First Option2", "If player2 start first write Player2 name."));
+                });
             });
         });
     }
+
     // Start First Methods
     #region StartFirstMethods
     protected static bool ConfirmPlayersVsComputer(InitializeGameRequest arg)

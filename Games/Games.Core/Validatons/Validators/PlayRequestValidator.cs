@@ -1,32 +1,40 @@
 ﻿using FluentValidation;
+using Games.Data.Game;
 using Games.Infrastructure;
 
 namespace Games.Core.Validators;
 
 public class PlayRequestValidator : AbstractValidator<PlayRequest>
 {
-    public PlayRequestValidator()
+    public PlayRequestValidator(MovementValidation movementValidation)
     {
-        RuleFor(x => x.GameType)
-            .SetValidator(x => new GameOptionsValidator(x.GameType.GameTypeName))
+        // PossibleMoves
+        RuleFor(x => x.PossibleMoves)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty().NotNull()
             .DependentRules(() =>
             {
-                // GameTypeOptions And Players
-                // if TicTacToe
-                When(x => x.GameType.GameTypeName.ToUpper() == GameType.TicTacToe.GameTypeToStringUpper(), () =>
-                {
-                    PlayRules(GameType.TicTacToe);
-                });
-
-                // if Chess
-                When(x => x.GameType.GameTypeName.ToUpper() == GameType.Chess.GameTypeToStringUpper(), () =>
-                {
-                    PlayRules(GameType.Chess);
-                });
+                // GameType & GameTypeOptions
+                RuleFor(x => x.GetGameType)
+                    .SetValidator(x => new GameOptionsValidator(x.GetGameType.GameTypeName))
+                    .DependentRules(() =>
+                    {
+                        // Id Game & Players
+                        // if TicTacToe
+                        When(x => GameType.TicTacToe.GetGameType(x.GetGameType.GameTypeName), () =>
+                        {
+                            PlayRules(movementValidation);
+                        });
+                        // if Chess
+                        When(x => GameType.Chess.GetGameType(x.GetGameType.GameTypeName), () =>
+                        {
+                            PlayRules(movementValidation);
+                        });
+                    });
             });
     }
 
-    private void PlayRules(GameType gameType)
+    private void PlayRules(MovementValidation movementValidation)
     {
         // Id Game
         RuleFor(x => x.IdGame)
@@ -35,31 +43,30 @@ public class PlayRequestValidator : AbstractValidator<PlayRequest>
             .GreaterThan(0)
             .DependentRules(() =>
             {
-                // PossibleMoves
-                RuleFor(x => x.PossibleMoves)
+                // vsComputer
+                RuleFor(x => x.VsComputer.IsComputer)
                     .Cascade(CascadeMode.Stop)
                     .NotEmpty().NotNull()
+                    .Must(x => x == false || x == true)
                     .DependentRules(() =>
                     {
-                        // vsComputer
-                        RuleFor(x => x.VsComputer.IsComputer)
-                            .Cascade(CascadeMode.Stop)
-                            .NotEmpty().NotNull()
-                            .Must(x => x == false || x == true)
-                            .DependentRules(() =>
-                            {
-                                // human playing
-                                Unless(x => x.VsComputer.IsComputer == false, () =>
-                                {
-                                    // Movement
-                                    RuleFor(x => x.Movements)
-                                        .SetValidator(new MovementValidator(gameType.GameTypeToStringUpper()));
+                        // human playing
+                        Unless(x => x.VsComputer.IsComputer == false, () =>
+                        {
+                            // Movement
+                            RuleFor(x => x.Movements)
+                                .SetValidator(new MovementValidator(movementValidation));
+                        })
+                        // computer playing
+                        .Otherwise(() =>
+                        {
+                            RuleFor(x => x.VsComputer.Difficulty)
+                                .IsDifficultyExistWithMessage();
 
-                                }).Otherwise(() =>
-                                {
-                                    RuleFor(x => x.VsComputer.Difficulty).IsDifficultyExistWithMessage();
-                                });
-                            });
+                            RuleFor(x => x.PlayerName)
+                                .NotNull().NotEmpty()
+                                .Equal(Computer.Name);
+                        });
                     });
             });
     }

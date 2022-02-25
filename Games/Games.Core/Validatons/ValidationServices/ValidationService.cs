@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using Games.Core.Validators;
+using Games.Data.Game;
 using Games.Infrastructure;
 
 namespace Games.Core.Validatons;
@@ -47,18 +48,27 @@ public class ValidationService : IValidationService
 
     public async Task<ValidationResult> PlayRequestValidator(PlayRequest playRequest)
     {
-        PlayRequestValidator validationRules = new();
+        MovementValidation movementValidation = new(playRequest);
+        PlayRequestValidator validationRules = new(movementValidation);
         var validation = await validationRules.ValidateAsync(playRequest);
-        if (validation.IsValid)
+
+        if (playRequest.VsComputer.IsComputer == false && validation.IsValid)
         {
+            bool isExist = false;
             Expression<Func<GameEntity, bool>> predicate = x => x.Id == playRequest.IdGame && (x.Player1_Name == playRequest.PlayerName || x.Player2_Name == playRequest.PlayerName);
-            bool isExist = await _ticTacToeReadRepository.IsAnyGameAsync(predicate);
-            if (isExist)
+            if (GameType.TicTacToe.GetGameType(playRequest.GetGameType.GameTypeName))
             {
-                return validation;
+                isExist = await _ticTacToeReadRepository.IsAnyGameAsync(predicate);
+            }
+            if (GameType.Chess.GetGameType(playRequest.GetGameType.GameTypeName))
+            {
+                //isExist = 
+            }
+            if (isExist == false)
+            {
+                validation.Errors.Add(new ValidationFailure("PlayerName", $"{playRequest.PlayerName} does not belong to this Game Id: {playRequest.IdGame}."));
             }
         }
-        validation.Errors.Add(new ValidationFailure("PlayerName", $"{playRequest.PlayerName} does not belong to this Game Id: {playRequest.IdGame}."));
         return validation;
     }
 }

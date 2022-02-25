@@ -3,5 +3,5 @@
 public class GameOptions
 {
     public string GameTypeName { get; set; }
-    public GameTypeOptions GameTypeOptions { get; set; }
+    public GameTypeOptions GetGameTypeOptions { get; set; }
 }

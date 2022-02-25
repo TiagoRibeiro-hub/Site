@@ -36,26 +36,6 @@ public static class PlayerNameRulesExtensions
         }).WithMessage("This player is not allowed to play.");
     }
 
-    public static IRuleBuilderOptions<T, string> IsPlayerBelongToGameWithMessage<T>(this IRuleBuilder<T, string> ruleBuilder,
-        ITicTacToeReadRepository ticTacToeReadRepository, int gameId, GameType gameType)
-    {
-        return ruleBuilder.MustAsync(async (playerName, cancellation) =>
-        {
-            Expression<Func<GameEntity, bool>> predicate = x => x.Id == gameId && (x.Player1_Name == playerName || x.Player2_Name == playerName);
-            bool isExist = false;
-            if (gameType == GameType.TicTacToe)
-            {
-                isExist = await ticTacToeReadRepository.IsAnyGameAsync(predicate);
-            }
-            if (gameType == GameType.Chess)
-            {
-                //
-            }
-            if (isExist)
-            {
-                return true;
-            }
-            return false;
-        }).WithMessage("This player is not allowed to play.");
-    }
 }
+
+

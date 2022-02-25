@@ -5,8 +5,88 @@ namespace Games.Core.Validators;
 
 public class MovementValidator : AbstractValidator<Movement>
 {
-    public MovementValidator(string gameType)
+    public MovementValidator(MovementValidation movementValidation)
     {
-
+        RuleFor(x => x.MoveNumber)
+            .Cascade(CascadeMode.Stop)
+            .NotNull().NotEmpty()
+            .GreaterThan(0)
+            .LessThanOrEqualTo(movementValidation.GetPossibleMoves.Count)
+            .DependentRules(() =>
+            {
+                RuleFor(x => x.MoveTo)
+                    .Cascade(CascadeMode.Stop)
+                    .MoveRules()
+                    .DependentRules(() =>
+                    {
+                        if (GameType.TicTacToe.GetGameType(movementValidation.GetGameType.GameTypeName))
+                        {
+                            MoveToMinimun1Value(movementValidation);
+                        }
+                        if (GameType.Chess.GetGameType(movementValidation.GetGameType.GameTypeName))
+                        {
+                            RuleFor(x => x.MoveFrom)
+                                .Cascade(CascadeMode.Stop)
+                                .MoveMinimum2Rules()
+                                .DependentRules(() =>
+                                {
+                                    RuleFor(x => x.MoveTo)
+                                        .Cascade(CascadeMode.Stop)
+                                        .MoveMinimum2Rules();
+                                });  
+                        }
+                    });
+            });
     }
+
+    // Rules
+    private void MoveToMinimun1Value(MovementValidation movementValidation)
+    {
+        RuleFor(x => x.MoveTo)
+            .Cascade(CascadeMode.Stop)
+            .MoveMinimum1Rules().DependentRules(() =>
+            {
+                When(x => PossibleMovesContainsMoveTo(x.MoveTo, movementValidation), () =>
+                {
+                    Unless(x => IsMoveToAccepted(x.MoveTo, movementValidation), () =>
+                    {
+                        RuleFor(x => x.MoveTo).Custom((moveTo, context) =>
+                        {
+                            context.AddFailure($"Possible moves between 1 & {movementValidation.GetPossibleMoves.Count}");
+                        });
+                    });
+                })
+                .Otherwise(() =>
+                {
+                    RuleFor(x => x.MoveTo).Custom((moveTo, context) =>
+                    {
+                        context.AddFailure($"{moveTo} has already been played");
+                    });
+                });
+            });
+    }
+
+    // Methods
+    #region Methods
+    protected static bool PossibleMovesContainsMoveTo(string moveTo, MovementValidation movementValidation)
+    {
+        if (movementValidation.GetPossibleMoves.ContainsValue(moveTo) == false)
+        {
+            return false;
+        }
+        return true;
+    }
+    protected static bool IsMoveToAccepted(string moveTo, MovementValidation movementValidation)
+    {
+        if (GameType.TicTacToe.GetGameType(movementValidation.GetGameType.GameTypeName))
+        {
+            int nrcolumns = movementValidation.GetGameType.GetGameTypeOptions.TicTacToeNumberColumns * movementValidation.GetGameType.GetGameTypeOptions.TicTacToeNumberColumns;
+            if (int.Parse(moveTo) < 1 || int.Parse(moveTo) > nrcolumns)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    #endregion
 }

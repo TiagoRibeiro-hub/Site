@@ -60,14 +60,6 @@ public class GamePhasesService : IGamePhasesService
         //    //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
         //}
         //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
-        //if (int.Parse(game.MoveTo) < 1 || int.Parse(game.MoveTo) > 9)
-        //{
-        //    return Task.FromResult(responseError.Fail("Possible moves between 1 & 9"));
-        //}
-        //if (game.PossibleMoves.ContainsValue(game.MoveTo) == false)
-        //{
-        //    return Task.FromResult(responseError.Fail($"{game.MoveTo} has already been played"));
-        //}
         throw new NotImplementedException();
     }
 }

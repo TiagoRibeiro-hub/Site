@@ -13,7 +13,7 @@ public class GameOptionsValidator : AbstractValidator<GameOptions>
             .IsGameTypeExistWithMessage()
             .DependentRules(() =>
             {
-                RuleFor(x => x.GameTypeOptions).SetValidator(new GameTypeOptionsValidator(gameType));
+                RuleFor(x => x.GetGameTypeOptions).SetValidator(new GameTypeOptionsValidator(gameType));
             });   
     }
 }
