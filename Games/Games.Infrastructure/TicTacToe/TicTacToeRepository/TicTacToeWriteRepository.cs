@@ -3,6 +3,7 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository
 {
     private readonly IUnitOfWorkTicTacToe<GameEntity> _unitOfWorkGame;
     private readonly IUnitOfWorkTicTacToe<ScoresTableEntity> _unitOfWorkScoresTable;
+    private readonly IUnitOfWorkTicTacToe<MovesEntity> _unitOfWorkMoves;
     private readonly IUnitOfWorkTicTacToe<TotalGamesEasyEntity> _totalGamesEasy;
     private readonly IUnitOfWorkTicTacToe<TotalGamesIntermediateEntity> _totalGamesIntermediate;
     private readonly IUnitOfWorkTicTacToe<TotalGamesHardEntity> _totalGamesHard;
@@ -11,7 +12,8 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository
     public TicTacToeWriteRepository(
         IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGameEntity, IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTableEntity,
         IUnitOfWorkTicTacToe<TotalGamesEasyEntity> totalGamesEasy, IUnitOfWorkTicTacToe<TotalGamesIntermediateEntity> totalGamesIntermediate,
-        IUnitOfWorkTicTacToe<TotalGamesHardEntity> totalGamesHard, IUnitOfWorkTicTacToe<TotalGamesVsHumanEntity> totalGamesVsHuman)
+        IUnitOfWorkTicTacToe<TotalGamesHardEntity> totalGamesHard, IUnitOfWorkTicTacToe<TotalGamesVsHumanEntity> totalGamesVsHuman, 
+        IUnitOfWorkTicTacToe<MovesEntity> unitOfWorkMoves)
     {
         _unitOfWorkGame = unitOfWorkGameEntity;
         _unitOfWorkScoresTable = unitOfWorkScoresTableEntity;
@@ -19,6 +21,7 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository
         _totalGamesIntermediate = totalGamesIntermediate;
         _totalGamesHard = totalGamesHard;
         _totalGamesVsHuman = totalGamesVsHuman;
+        _unitOfWorkMoves = unitOfWorkMoves;
     }
 
 
@@ -143,6 +146,23 @@ public class TicTacToeWriteRepository : ITicTacToeWriteRepository
         {
             throw new Exception(ex.ToString());
         }
+    }
+    #endregion
+
+    // Moves
+    #region Moves
+    public async Task InsertMovesAsync(MovesEntity movesEntity)
+    {
+        try
+        {
+            await _unitOfWorkMoves.TicTacToeWrite.InsertAsync(movesEntity);
+            await _unitOfWorkMoves.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
+
     }
     #endregion
 }

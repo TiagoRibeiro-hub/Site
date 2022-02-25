@@ -15,9 +15,10 @@ public static class ServicesConfig
     public static void AddServices(this IServiceCollection services)
     {
         // TicTacToe
-        services.AddScoped<ITicTacToeService, TicTacToeService>();
+        services.AddScoped<ITicTacToeService, TicTacToeImplementation>();
         services.AddScoped<IGameTicTacToeService, GameTicTacToeService>();
         // Games
+        services.AddScoped<IPlayPhaseService, PlayPhaseService>();
         services.AddScoped<IInitializePhaseService, InitializePhaseService>();
         services.AddScoped<IRegisterPlayerPhaseService, RegisterPlayerPhaseService>();
         services.AddScoped<IGamePhasesService, GamePhasesService>();

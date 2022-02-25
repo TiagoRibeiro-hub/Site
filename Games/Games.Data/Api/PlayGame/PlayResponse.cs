@@ -6,58 +6,25 @@ public class PlayResponse
     {
 
     }
-    // Humans
-    public PlayResponse(
-        int idGame, string? playerName,
-        string? gameState, string? gameResult, Dictionary<string, string> possibleMoves)
+
+    public PlayResponse(GameOptions getGameType, 
+        int idGame, string? playerName, string? gameState, string? gameResult, 
+        VsComputer vsComputer, Dictionary<string, string>? possibleMoves)
     {
+        GetGameType = getGameType;
         IdGame = idGame;
         PlayerName = playerName;
         GameState = gameState;
         GameResult = gameResult;
+        VsComputer = vsComputer;
         PossibleMoves = possibleMoves;
     }
 
-    // Computer
-    public PlayResponse(
-        int idGame, string? gameState, string? gameResult,
-        bool? isComputer, string? difficulty, Dictionary<string, string> possibleMoves)
-    {
-        IdGame = idGame;
-        GameState = gameState;
-        GameResult = gameResult;
-        IsComputer = isComputer;
-        Difficulty = difficulty;
-        PossibleMoves = possibleMoves;
-    }
-
+    public GameOptions GetGameType { get; set; }
     public int IdGame { get; set; }
     public string? PlayerName { get; set; }
     public string? GameState { get; set; }
     public string? GameResult { get; set; }
-    public bool? IsComputer { get; set; }
-    public string? Difficulty { get; set; }
+    public VsComputer VsComputer { get; set; }
     public Dictionary<string, string>? PossibleMoves { get; set; }
-}
-
-
-public class PlayTicTacToeResponse : PlayResponse
-{
-    public PlayTicTacToeResponse(
-    int idGame, string? playerName,
-    string? gameState, string? gameResult,
-    Dictionary<string, string> possibleMoves, int numberColumns) : base(idGame, playerName, gameState, gameResult, possibleMoves)
-    {
-        NumberColumns = numberColumns;
-    }
-
-    public PlayTicTacToeResponse(
-    int idGame, string? gameState, string? gameResult,
-    bool? isComputer, string? difficulty, Dictionary<string, string> possibleMoves,
-    int numberColumns) : base(idGame, gameState, gameResult, isComputer, difficulty, possibleMoves)
-    {
-        NumberColumns = numberColumns;
-    }
-
-    public int NumberColumns { get; set; }
 }

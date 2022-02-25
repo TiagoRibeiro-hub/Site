@@ -21,48 +21,56 @@ public class MovementValidator : AbstractValidator<Movement>
                     {
                         if (GameType.TicTacToe.GetGameType(movementValidation.GetGameType.GameTypeName))
                         {
-                            MoveToMinimun1Value(movementValidation);
+                            RuleFor(x => x.MoveTo)
+                                .Cascade(CascadeMode.Stop)
+                                .MoveMinimum1Rules()
+                                .DependentRules(() =>
+                                {
+                                    When(x => PossibleMovesContainsMoveTo(x.MoveTo, movementValidation), () =>
+                                    {
+                                        Unless(x => IsMoveToAccepted(x.MoveTo, movementValidation), () =>
+                                        {
+                                            RuleFor(x => x.MoveTo)
+                                                .Custom((moveTo, context) =>
+                                                {
+                                                    context.AddFailure($"Possible moves between 1 & {movementValidation.GetPossibleMoves.Count}");
+                                                });
+                                        });
+                                    })
+                                    .Otherwise(() =>
+                                    {
+                                        RuleFor(x => x.MoveTo)
+                                            .Custom((moveTo, context) =>
+                                            {
+                                                context.AddFailure($"{moveTo} has already been played");
+                                            });
+                                    });
+                                })
+                                .DependentRules(() =>
+                                {
+                                    RuleFor(x => x.MoveFrom)
+                                        .Custom((moveFrom, context) =>
+                                        {
+                                            if (string.IsNullOrEmpty(moveFrom) == false)
+                                            {
+                                                context.AddFailure($"MoveFrom must be Null or Empty");
+                                            }
+                                        });
+                                });
                         }
                         if (GameType.Chess.GetGameType(movementValidation.GetGameType.GameTypeName))
                         {
                             RuleFor(x => x.MoveFrom)
                                 .Cascade(CascadeMode.Stop)
-                                .MoveMinimum2Rules()
+                                .MoveMinimum2Rules()// confirmation
                                 .DependentRules(() =>
                                 {
                                     RuleFor(x => x.MoveTo)
                                         .Cascade(CascadeMode.Stop)
-                                        .MoveMinimum2Rules();
+                                        .MoveMinimum2Rules();// confirmation
                                 });  
                         }
                     });
-            });
-    }
-
-    // Rules
-    private void MoveToMinimun1Value(MovementValidation movementValidation)
-    {
-        RuleFor(x => x.MoveTo)
-            .Cascade(CascadeMode.Stop)
-            .MoveMinimum1Rules().DependentRules(() =>
-            {
-                When(x => PossibleMovesContainsMoveTo(x.MoveTo, movementValidation), () =>
-                {
-                    Unless(x => IsMoveToAccepted(x.MoveTo, movementValidation), () =>
-                    {
-                        RuleFor(x => x.MoveTo).Custom((moveTo, context) =>
-                        {
-                            context.AddFailure($"Possible moves between 1 & {movementValidation.GetPossibleMoves.Count}");
-                        });
-                    });
-                })
-                .Otherwise(() =>
-                {
-                    RuleFor(x => x.MoveTo).Custom((moveTo, context) =>
-                    {
-                        context.AddFailure($"{moveTo} has already been played");
-                    });
-                });
             });
     }
 

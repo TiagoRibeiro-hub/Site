@@ -7,14 +7,15 @@ public class GamePhasesService : IGamePhasesService
     private readonly IValidationService _validationService;
     private readonly IRegisterPlayerPhaseService _registerPlayerPhaseService;
     private readonly IInitializePhaseService _initializePhaseService;
-
+    private readonly IPlayPhaseService _playPhaseService;
     public GamePhasesService(
-        IValidationService validationService,
-        IRegisterPlayerPhaseService registerPlayerService, IInitializePhaseService initializeService)
+        IValidationService validationService, IRegisterPlayerPhaseService registerPlayerService, 
+        IInitializePhaseService initializeService, IPlayPhaseService playPhaseService)
     {
         _validationService = validationService;
         _registerPlayerPhaseService = registerPlayerService;
         _initializePhaseService = initializeService;
+        _playPhaseService = playPhaseService;
     }
 
     public async Task<Response> RegisterPlayer(RegisterPlayerRequest registerPlayer)
@@ -54,12 +55,16 @@ public class GamePhasesService : IGamePhasesService
         {
             return await _validationService.GetErrors(validation);
         }
-        //    Response<PlayResponse> response = new();
-        //if (playRequest == null)
-        //{
-        //    //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
-        //}
-        //return response.Fail(content: new Error(message: ApiSharedConst.RequestIsNull));
-        throw new NotImplementedException();
+        PlayResponse playResponse = await _playPhaseService.Play(playRequest);
+        Response<PlayResponse> response = new();
+        if (playResponse is null)
+        {
+            return response.Fail(ApiSharedConst.SomethingWentWrong); // Error come from DataBase 
+        }
+        return response.Success
+        (
+            content: playResponse,
+            message: ApiSharedConst.EverthingOk
+        );
     }
 }

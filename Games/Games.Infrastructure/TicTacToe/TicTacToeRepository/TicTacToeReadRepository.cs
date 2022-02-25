@@ -4,11 +4,15 @@ public class TicTacToeReadRepository : ITicTacToeReadRepository
 {
     private readonly IUnitOfWorkTicTacToe<ScoresTableEntity> _unitOfWorkScoresTable;
     private readonly IUnitOfWorkTicTacToe<GameEntity> _unitOfWorkGame;
+    private readonly IUnitOfWorkTicTacToe<MovesEntity> _unitOfWorkMoves;
     public TicTacToeReadRepository(
-        IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTable, IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGame)
+        IUnitOfWorkTicTacToe<ScoresTableEntity> unitOfWorkScoresTable, 
+        IUnitOfWorkTicTacToe<GameEntity> unitOfWorkGame, 
+        IUnitOfWorkTicTacToe<MovesEntity> unitOfWorkMoves)
     {
         _unitOfWorkScoresTable = unitOfWorkScoresTable;
         _unitOfWorkGame = unitOfWorkGame;
+        _unitOfWorkMoves = unitOfWorkMoves;
     }
 
     // GAME
@@ -37,10 +41,21 @@ public class TicTacToeReadRepository : ITicTacToeReadRepository
         }
     }
 
-    public Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<ScoresTableEntity, bool>> predicate, Expression<Func<ScoresTableEntity, TResult>> selector) where TResult : IConvertible
+    // MOVES
+    public async Task<List<TResult>> GetToListAsync<TResult>(Expression<Func<MovesEntity, bool>> predicate, Expression<Func<MovesEntity, TResult>> selector) where TResult : IConvertible
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await _unitOfWorkMoves.TicTacToeRead.GetToListAsync(predicate, selector);
+            if (result is null)
+            {
+                throw new Exception();
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.ToString());
+        }
     }
-
-
 }

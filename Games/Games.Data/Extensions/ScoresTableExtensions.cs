@@ -1,11 +1,7 @@
-﻿
-
-namespace Games.Data.Extensions;
+﻿namespace Games.Data.Extensions;
 
 public static class ScoresTableExtensions
 {
-
-
     public static ScoresTableEntity SetScoreTableTotalGames(this ScoresTableEntity scoreTable, GameEntity game)
     {
         if (game.IsComputer)

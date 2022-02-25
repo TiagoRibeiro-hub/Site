@@ -1,6 +1,6 @@
 ﻿namespace Games.Infrastructure;
 
-public interface ITicTacToeWriteRepository : IWriteGameRepository, IWriteScoresTableRepository, ITotalGamesRepository
+public interface ITicTacToeWriteRepository : IWriteGameRepository, IWriteScoresTableRepository, ITotalGamesRepository, IWriteMovesRepository
 {
 
 }
