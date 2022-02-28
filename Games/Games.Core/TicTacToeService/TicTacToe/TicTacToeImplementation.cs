@@ -30,7 +30,7 @@ public class TicTacToeImplementation : ITicTacToeService
     {
         Expression<Func<ScoresTableEntity, int>> selector = x => x.Id;
         Expression<Func<ScoresTableEntity, bool>> predicate = x => x.PlayerName == playerName;
-        int scoreTableId = 1;
+        int scoreTableId = 100;
         await _ticTacToeWriteRepository.UpdateScoreTableTotalGamesAsync(initializeGame.SetTotalGamesUpdate(playerName, scoreTableId));
     }
     public Dictionary<string, string> SetInitialPossibleMovesTicTacToe(int TicTacToeNumberColumns)
