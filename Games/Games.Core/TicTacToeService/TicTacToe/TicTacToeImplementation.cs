@@ -43,19 +43,19 @@ public class TicTacToeImplementation : ITicTacToeService
         }
         return result;
     }
-    public async Task PlayMove(PlayRequest request)
+    public async Task<List<string>> PlayMove(PlayRequest request)
     {
         request.PossibleMoves.Remove(request.Movements.MoveTo);
         MovesEntity movesEntity = request.SetMovesEntity();
         await _ticTacToeWriteRepository.InsertMovesAsync(movesEntity);
+        
+        Expression<Func<MovesEntity, bool>> predicate = x => x.GameId == request.IdGame && x.PlayerName == request.PlayerName;
+        Expression<Func<MovesEntity, string>> selector = x => x.MoveTo;
+        return await _ticTacToeReadRepository.GetToListAsync(predicate, selector);
     }
 
-    public async Task<PlayResponse> GetWinner(PlayRequest request)
-    {
-        Expression <Func<MovesEntity, bool>> predicate = x => x.GameId == request.IdGame && x.PlayerName == request.PlayerName;
-        Expression <Func<MovesEntity, string>> selector = x => x.MoveTo;
-
-        var playerMoves = await _ticTacToeReadRepository.GetToListAsync(predicate, selector);
+    public async Task<PlayResponse> GetWinner(PlayRequest request, List<string> playerMoves)
+    {   
         bool haveWinner = WinnerCheckTicTacToe.HaveWinner(playerMoves, request.GetGameType.GetGameTypeOptions.TicTacToeNumberColumns);
 
         PlayResponse playResponse = request.SetPlayResponse();

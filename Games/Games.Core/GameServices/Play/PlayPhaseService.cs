@@ -20,8 +20,8 @@ public class PlayPhaseService : IPlayPhaseService
         {
             if (GameType.TicTacToe.GetGameType(request.GetGameType.GameTypeName))
             {
-                await _ticTacToeService.PlayMove(request);
-                playResponse = await _ticTacToeService.GetWinner(request);
+                List<string> playerMoves = await _ticTacToeService.PlayMove(request);
+                playResponse = await _ticTacToeService.GetWinner(request, playerMoves);
             }
         }
         return playResponse;
