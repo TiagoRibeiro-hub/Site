@@ -28,7 +28,6 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
             throw new Exception(ex.ToString());
         }
     }
-
     public async Task<TEntity> FindAsync(int id)
     {
         try
@@ -45,7 +44,6 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
             throw new Exception(ex.ToString());
         }
     }
-
     public async Task<IEnumerable<TEntity>> GetTableByAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
@@ -96,3 +94,4 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
         }
     }
 }
+

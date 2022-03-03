@@ -12,3 +12,5 @@ public interface IReadRepository<TEntity> where TEntity : class
     Task<List<TResult>> GetToListAsync<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> selector)
         where TResult : IConvertible;
 }
+
+
