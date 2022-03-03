@@ -1,0 +1,5 @@
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\05.TicTacToe.Infrastructure\obj\Debug\net6.0\05.TicTacToe.Infrastructure.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\05.TicTacToe.Infrastructure\obj\Debug\net6.0\05.TicTacToe.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\05.TicTacToe.Infrastructure\obj\Debug\net6.0\05.TicTacToe.Infrastructure.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\05.TicTacToe.Infrastructure\obj\Debug\net6.0\05.TicTacToe.Infrastructure.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\05.TicTacToe.Infrastructure\obj\Debug\net6.0\05.TicTacToe.Infrastructure.csproj.CoreCompileInputs.cache

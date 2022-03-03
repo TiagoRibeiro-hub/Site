@@ -1,0 +1,15 @@
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\bin\Debug\net6.0\01.Games.Data.deps.json
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\bin\Debug\net6.0\01.Games.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\bin\Debug\net6.0\01.Games.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\bin\Debug\net6.0\00.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\bin\Debug\net6.0\00.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.csproj.CopyComplete
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\refint\01.Games.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\01.Games.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\GamesSolution\01.Games.Data\obj\Debug\net6.0\ref\01.Games.Data.dll
