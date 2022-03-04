@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3676ee5e-325e-45e5-96ac-a4fef51257f8</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\02.Play.TicTacToe.Core\02.Play.TicTacToe.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ApiShared">
+      <HintPath>..\..\..\..\Package\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
+    </Reference>
+    <Reference Include="Data.Infrastructure">
+      <HintPath>..\..\..\..\Package\Data.Infrastructure\obj\Debug\net6.0\Data.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,6 @@
 ﻿using _01.Games.RegisterPlayer.Infrastructure;
 using _02.Games.RegisterPlayer.Core.Repoitory;
 using _02.Games.RegisterPlayer.Core.Validators;
-using Data.Infrastructure.Infrastructure.Api.PlayerRegister;
 using FluentValidation.Results;
 
 namespace _02.Games.RegisterPlayer.Core.Services;

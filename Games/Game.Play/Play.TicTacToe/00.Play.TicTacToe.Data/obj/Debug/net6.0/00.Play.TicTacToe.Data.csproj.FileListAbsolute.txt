@@ -1,0 +1,17 @@
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\00.Play.TicTacToe.Data.deps.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\00.Play.TicTacToe.Data.runtimeconfig.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\00.Play.TicTacToe.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\00.Play.TicTacToe.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\refint\00.Play.TicTacToe.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.genruntimeconfig.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\ref\00.Play.TicTacToe.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\Data.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\bin\Debug\net6.0\Data.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\00.Play.TicTacToe.Data\obj\Debug\net6.0\00.Play.TicTacToe.Data.csproj.CopyComplete
