@@ -1,0 +1,15 @@
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\bin\Debug\net6.0\00.Games.RegisterPlayer.Data.deps.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\bin\Debug\net6.0\00.Games.RegisterPlayer.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\bin\Debug\net6.0\00.Games.RegisterPlayer.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\refint\00.Games.RegisterPlayer.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\ref\00.Games.RegisterPlayer.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\bin\Debug\net6.0\Data.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\bin\Debug\net6.0\Data.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.RegisterPlayer\00.Games.RegisterPlayer.Data\obj\Debug\net6.0\00.Games.RegisterPlayer.Data.csproj.CopyComplete

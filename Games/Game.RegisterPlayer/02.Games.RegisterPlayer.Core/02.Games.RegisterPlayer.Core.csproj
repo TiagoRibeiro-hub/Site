@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>_02.Games.RegisterPlayer.Core</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\01.Games.RegisterPlayer.Infrastructure\01.Games.RegisterPlayer.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ApiShared">
+      <HintPath>..\..\..\Package\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
+    </Reference>
+    <Reference Include="Data.Infrastructure">
+      <HintPath>..\..\..\Package\Data.Infrastructure\obj\Debug\net6.0\Data.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

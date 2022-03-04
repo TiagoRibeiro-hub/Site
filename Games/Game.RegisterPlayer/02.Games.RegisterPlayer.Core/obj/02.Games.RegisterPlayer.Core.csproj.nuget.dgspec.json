@@ -1,0 +1,214 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\02.Games.RegisterPlayer.Core\\02.Games.RegisterPlayer.Core.csproj": {}
+  },
+  "projects": {
+    "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\00.Games.RegisterPlayer.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\00.Games.RegisterPlayer.Data.csproj",
+        "projectName": "00.Games.RegisterPlayer.Data",
+        "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\00.Games.RegisterPlayer.Data.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\01.Games.RegisterPlayer.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\01.Games.RegisterPlayer.Infrastructure.csproj",
+        "projectName": "01.Games.RegisterPlayer.Infrastructure",
+        "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\01.Games.RegisterPlayer.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\00.Games.RegisterPlayer.Data.csproj": {
+                "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\00.Games.RegisterPlayer.Data\\00.Games.RegisterPlayer.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\02.Games.RegisterPlayer.Core\\02.Games.RegisterPlayer.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\02.Games.RegisterPlayer.Core\\02.Games.RegisterPlayer.Core.csproj",
+        "projectName": "02.Games.RegisterPlayer.Core",
+        "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\02.Games.RegisterPlayer.Core\\02.Games.RegisterPlayer.Core.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\02.Games.RegisterPlayer.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\01.Games.RegisterPlayer.Infrastructure.csproj": {
+                "projectPath": "D:\\Projectos\\Projectos\\PersonalWebSite\\Games\\Game.RegisterPlayer\\01.Games.RegisterPlayer.Infrastructure\\01.Games.RegisterPlayer.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[10.3.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

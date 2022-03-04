@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>TiagoRibeiro.Data.Infrastructure</PackageId>
+    <Authors>Tiago Ribeiro</Authors>
+    <Copyright>2022</Copyright>
+    <PackageTags>TiagoRibeiro</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ApiShared">
+      <HintPath>..\ApiShared\ApiShared\obj\Debug\net6.0\ApiShared.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\bin\Debug\net6.0\00.Game.Initialize.Data.deps.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\bin\Debug\net6.0\00.Game.Initialize.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\bin\Debug\net6.0\00.Game.Initialize.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\bin\Debug\net6.0\Data.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\bin\Debug\net6.0\Data.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.csproj.CopyComplete
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\refint\00.Game.Initialize.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\00.Game.Initialize.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\00.Game.Initialize.Data\obj\Debug\net6.0\ref\00.Game.Initialize.Data.dll

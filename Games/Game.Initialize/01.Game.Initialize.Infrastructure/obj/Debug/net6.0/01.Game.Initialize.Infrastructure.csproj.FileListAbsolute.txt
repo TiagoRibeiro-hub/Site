@@ -1,0 +1,17 @@
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.csproj.AssemblyReference.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.AssemblyInfoInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.AssemblyInfo.cs
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\01.Game.Initialize.Infrastructure.deps.json
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\01.Game.Initialize.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\01.Game.Initialize.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\00.Game.Initialize.Data.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\Data.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\00.Game.Initialize.Data.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\bin\Debug\net6.0\Data.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.csproj.CopyComplete
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\refint\01.Game.Initialize.Infrastructure.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\01.Game.Initialize.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Initialize\01.Game.Initialize.Infrastructure\obj\Debug\net6.0\ref\01.Game.Initialize.Infrastructure.dll
