@@ -10,11 +10,10 @@ public class PlayResponse
 
     }
 
-    public PlayResponse(GameOptions getGameType,
-        int idGame, string playerName, string gameState, string gameResult,
+    public PlayResponse(Guid idGame, string playerName, 
+        string gameState, string gameResult, 
         VsComputer vsComputer, Dictionary<string, string> possibleMoves)
     {
-        GetGameType = getGameType;
         IdGame = idGame;
         PlayerName = playerName;
         GameState = gameState;
@@ -23,8 +22,7 @@ public class PlayResponse
         PossibleMoves = possibleMoves;
     }
 
-    public GameOptions GetGameType { get; set; }
-    public int IdGame { get; set; }
+    public Guid IdGame { get; set; }
     public string PlayerName { get; set; }
     public string GameState { get; set; }
     public string GameResult { get; set; }

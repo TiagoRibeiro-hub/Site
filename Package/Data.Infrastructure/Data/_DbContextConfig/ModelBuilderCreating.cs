@@ -59,6 +59,7 @@ public static class ModelBuilderCreating
         {
             //Columns
             b.Property(x => x.Id).HasColumnType("int").ValueGeneratedOnAdd().HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn); ;
+            b.Property(x => x._GameId).HasColumnType("nvarchar(150)").IsRequired();
             b.Property(x => x.PlayerName).HasColumnType("nvarchar(50)").IsRequired();
             b.Property(x => x.MoveTo).HasColumnType("nvarchar(15)").IsRequired();
             b.Property(x => x.MoveFrom).HasColumnType("nvarchar(15)").IsRequired(false);
