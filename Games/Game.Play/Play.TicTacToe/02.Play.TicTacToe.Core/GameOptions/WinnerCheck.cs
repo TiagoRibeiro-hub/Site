@@ -1,7 +1,7 @@
 ﻿using Data.Infrastructure.Data.Enums;
 using Data.Infrastructure.Data.Extensions;
 
-namespace _02.Play.TicTacToe.Core.WinnerOptions;
+namespace _02.Play.TicTacToe.Core.GameOptions;
 #nullable disable
 public class WinnerCheck
 {

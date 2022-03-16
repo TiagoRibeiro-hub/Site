@@ -45,7 +45,15 @@ public class PlayImplementation : IPlayService
 
     private async Task<PlayTicTacToeResponse> GetPlayResponse(PlayTicTacToeRecord playTicTacToe)
     {
-        List<string> playerMoves = await _ticTacToeService.PlayMove(playTicTacToe);
+        List<string> playerMoves = new();
+        if (playTicTacToe.VsComputer.IsComputer)
+        {
+            playerMoves = await _ticTacToeService.PlayMoveComputer(playTicTacToe);
+        }
+        else
+        {
+            playerMoves = await _ticTacToeService.PlayMoveHuman(playTicTacToe);
+        }
         return await _ticTacToeService.GetWinner(playTicTacToe, playerMoves);
     }
 }
