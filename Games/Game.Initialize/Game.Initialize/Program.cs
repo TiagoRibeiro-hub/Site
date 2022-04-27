@@ -11,6 +11,9 @@ builder.Services.AddGameOptions();
 builder.Services.AddServices();
 builder.Services.AddValidationErrorService();
 
+//MassTransit
+builder.Services.AddMassTransitServiceConfig();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

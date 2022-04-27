@@ -11,7 +11,7 @@ public static class Extensions
             (
                 ticTacToeNumberColumns: x.TicTacToeNumberColumns,
                 idGame: x.IdGame,
-                playerName: x.playerName,
+                playerName: x.PlayerName,
                 vsComputer: x.VsComputer,
                 movements: x.Movements,
                 possibleMoves: x.PossibleMoves
@@ -22,8 +22,8 @@ public static class Extensions
     {
         return new MovesEntity
             (
-                _gameId: x.IdGame,
-                playerName: x.playerName,
+                gameId: x.IdGame,
+                playerName: x.PlayerName,
                 moveTo: x.Movements.MoveTo,
                 moveFrom: x.Movements.MoveFrom,
                 moveNumber: x.Movements.MoveNumber
@@ -36,7 +36,7 @@ public static class Extensions
             (
                 ticTacToeNumberColumns: x.TicTacToeNumberColumns,
                 idGame: x.IdGame,
-                playerName: x.playerName,
+                playerName: x.PlayerName,
                 gameState: null,
                 gameResult: null,
                 vsComputer: x.VsComputer,

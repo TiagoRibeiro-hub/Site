@@ -41,7 +41,7 @@ public class TicTacToeImplementation : ITicTacToeService
         {
             throw new Exception("PossibleMoves does't exist =>  PlayMoveHuman()");
         }
-        Expression<Func<MovesEntity, bool>> predicate = x => x._GameId == playTicTacToe.IdGame && x.PlayerName == playTicTacToe.playerName;
+        Expression<Func<MovesEntity, bool>> predicate = x => x._GameId == playTicTacToe.IdGame && x.PlayerName == playTicTacToe.PlayerName;
         Expression<Func<MovesEntity, string>> selector = x => x.MoveTo;
         return await _ticTacToeRepository.GetTicTacToeMovesRead.GetToListAsync(predicate, selector);
     }

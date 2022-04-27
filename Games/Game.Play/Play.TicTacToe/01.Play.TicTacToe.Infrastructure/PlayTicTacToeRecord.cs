@@ -6,7 +6,8 @@ namespace _01.Play.TicTacToe.Infrastructure;
 public record PlayTicTacToeRecord
     (
         int TicTacToeNumberColumns,
-        Guid IdGame, string playerName,
+        Guid IdGame, 
+        string PlayerName,
         VsComputer VsComputer,
         Movement Movements,
         Dictionary<string, string> PossibleMoves

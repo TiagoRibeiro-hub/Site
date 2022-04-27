@@ -72,3 +72,11 @@ D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTa
 D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\Data.Infrastructure.dll
 D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\ApiShared.pdb
 D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\Data.Infrastructure.pdb
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\MassTransit.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\MassTransit.Abstractions.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\MassTransit.AspNetCoreIntegration.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\MassTransit.ExtensionsDependencyInjectionIntegration.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\MassTransit.RabbitMqTransport.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\RabbitMQ.Client.dll
+D:\Projectos\Projectos\PersonalWebSite\Games\Game.Play\Play.TicTacToe\Play.TicTacToe\bin\Debug\net6.0\System.Text.Json.dll

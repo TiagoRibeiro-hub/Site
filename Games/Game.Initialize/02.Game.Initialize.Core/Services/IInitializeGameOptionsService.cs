@@ -34,6 +34,10 @@ public class InitializeGameOptions : IInitializeGameOptionsService
                     startGame: true
                 );
             await insertGame;
+            if (!insertGame.IsCompleted)
+            {
+                throw new Exception("insertGame Error");
+            }
             await _initializeGameRepository.Complete();
             return initializeGameResponse;
         }
