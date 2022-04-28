@@ -1,4 +1,6 @@
 ﻿using _02.Play.TicTacToe.Core.Repository;
+using Data.Infrastructure.Data._Entities;
+using Data.Infrastructure.Data.Game.Player;
 using Data.Infrastructure.Events;
 using MassTransit;
 
@@ -15,8 +17,23 @@ public class InitializeGameConsumer : IConsumer<InitializeGameEvent>
 
     public async Task Consume(ConsumeContext<InitializeGameEvent> context)
     {
-
-        var x = context;
+        try
+        {
+            await _ticTacToeRepository.GetTicTacToeGameWrite.InsertAsync(new GameEntity
+            (
+                _gameId: context.Message.IdGame,
+                player1_Name: context.Message.Player1_Name,
+                player2_Name: context.Message.VsComputer.IsComputer == false ? context.Message.VsHuman.PlayerName_2 : Computer.Name,
+                isComputer: context.Message.VsComputer.IsComputer,
+                difficulty: context.Message.VsComputer.Difficulty,
+                startFirst: context.Message.StartFirst
+            ));
+            await _ticTacToeRepository.Complete();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }
 

@@ -2,10 +2,8 @@
 using ApiShared;
 using Data.Infrastructure.Data.Enums;
 using Data.Infrastructure.Data.Extensions;
-using Data.Infrastructure.Events;
 using Data.Infrastructure.Infrastructure.Api.InitializeGame;
 using Data.Infrastructure.Validation;
-using MassTransit;
 
 namespace _02.Game.Initialize.Core.Services;
 public interface IInitializeGameService
@@ -18,17 +16,15 @@ public class InitializeGameImplementation : IInitializeGameService
     private readonly IInitializeGameValidationService _initializeGameValidationService;
     private readonly IValidationErrorService _validationErrorService;
     private readonly IInitializeGameOptionsService _initializeGameOptions;
-    private readonly IPublishEndpoint _publishEndpoint;
+    
     public InitializeGameImplementation(
         IInitializeGameValidationService initializeGameValidationService,
         IValidationErrorService validationErrorService,
-        IInitializeGameOptionsService initializeGameOptions, 
-        IPublishEndpoint publishEndpoint)
+        IInitializeGameOptionsService initializeGameOptions)
     {
         _initializeGameValidationService = initializeGameValidationService;
         _validationErrorService = validationErrorService;
         _initializeGameOptions = initializeGameOptions;
-        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<ApiShared.Response> SetSetInitializeGameResponse(InitializeGameRecord game)
@@ -53,19 +49,6 @@ public class InitializeGameImplementation : IInitializeGameService
         if (GameType.TicTacToe.GetGameType(game.GameOptions.GameTypeName))
         {
             initializeGameResponse = await _initializeGameOptions.SetTicTacToeGame(game);
-        }
-
-        try
-        {
-            await _publishEndpoint.Publish<InitializeGameEvent>(new
-            {
-                IdGame = initializeGameResponse.IdGame,
-                PossibleMoves = initializeGameResponse.PossibleMoves
-            });
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
         }
 
         return initializeGameResponse;

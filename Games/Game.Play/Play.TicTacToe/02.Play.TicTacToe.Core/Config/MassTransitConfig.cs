@@ -1,8 +1,9 @@
-﻿using Data.Infrastructure.Config;
+﻿using _02.Play.TicTacToe.Core.Events;
+using Data.Infrastructure.Config;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _02.Play.TicTacToe.Core.Events;
+namespace _02.Play.TicTacToe.Core.Config;
 public static class MassTransitConfig
 {
     public static void AddMassTransitService(this IServiceCollection services)
