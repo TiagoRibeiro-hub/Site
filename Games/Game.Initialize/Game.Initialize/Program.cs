@@ -12,7 +12,7 @@ builder.Services.AddServices();
 builder.Services.AddValidationErrorService();
 
 //MassTransit
-builder.Services.AddMassTransitServiceConfig();
+builder.Services.AddMassTransitService();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

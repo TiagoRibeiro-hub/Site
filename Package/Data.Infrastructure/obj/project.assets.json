@@ -2493,7 +2493,9 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "FluentValidation.AspNetCore >= 10.4.0",
+      "MassTransit >= 8.0.1",
       "MassTransit.AspNetCore >= 7.3.1",
+      "MassTransit.Extensions.DependencyInjection >= 7.3.1",
       "MassTransit.RabbitMQ >= 8.0.1",
       "Microsoft.EntityFrameworkCore >= 6.0.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.4"
@@ -2547,7 +2549,15 @@
             "target": "Package",
             "version": "[10.4.0, )"
           },
+          "MassTransit": {
+            "target": "Package",
+            "version": "[8.0.1, )"
+          },
           "MassTransit.AspNetCore": {
+            "target": "Package",
+            "version": "[7.3.1, )"
+          },
+          "MassTransit.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[7.3.1, )"
           },

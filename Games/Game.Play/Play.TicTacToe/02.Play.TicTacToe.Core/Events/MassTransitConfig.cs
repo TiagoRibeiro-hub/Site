@@ -7,17 +7,37 @@ public static class MassTransitConfig
 {
     public static void AddMassTransitService(this IServiceCollection services)
     {
-        services.AddMassTransitServiceConfig();
-
-        var busControl = Bus.Factory.CreateUsingRabbitMq(config =>
+        services.AddMassTransit(config =>
         {
-            config.ReceiveEndpoint("InitializeGame", e =>
+            config.AddDelayedMessageScheduler();
+            config.SetKebabCaseEndpointNameFormatter();
+
+            config.AddConsumer<InitializeGameConsumer>(typeof(InitializeGameConsumerDefenition))
+                .Endpoint(e =>
+                {
+                    e.Name = "InitializeGame";
+                    e.Temporary = false;
+                    e.PrefetchCount = 20;
+                });
+
+            config.UsingRabbitMq((cxt, cfg) =>
             {
-                e.Consumer<InitializeGameConsumer>();
+                cfg.Host("localhost", "/", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+                cfg.ConfigureEndpoints(cxt);
+
+                cfg.UseDelayedMessageScheduler();
+                cfg.UseMessageRetry(r =>
+                {
+                    r.Interval(3, TimeSpan.FromSeconds(5));
+                });
             });
         });
 
-        busControl.Start();
+        services.AddMassTransitHostOptConfig();
     }
 }
 

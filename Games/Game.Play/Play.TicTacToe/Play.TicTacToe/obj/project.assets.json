@@ -1082,6 +1082,7 @@
           "FluentValidation.AspNetCore": "10.4.0",
           "MassTransit": "8.0.1",
           "MassTransit.AspNetCore": "7.3.1",
+          "MassTransit.Extensions.DependencyInjection": "7.3.1",
           "MassTransit.RabbitMQ": "8.0.1"
         },
         "compile": {
@@ -3117,7 +3118,9 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "02.Play.TicTacToe.Core >= 1.0.0",
+      "MassTransit >= 8.0.1",
       "MassTransit.AspNetCore >= 7.3.1",
+      "MassTransit.Extensions.DependencyInjection >= 7.3.1",
       "MassTransit.RabbitMQ >= 8.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.4",
@@ -3173,7 +3176,15 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "MassTransit": {
+            "target": "Package",
+            "version": "[8.0.1, )"
+          },
           "MassTransit.AspNetCore": {
+            "target": "Package",
+            "version": "[7.3.1, )"
+          },
+          "MassTransit.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[7.3.1, )"
           },

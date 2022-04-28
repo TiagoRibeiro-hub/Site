@@ -19,11 +19,10 @@ public class InitializeGameImplementation : IInitializeGameService
     private readonly IValidationErrorService _validationErrorService;
     private readonly IInitializeGameOptionsService _initializeGameOptions;
     private readonly IPublishEndpoint _publishEndpoint;
-
     public InitializeGameImplementation(
-        IInitializeGameValidationService initializeGameValidationService, 
-        IValidationErrorService validationErrorService, 
-        IInitializeGameOptionsService initializeGameOptions,
+        IInitializeGameValidationService initializeGameValidationService,
+        IValidationErrorService validationErrorService,
+        IInitializeGameOptionsService initializeGameOptions, 
         IPublishEndpoint publishEndpoint)
     {
         _initializeGameValidationService = initializeGameValidationService;
@@ -54,14 +53,21 @@ public class InitializeGameImplementation : IInitializeGameService
         if (GameType.TicTacToe.GetGameType(game.GameOptions.GameTypeName))
         {
             initializeGameResponse = await _initializeGameOptions.SetTicTacToeGame(game);
+        }
 
-            // messagebroker
-            await _publishEndpoint.Publish<IInitializeGameEvent>(new
+        try
+        {
+            await _publishEndpoint.Publish<InitializeGameEvent>(new
             {
                 IdGame = initializeGameResponse.IdGame,
                 PossibleMoves = initializeGameResponse.PossibleMoves
             });
         }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
         return initializeGameResponse;
     }
 }

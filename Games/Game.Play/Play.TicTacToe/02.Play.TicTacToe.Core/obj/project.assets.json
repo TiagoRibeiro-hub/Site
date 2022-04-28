@@ -2723,6 +2723,7 @@
       "FluentValidation.AspNetCore >= 10.4.0",
       "MassTransit >= 8.0.1",
       "MassTransit.AspNetCore >= 7.3.1",
+      "MassTransit.Extensions.DependencyInjection >= 7.3.1",
       "MassTransit.RabbitMQ >= 8.0.1"
     ]
   },
@@ -2783,6 +2784,10 @@
             "version": "[8.0.1, )"
           },
           "MassTransit.AspNetCore": {
+            "target": "Package",
+            "version": "[7.3.1, )"
+          },
+          "MassTransit.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[7.3.1, )"
           },

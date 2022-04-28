@@ -9,11 +9,13 @@ namespace Game.Initialize.Endpoints;
     {
         app.MapPost("/initializegame", SetInitializeGame);
     }
-    internal static async Task<IResult> SetInitializeGame(IInitializeGameService initializeGameService, InitializeGameRecord game)
+    internal static async Task<IResult> SetInitializeGame(
+        IInitializeGameService initializeGameService, InitializeGameRecord game)
     {
         try
         {
             Response response = await initializeGameService.SetSetInitializeGameResponse(game);
+
             return response is null || response.GetType() == typeof(Response<Error>)
                 ? Results.BadRequest(response)
                 : Results.Ok(response);

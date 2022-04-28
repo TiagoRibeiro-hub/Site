@@ -5,19 +5,14 @@ namespace Data.Infrastructure.Config;
 
 public static class MassTransitServicesConfig
 {
-    public static void AddMassTransitServiceConfig(this IServiceCollection services)
+    public static void AddMassTransitHostOptConfig(this IServiceCollection services)
     {
-        services.AddMassTransit(config =>
-        {
-            config.UsingRabbitMq((cxt, cfg) =>
-            {
-                cfg.Host("localhost", "/", hostRMQ =>
+        services.AddOptions<MassTransitHostOptions>()
+                .Configure(options =>
                 {
-                    hostRMQ.Username("guest");
-                    hostRMQ.Password("guest");
+                    options.WaitUntilStarted = true;
+                    options.StartTimeout = TimeSpan.FromSeconds(10);
+                    options.StopTimeout = TimeSpan.FromSeconds(30);
                 });
-                cfg.ConfigureEndpoints(cxt);
-            });
-        });
     }
 }
